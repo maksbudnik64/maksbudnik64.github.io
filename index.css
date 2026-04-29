@@ -438,7 +438,7 @@ a{
             }
 
             button {
-                font-size: clamp(0.8rem, 3vw, 1rem);
+                font-size: clamp(0.8rem, 2.9vw, 1rem);
                 padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3vw, 20px);
             }
 
