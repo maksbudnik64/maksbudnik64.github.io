@@ -12,7 +12,10 @@
             color: #1e2b3c;
             letter-spacing: -0.01em;
         }
-
+a{
+    text-decoration: none;
+    color: inherit;
+}
         /* ===== БОКОВАЯ ПАНЕЛЬ (ДЕСКТОП) ===== */
         .sideBar {
             background: #ffffff;
@@ -239,7 +242,7 @@
         /* Основная сетка */
         .mainBoard {
             display: grid;
-            grid-template-columns: 1fr 0.9fr;
+            grid-template-columns: 1fr 1fr;
             gap: clamp(16px, 2vw, 28px);
             margin-bottom: clamp(16px, 2vw, 28px);
         }
@@ -260,7 +263,7 @@
         }
 
         .cardHeader h3 {
-            font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+            font-size: clamp(0.9rem, 1.3vw, 1.6rem);
             font-weight: 700;
         }
 
@@ -309,6 +312,10 @@
             flex-wrap: wrap;
             margin: clamp(10px, 1.2vw, 18px) 0;
         }
+        button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
         /* Лист ожидания */
         .waitList {
@@ -508,3 +515,81 @@
                 grid-template-columns: 1fr 1fr;
             }
         }
+        /*Страница событий*/
+        .filtersSection {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 1.2vw, 16px);
+    margin-bottom: clamp(16px, 2vw, 24px);
+}
+.filterGroup {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 12px);
+    flex-wrap: wrap;
+}
+
+.filterLabel {
+    font-weight: 700;
+    font-size: clamp(0.8rem, 1vw, 1.1rem);
+    color: #5f6b7a;
+    min-width: clamp(60px, 8vw, 90px);
+}
+.eventTopRow {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 14px);
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.eventDate {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+    color: #3d2b14;
+}
+
+.eventDate i {
+    color: #c49a2c;
+}
+
+/* Статусы события */
+.eventStatus {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: clamp(5px, 0.6vw, 8px) clamp(10px, 1vw, 14px);
+    border-radius: 14px;
+    font-size: clamp(0.75rem, 0.9vw, 1rem);
+    font-weight: 700;
+}
+
+.eventStatus.confirmed {
+    background: #e4f1ea;
+    color: #0b4b3b;
+}
+
+.eventStatus.pending {
+    background: #fef9f0;
+    color: #b76e2e;
+}
+
+.eventStatus.cancelled {
+    background: #fce8e8;
+    color: #c0392b;
+}
+.eventLocation {
+    font-size: clamp(0.85rem, 1vw, 1.15rem);
+    color: #5f6b7a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.eventLocation i {
+    color: #c49a2c;
+}
