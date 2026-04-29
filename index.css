@@ -65,8 +65,11 @@
             border-radius: clamp(12px, 1.2vw, 18px);
             margin-bottom: clamp(16px, 2vw, 28px);
             border: 1px solid #efe4cf;
+            cursor: pointer;
         }
-
+.userCard:hover {
+      background: #f1efec;
+    } 
         .userAvatar {
             width: clamp(34px, 3.8vw, 50px);
             height: clamp(34px, 3.8vw, 50px);
@@ -114,7 +117,9 @@
             cursor: pointer;
             font-size: clamp(0.75rem, 1vw, 1.1rem);
         }
-
+.navItem:hover:not(.active) {
+      background: #faf8f4;
+    }
         .navItem i {
             width: 20px;
             font-size: clamp(0.85rem, 1.1vw, 1.2rem);
@@ -127,11 +132,12 @@
             color: #b76e2e;
             font-weight: 600;
         }
-
         .navItem.active i {
             color: #e5a83e;
         }
-
+ .navItem.active:hover{
+      background: #fff0d3;
+    }
         /* ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== */
         .bottomNav {
             display: none;
@@ -224,7 +230,12 @@
             border: 1px solid #f5b042;
             color: #1e2b3c;
         }
-
+.buttonAccent:hover {
+      background: #e5942c;
+    }
+    button:hover:not(.buttonAccent) {
+      background: #faf7f2;
+    }
         /* Основная сетка */
         .mainBoard {
             display: grid;
