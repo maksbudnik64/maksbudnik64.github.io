@@ -1,620 +1,499 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #f8f6f1;
-    display: flex;
-    min-height: 100vh;
-    color: #1e2b3c;
-    letter-spacing: -0.01em;
-}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8f6f1;
+            display: flex;
+            min-height: 100vh;
+            color: #1e2b3c;
+            letter-spacing: -0.01em;
+        }
 
-/* ===== БОКОВАЯ ПАНЕЛЬ (ДЕСКТОП) ===== */
-.sideBar {
-    background: #ffffff;
-    width: 15vw;
-    min-width: 200px;
-    border-right: 1px solid #efe8d8;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding: 2vw 1.5vw;
-    position: sticky;
-    top: 0;
-    box-shadow: 1px 0 15px rgba(0,0,0,0.02);
-}
+        /* ===== БОКОВАЯ ПАНЕЛЬ (ДЕСКТОП) ===== */
+        .sideBar {
+            background: #ffffff;
+            width: clamp(200px, 18vw, 280px);
+            border-right: 1px solid #efe8d8;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: clamp(16px, 2vw, 28px) clamp(12px, 1.5vw, 20px);
+            position: sticky;
+            top: 0;
+            box-shadow: 1px 0 15px rgba(0,0,0,0.02);
+            z-index: 10;
+        }
 
-.logoArea {
-    display: flex;
-    align-items: center;
-    gap: 0.6vw;
-    margin-bottom: 2vw;
-}
+        .logoArea {
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 0.8vw, 10px);
+            margin-bottom: clamp(20px, 2.5vw, 28px);
+        }
 
-.logoIcon {
-    background: linear-gradient(135deg, #f5b042, #e5942c);
-    width: 2.8vw;
-    height: 2.8vw;
-    min-width: 32px;
-    min-height: 32px;
-    border-radius: 0.8vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.2vw;
-    flex-shrink: 0;
-}
+        .logoIcon {
+            background: linear-gradient(135deg, #f5b042, #e5942c);
+            width: clamp(32px, 3.5vw, 48px);
+            height: clamp(32px, 3.5vw, 48px);
+            border-radius: clamp(8px, 1vw, 14px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: clamp(0.9rem, 1.3vw, 1.4rem);
+            flex-shrink: 0;
+        }
 
-.logoText {
-    font-weight: 800;
-    font-size: 1.4vw;
-    color: #1e2b3c;
-    white-space: nowrap;
-}
+        .logoText {
+            font-weight: 800;
+            font-size: clamp(1rem, 1.5vw, 1.5rem);
+            color: #1e2b3c;
+            white-space: nowrap;
+        }
 
-/* Карточка пользователя в боковой панели */
-.userCard {
-    display: flex;
-    align-items: center;
-    gap: 0.8vw;
-    padding: 0.8vw;
-    background: #fbf9f5;
-    border-radius: 1vw;
-    margin-bottom: 1.5vw;
-    border: 1px solid #efe4cf;
-    transition: all 0.2s;
-    cursor: pointer;
-}
+        /* Карточка пользователя */
+        .userCard {
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1vw, 14px);
+            padding: clamp(8px, 1vw, 14px);
+            background: #fbf9f5;
+            border-radius: clamp(12px, 1.2vw, 18px);
+            margin-bottom: clamp(16px, 2vw, 28px);
+            border: 1px solid #efe4cf;
+        }
 
-.userCard:hover {
-    background: #f5f0e5;
-}
+        .userAvatar {
+            width: clamp(34px, 3.8vw, 50px);
+            height: clamp(34px, 3.8vw, 50px);
+            background: linear-gradient(135deg, #f5b042, #e5942c);
+            border-radius: clamp(8px, 1vw, 14px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 1.1vw, 1.2rem);
+            flex-shrink: 0;
+        }
 
-.userAvatar {
-    width: 3vw;
-    height: 3vw;
-    min-width: 32px;
-    min-height: 32px;
-    background: linear-gradient(135deg, #f5b042, #e5942c);
-    border-radius: 0.8vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: 1.1vw;
-    flex-shrink: 0;
-}
+        .userInfo {
+            line-height: 1.4;
+        }
 
-.userInfo {
-    line-height: 1.4;
-    overflow: hidden;
-}
+        .userName {
+            font-weight: 700;
+            font-size: clamp(0.7rem, 0.95vw, 1rem);
+        }
 
-.userName {
-    font-weight: 700;
-    font-size: 0.9vw;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+        .userRole {
+            font-size: clamp(0.6rem, 0.75vw, 0.85rem);
+            color: #7a8490;
+        }
 
-.userRole {
-    font-size: 0.7vw;
-    color: #7a8490;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+        /* Навигация */
+        .navMenu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
 
-/* Навигация в боковой панели */
-.navMenu {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3vw;
-    flex: 1;
-}
+        .navItem {
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1vw, 14px);
+            padding: clamp(8px, 1vw, 14px) clamp(10px, 1.2vw, 18px);
+            border-radius: clamp(8px, 1vw, 14px);
+            font-weight: 500;
+            color: #5f6b7a;
+            cursor: pointer;
+            font-size: clamp(0.75rem, 1vw, 1.1rem);
+        }
 
-.navItem {
-    display: flex;
-    align-items: center;
-    gap: 0.8vw;
-    padding: 0.8vw 1vw;
-    border-radius: 0.8vw;
-    font-weight: 500;
-    color: #5f6b7a;
-    transition: all 0.2s;
-    cursor: pointer;
-    font-size: 1vw;
-}
+        .navItem i {
+            width: 20px;
+            font-size: clamp(0.85rem, 1.1vw, 1.2rem);
+            text-align: center;
+            color: #8e9aab;
+        }
 
-.navItem i {
-    width: 1.4vw;
-    font-size: 1vw;
-    text-align: center;
-    color: #8e9aab;
-}
+        .navItem.active {
+            background: #fef7e9;
+            color: #b76e2e;
+            font-weight: 600;
+        }
 
-.navItem:hover:not(.active) {
-    background: #faf8f4;
-}
+        .navItem.active i {
+            color: #e5a83e;
+        }
 
-.navItem.active {
-    background: #fef7e9;
-    color: #b76e2e;
-    font-weight: 600;
-}
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== */
+        .bottomNav {
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 20px);
+            background: #ffffff;
+            border-top: 1px solid #f0e7d8;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+        }
 
-.navItem.active i {
-    color: #e5a83e;
-}
+        .bottomNavItem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(2px, 0.5vw, 6px);
+            font-size: clamp(9px, 1.5vw, 13px);
+            color: #8e9aab;
+            cursor: pointer;
+        }
 
-/* ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== */
-.bottomNav {
-    display: none;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1.5vw 2vw;
-    background: #ffffff;
-    border-top: 1px solid #f0e7d8;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
-}
+        .bottomNavItem i {
+            font-size: clamp(16px, 3vw, 24px);
+        }
 
-.bottomNavItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.4vw;
-    font-size: 1.2vw;
-    color: #8e9aab;
-    transition: 0.2s;
-    cursor: pointer;
-}
+        .bottomNavItem.active {
+            color: #c49a2c;
+            font-weight: 600;
+        }
 
-.bottomNavItem i {
-    font-size: 2.5vw;
-}
+        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+        .mainContent {
+            flex: 1;
+            padding: clamp(16px, 2.5vw, 32px) clamp(12px, 3vw, 36px);
+            overflow-y: auto;
+            min-height: 100vh;
+            max-height: 100vh;
+        }
 
-.bottomNavItem.active {
-    color: #c49a2c;
-    font-weight: 600;
-}
+        /* Верхняя панель */
+        .topBar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: clamp(16px, 2.5vw, 32px);
+            gap: clamp(12px, 2vw, 24px);
+        }
 
-/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-.mainContent {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 2vw 2.5vw;
-    overflow-y: auto;
-    min-height: 100vh;
-    max-height: 100vh;
-}
+        .topBarText h1 {
+            font-size: clamp(1.2rem, 2vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
 
-/* Верхняя панель */
-.topBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 2vw;
-    gap: 1.5vw;
-}
+        .topBarText p {
+            color: #6b7583;
+            font-size: clamp(0.7rem, 1vw, 1rem);
+        }
 
-.topBarText h1 {
-    font-size: 1.8vw;
-    font-weight: 700;
-    margin-bottom: 0.3vw;
-}
+        .topActions {
+            display: flex;
+            gap: clamp(6px, 1vw, 12px);
+            align-items: center;
+        }
 
-.topBarText p {
-    color: #6b7583;
-    font-size: 0.9vw;
-}
+        /* Кнопки */
+        button {
+            border: none;
+            border-radius: clamp(8px, 1vw, 14px);
+            padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 20px);
+            font-weight: 600;
+            font-size: clamp(0.7rem, 0.95vw, 1rem);
+            display: flex;
+            align-items: center;
+            gap: clamp(4px, 0.6vw, 8px);
+            cursor: pointer;
+            background: white;
+            border: 1px solid #e2d9cc;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
 
-.topActions {
-    display: flex;
-    gap: 0.8vw;
-    align-items: center;
-    flex-shrink: 0;
-}
+        .buttonAccent {
+            background: #f5b042;
+            border: 1px solid #f5b042;
+            color: #1e2b3c;
+        }
 
-/* Кнопки */
-button {
-    border: none;
-    border-radius: 0.8vw;
-    padding: 0.7vw 1.3vw;
-    font-weight: 600;
-    font-size: 0.9vw;
-    display: flex;
-    align-items: center;
-    gap: 0.5vw;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: white;
-    border: 1px solid #e2d9cc;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-}
+        /* Основная сетка */
+        .mainBoard {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: clamp(16px, 2vw, 28px);
+            margin-bottom: clamp(16px, 2vw, 28px);
+        }
 
-.buttonAccent {
-    background: #f5b042;
-    border: 1px solid #f5b042;
-    color: #1e2b3c;
-    box-shadow: 0 4px 12px rgba(245,176,66,0.3);
-}
+        /* Карточки */
+        .card {
+            background: #ffffff;
+            border-radius: clamp(14px, 1.8vw, 24px);
+            padding: clamp(16px, 2vw, 26px);
+            border: 1px solid #efe8d8;
+        }
 
-.buttonAccent:hover {
-    background: #e5942c;
-    box-shadow: 0 6px 16px rgba(245,176,66,0.4);
-}
+        .cardHeader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: clamp(12px, 1.5vw, 20px);
+        }
 
-button:hover:not(.buttonAccent) {
-    background: #faf7f2;
-    border-color: #d4c4ab;
-}
+        .cardHeader h3 {
+            font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+            font-weight: 700;
+        }
 
-/* Основная сетка */
-.mainBoard {
-    display: grid;
-    grid-template-columns: 1fr 0.9fr;
-    gap: 1.5vw;
-    margin-bottom: 1.5vw;
-}
+        /* Мета-данные */
+        .cardMeta {
+            display: flex;
+            gap: clamp(6px, 0.8vw, 12px);
+            flex-wrap: wrap;
+            margin-bottom: clamp(8px, 1vw, 16px);
+        }
 
-/* Карточки */
-.card {
-    background: #ffffff;
-    border-radius: 1.5vw;
-    padding: 1.5vw;
-    border: 1px solid #efe8d8;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
-    transition: 0.2s;
-}
+        .tag {
+            background: #f5ede0;
+            border-radius: 20px;
+            padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 14px);
+            font-size: clamp(0.65rem, 0.85vw, 0.95rem);
+            font-weight: 600;
+            color: #5e3a1c;
+        }
 
-.card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-}
+        /* Слоты */
+        .slotsBar {
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1vw, 14px);
+            margin: clamp(8px, 1vw, 16px) 0;
+        }
 
-.cardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2vw;
-}
+        .progressBg {
+            flex: 1;
+            height: clamp(6px, 0.7vw, 10px);
+            background: #e9e2d5;
+            border-radius: 10px;
+        }
 
-.cardHeader h3 {
-    font-size: 1.2vw;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 0.6vw;
-}
+        .progressFill {
+            height: clamp(6px, 0.7vw, 10px);
+            background: #c49a2c;
+            border-radius: 10px;
+        }
 
-/* Мета-данные игры */
-.cardMeta {
-    display: flex;
-    gap: 0.7vw;
-    flex-wrap: wrap;
-    margin-bottom: 1vw;
-}
+        /* Статусы */
+        .statusButtons {
+            display: flex;
+            gap: clamp(4px, 0.6vw, 10px);
+            flex-wrap: wrap;
+            margin: clamp(10px, 1.2vw, 18px) 0;
+        }
 
-.tag {
-    background: #f5ede0;
-    border-radius: 1.5vw;
-    padding: 0.4vw 0.9vw;
-    font-size: 0.8vw;
-    font-weight: 600;
-    color: #5e3a1c;
-    display: flex;
-    align-items: center;
-    gap: 0.4vw;
-}
+        /* Лист ожидания */
+        .waitList {
+            background: #fef9f0;
+            border-radius: clamp(8px, 1vw, 14px);
+            padding: clamp(8px, 1vw, 14px);
+            font-size: clamp(0.7rem, 0.9vw, 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: clamp(6px, 0.8vw, 12px);
+            gap: 10px;
+        }
 
-/* Слоты */
-.slotsBar {
-    display: flex;
-    align-items: center;
-    gap: 0.8vw;
-    margin: 1vw 0 0.6vw;
-}
+        .textLink {
+            color: #b76e2e;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: clamp(0.7rem, 0.9vw, 1rem);
+        }
 
-.slotsBar span {
-    font-size: 0.9vw;
-}
+        /* ELO */
+        .eloDisplay {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fbf9f5;
+            border-radius: clamp(10px, 1.2vw, 18px);
+            padding: clamp(10px, 1.2vw, 18px);
+            margin-bottom: clamp(10px, 1.2vw, 20px);
+        }
 
-.progressBg {
-    flex: 1;
-    height: 0.6vw;
-    background: #e9e2d5;
-    border-radius: 0.5vw;
-    overflow: hidden;
-}
+        .eloNumber {
+            font-size: clamp(1.3rem, 2.2vw, 2.4rem);
+            font-weight: 800;
+            color: #c49a2c;
+        }
 
-.progressFill {
-    height: 0.6vw;
-    background: #c49a2c;
-    border-radius: 0.5vw;
-    transition: width 0.3s ease;
-}
+        /* Партнеры */
+        .partnerItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: clamp(8px, 1vw, 14px) 0;
+            border-bottom: 1px solid #f3ead9;
+            font-size: clamp(0.7rem, 0.95vw, 1.1rem);
+        }
 
-/* Статусы */
-.statusButtons {
-    display: flex;
-    gap: 0.6vw;
-    flex-wrap: wrap;
-    margin: 1vw 0 0.5vw;
-}
+        .partnerItem:last-child {
+            border-bottom: none;
+        }
 
-/* Лист ожидания */
-.waitList {
-    background: #fef9f0;
-    border-radius: 0.8vw;
-    padding: 0.7vw 1vw;
-    font-size: 0.85vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0.8vw;
-    gap: 0.8vw;
-}
+        /* Нижняя сетка */
+        .lowerBoard {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: clamp(16px, 2vw, 28px);
+            margin-top: 4px;
+        }
 
-/* Текстовая ссылка */
-.textLink {
-    color: #b76e2e;
-    font-weight: 500;
-    text-decoration: none;
-    font-size: 0.9vw;
-    transition: color 0.2s;
-}
+        /* История матчей */
+        .matchHistoryItem {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(5px, 0.6vw, 10px) 0;
+            font-size: clamp(0.65rem, 0.85vw, 1rem);
+        }
 
-.textLink:hover {
-    color: #e5942c;
-    text-decoration: underline;
-}
+        hr {
+            border: 0.5px solid #efe8d8;
+            margin: clamp(4px, 0.5vw, 10px) 0;
+        }
 
-/* ELO */
-.eloDisplay {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #fbf9f5;
-    border-radius: 1vw;
-    padding: 1vw;
-    margin-bottom: 1.2vw;
-}
+        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
 
-.eloNumber {
-    font-size: 2vw;
-    font-weight: 800;
-    color: #c49a2c;
-}
+            /* Скрываем боковую панель */
+            .sideBar {
+                display: none;
+            }
 
-/* Партнеры */
-.partnerItem {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.8vw 0;
-    border-bottom: 1px solid #f3ead9;
-    font-size: 1vw;
-}
+            /* Показываем нижнюю навигацию */
+            .bottomNav {
+                display: flex;
+            }
 
-.partnerItem:last-child {
-    border-bottom: none;
-}
+            /* Основной контент */
+            .mainContent {
+                padding: 16px 12px 90px;
+                max-height: none;
+                min-height: 100vh;
+            }
 
-.partnerItem span:last-child {
-    font-weight: 700;
-    color: #2d6a4f;
-}
+            .topBar {
+                flex-direction: column;
+                gap: 12px;
+            }
 
-/* Нижняя сетка */
-.lowerBoard {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1.5vw;
-    margin-top: 0.3vw;
-}
+            .topBarText h1 {
+                font-size: clamp(1.4rem, 6vw, 2rem);
+            }
 
-/* История матчей */
-.matchHistoryItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5vw 0;
-    font-size: 0.8vw;
-}
+            .topBarText p {
+                font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+            }
 
-.matchHistoryItem strong {
-    font-size: 0.8vw;
-}
+            .topActions {
+                width: 100%;
+            }
 
-hr {
-    border: 0.5px solid #efe8d8;
-    margin: 0.6vw 0;
-}
+            .topActions button {
+                width: 100%;
+                justify-content: center;
+                font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+                padding: 12px 20px;
+            }
 
-/* Заголовки */
-h3 {
-    font-size: 1.2vw;
-}
+            button {
+                font-size: clamp(0.8rem, 3.2vw, 1rem);
+                padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3vw, 20px);
+            }
 
-/* ===== АДАПТИВНОСТЬ ===== */
+            .mainBoard {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
 
-/* Планшеты */
-@media (max-width: 1024px) {
-    .sideBar {
-        width: 20vw;
-        min-width: 180px;
-    }
-    
-    .mainBoard {
-        grid-template-columns: 1fr;
-    }
-    
-    .lowerBoard {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .logoText {
-        font-size: 1.8vw;
-    }
-    
-    .navItem {
-        font-size: 1.3vw;
-    }
-    
-    .topBarText h1 {
-        font-size: 2.2vw;
-    }
-}
+            .lowerBoard {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
 
-/* Мобильные устройства */
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-    
-    /* Скрываем боковую панель */
-    .sideBar {
-        display: none;
-    }
-    
-    /* Показываем нижнюю навигацию */
-    .bottomNav {
-        display: flex;
-    }
-    
-    /* Основной контент */
-    .mainContent {
-        padding: 3vw 4vw 15vw;
-        max-height: none;
-        min-height: 100vh;
-    }
-    
-    .topBar {
-        flex-direction: column;
-    }
-    
-    .topBarText h1 {
-        font-size: 5vw;
-    }
-    
-    .topBarText p {
-        font-size: 3vw;
-    }
-    
-    .topActions {
-        width: 100%;
-    }
-    
-    .topActions button {
-        width: 100%;
-        justify-content: center;
-    }
-    
-    button {
-        font-size: 3vw;
-        padding: 2vw 4vw;
-        border-radius: 2vw;
-    }
-    
-    .mainBoard {
-        grid-template-columns: 1fr;
-        gap: 3vw;
-    }
-    
-    .lowerBoard {
-        grid-template-columns: 1fr;
-        gap: 3vw;
-    }
-    
-    .card {
-        border-radius: 4vw;
-        padding: 4vw;
-    }
-    
-    .cardHeader h3 {
-        font-size: 4vw;
-    }
-    
-    .cardMeta {
-        gap: 2vw;
-    }
-    
-    .tag {
-        font-size: 2.5vw;
-        padding: 1vw 2.5vw;
-        border-radius: 3vw;
-    }
-    
-    .slotsBar span {
-        font-size: 2.5vw;
-    }
-    
-    .progressBg {
-        height: 1.5vw;
-    }
-    
-    .progressFill {
-        height: 1.5vw;
-    }
-    
-    .textLink {
-        font-size: 2.5vw;
-    }
-    
-    .eloNumber {
-        font-size: 5vw;
-    }
-    
-    .partnerItem {
-        font-size: 2.5vw;
-    }
-    
-    .matchHistoryItem {
-        font-size: 2.2vw;
-    }
-    
-    .matchHistoryItem strong {
-        font-size: 2.2vw;
-    }
-    
-    .waitList {
-        font-size: 2.2vw;
-        flex-direction: column;
-        gap: 2vw;
-    }
-    
-    .userName {
-        font-size: 3vw;
-    }
-    
-    .userRole {
-        font-size: 2.5vw;
-    }
-    
-    .userAvatar {
-        width: 8vw;
-        height: 8vw;
-        font-size: 3vw;
-    }
-    
-    .bottomNavItem {
-        font-size: 2.5vw;
-    }
-    
-    .bottomNavItem i {
-        font-size: 5vw;
-    }
-}
+            .card {
+                border-radius: 16px;
+                padding: 16px;
+            }
+
+            .cardHeader h3 {
+                font-size: clamp(1rem, 4.5vw, 1.4rem);
+            }
+
+            .tag {
+                font-size: clamp(0.75rem, 3vw, 0.95rem);
+                padding: 5px 12px;
+            }
+
+            .statusButtons {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .statusButtons button {
+                flex: 1;
+                min-width: 70px;
+                justify-content: center;
+                font-size: clamp(0.75rem, 3vw, 0.95rem);
+            }
+
+            .waitList {
+                flex-direction: column;
+                gap: 10px;
+                font-size: clamp(0.8rem, 3.2vw, 1rem);
+            }
+
+            .matchHistoryItem {
+                font-size: clamp(0.75rem, 3vw, 0.95rem);
+            }
+
+            .eloNumber {
+                font-size: clamp(1.5rem, 7vw, 2.5rem);
+            }
+
+            .partnerItem {
+                font-size: clamp(0.8rem, 3.2vw, 1rem);
+            }
+
+            .bottomNavItem {
+                font-size: clamp(9px, 2.2vw, 13px);
+            }
+
+            .bottomNavItem i {
+                font-size: clamp(16px, 5vw, 26px);
+            }
+        }
+
+        /* Промежуточные планшеты */
+        @media screen and (min-width: 769px) and (max-width: 1024px) {
+            .mainBoard {
+                grid-template-columns: 1fr;
+            }
+
+            .lowerBoard {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
