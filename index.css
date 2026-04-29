@@ -524,6 +524,7 @@ a{
 }
 .filterGroup {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: clamp(8px, 1vw, 12px);
     flex-wrap: wrap;
@@ -531,7 +532,7 @@ a{
 
 .filterLabel {
     font-weight: 700;
-    font-size: clamp(0.8rem, 1vw, 1.1rem);
+    font-size: clamp(0.8rem, 1.1vw, 1.1rem);
     color: #5f6b7a;
     min-width: clamp(60px, 8vw, 90px);
 }
