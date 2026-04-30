@@ -66,7 +66,7 @@ a{
             padding: clamp(8px, 1vw, 14px);
             background: #fbf9f5;
             border-radius: clamp(12px, 1.2vw, 18px);
-            margin-bottom: clamp(16px, 2vw, 28px);
+            margin-bottom: clamp(10px, 0.9vw, 28px);
             border: 1px solid #efe4cf;
             cursor: pointer;
         }
@@ -360,7 +360,6 @@ a{
             align-items: center;
             justify-content: space-between;
             padding: clamp(8px, 1vw, 14px) 0;
-            border-bottom: 1px solid #f3ead9;
             font-size: clamp(0.7rem, 0.95vw, 1.1rem);
         }
 
@@ -593,4 +592,95 @@ a{
 
 .eventLocation i {
     color: #c49a2c;
+}
+/*Страница жеребьевка*/
+/* ===== СТИЛИ СТРАНИЦЫ ЖЕРЕБЬЁВКИ ===== */
+
+
+.eventSelector {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 14px);
+    flex-wrap: wrap;
+     padding: clamp(10px, 1.2vw, 14px)
+}
+
+.eventSelector label {
+    font-weight: 700;
+    font-size: clamp(0.8rem, 1vw, 1.1rem);
+    color: #5f6b7a;
+    white-space: nowrap;
+}
+
+.selectWrapper {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+}
+
+.selectWrapper select {
+    width: 100%;
+    padding: clamp(8px, 1vw, 12px) clamp(30px, 2vw, 36px) clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 16px);
+    border-radius: clamp(8px, 1vw, 14px);
+    border: 1px solid #e2d9cc;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.8rem, 0.95vw, 1.05rem);
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.selectWrapper i {
+    position: absolute;
+    right: clamp(8px, 1vw, 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8e9aab;
+    pointer-events: none;
+}
+.drawActions {
+    display: flex;
+    gap: clamp(8px, 1vw, 14px);
+    flex-wrap: wrap;
+   padding: clamp(8px, 1vw, 12px)
+}
+
+.drawActions button {
+    flex: 1;
+    min-width: clamp(160px, 18vw, 220px);
+    justify-content: center;
+    padding: clamp(10px, 1.2vw, 14px) clamp(14px, 1.8vw, 22px);
+    font-size: clamp(0.8rem, 1vw, 1.1rem);
+}
+
+.score {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 1.5vw, 20px);
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: clamp(2.1rem, 7vw, 3rem);
+    font-weight: 800;
+}
+
+.buttonCenter {
+display: flex;
+justify-content: center;
+padding: clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px);
+gap: 8px;
+}
+
+/* Медиа-запросы для жеребьёвки */
+@media screen and (max-width: 768px) {
+    .drawActions {
+        flex-direction: column;
+    }
+
+    .drawActions button {
+        flex: none;
+        width: 100%;
+        min-width: auto;
+    }
 }
