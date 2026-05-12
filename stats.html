@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Beach Pro Tool · Статистика</title>
+</head>
+<body>
+    <aside class="sideBar">
+        <div class="logoArea">
+            <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
+            <div class="logoText">BeachProTool</div>
+        </div>
+        <a href="profile.html">
+            <div class="userCard">
+                <div class="userAvatar">ДО</div>
+                <div class="userInfo">
+                    <div class="userName">Дэвид Оман</div>
+                    <div class="userRole">Защитник / 1000 elo</div>
+                </div>
+            </div>
+        </a>
+        <nav class="navMenu">
+            <a href="index.html"><div class="navItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
+            <a href="events.html"><div class="navItem"><i class="far fa-calendar-alt"></i><span>События</span></div></a>
+            <a href="draw.html"><div class="navItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
+            <a href="tournaments.html"><div class="navItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
+            <a href="stats.html"><div class="navItem active"><i class="fas fa-chart-line"></i><span>Статистика</span></div></a>
+        </nav>
+    </aside>
+
+    <main class="mainContent">
+        <div class="topBar">
+            <div class="topBarText">
+                <h1>Статистика</h1>
+                <p><i class="fas fa-chart-line" style="color:#c49a2c;"></i> Сравнение игроков и рейтинги</p>
+            </div>
+        </div>
+
+        <!-- Личная статистика + Рейтинг ELO -->
+        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: stretch;">
+            <div class="card" style="display: flex; flex-direction: column;">
+                <div class="cardHeader"><h3><i class="fas fa-chart-bar" style="color:#c49a2c;"></i> Личная статистика</h3></div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.2vw, 16px); flex: 1; align-content: start;">
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue">47</div>
+                        <div class="statLabel">Игр сыграно</div>
+                    </div>
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue" style="color: #10b981;">61%</div>
+                        <div class="statLabel">Побед</div>
+                    </div>
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue">12</div>
+                        <div class="statLabel">MVP</div>
+                    </div>
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue">3</div>
+                        <div class="statLabel">Турниров</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="display: flex; flex-direction: column;">
+                <div class="cardHeader"><h3><i class="fas fa-trophy" style="color:#c49a2c;"></i> Рейтинг ELO</h3></div>
+                <div style="flex: 1;">
+                    <div class="partnerItem"><span><strong>1</strong> Максим С.</span><span style="color:#10b981;">+45</span><span>1420</span></div>
+                    <div class="partnerItem"><span><strong>2</strong> Дима К.</span><span style="color:#10b981;">+30</span><span>1350</span></div>
+                    <div class="partnerItem"><span><strong>3</strong> Женя М.</span><span style="color:#c0392b;">−12</span><span>1280</span></div>
+                    <div class="partnerItem"><span><strong>4</strong> Вася П.</span><span style="color:#10b981;">+18</span><span>1150</span></div>
+                    <div class="partnerItem"><span><strong>5</strong> Антон К.</span><span style="color:#10b981;">+22</span><span>1100</span></div>
+                    <div class="partnerItem" style="background: #fef9f0; border-radius: clamp(6px, 0.8vw, 10px); padding: clamp(6px, 0.8vw, 10px);">
+                        <span><strong>12</strong> Дэвид Оман</span><span style="color:#10b981;">+15</span><span style="font-weight:700; color:#c49a2c;">1000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Процент побед + Количество игр -->
+        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: stretch;">
+            <div class="card" style="display: flex; flex-direction: column;">
+                <div class="cardHeader"><h3><i class="fas fa-chart-bar" style="color:#c49a2c;"></i> Процент побед</h3></div>
+                <div style="flex: 1;">
+                    <div class="partnerItem"><span><strong>1</strong> Максим С.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:78%; background:#10b981;"></div></div><span>78%</span></div>
+                    <div class="partnerItem"><span><strong>2</strong> Дима К.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:72%; background:#10b981;"></div></div><span>72%</span></div>
+                    <div class="partnerItem"><span><strong>3</strong> Женя М.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:65%; background:#c49a2c;"></div></div><span>65%</span></div>
+                    <div class="partnerItem"><span><strong>4</strong> Вася П.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:63%; background:#c49a2c;"></div></div><span>63%</span></div>
+                    <div class="partnerItem"><span><strong>5</strong> Антон К.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:60%; background:#c49a2c;"></div></div><span>60%</span></div>
+                    <div class="partnerItem" style="background:#fef9f0; border-radius:clamp(6px,0.8vw,10px); padding:clamp(6px,0.8vw,10px);">
+                        <span><strong>7</strong> Дэвид Оман</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:61%; background:#c49a2c;"></div></div><span style="font-weight:700; color:#c49a2c;">61%</span>
+                    </div>
+                </div>
+            </div>
+
+           <!-- Количество игр -->
+<div class="card" style="display: flex; flex-direction: column;">
+    <div class="cardHeader"><h3><i class="fas fa-volleyball-ball" style="color:#c49a2c;"></i> Количество игр</h3></div>
+    <div style="flex: 1;">
+        <div class="partnerItem"><span><strong>1</strong> Женя М.</span><span>58 игр</span></div>
+        <div class="partnerItem"><span><strong>2</strong> Максим С.</span><span>52 игры</span></div>
+        <div class="partnerItem"><span><strong>3</strong> Дэвид Оман</span><span>47 игр</span></div>
+        <div class="partnerItem"><span><strong>4</strong> Антон К.</span><span>40 игр</span></div>
+        <div class="partnerItem"><span><strong>5</strong> Вася П.</span><span>35 игр</span></div>
+        <div class="partnerItem"><span><strong>6</strong> Дима К.</span><span>30 игр</span></div>
+    </div>
+</div>
+
+     <!-- MVP -->
+<div class="card" style="margin-bottom: clamp(16px, 2vw, 24px);">
+    <div class="cardHeader"><h3><i class="fas fa-medal" style="color:#c49a2c;"></i> MVP сезона</h3></div>
+    <div class="partnerItem"><span><strong>1</strong> Максим С.</span><span>15 MVP</span></div>
+    <div class="partnerItem"><span><strong>2</strong> Дэвид Оман</span><span>12 MVP</span></div>
+    <div class="partnerItem"><span><strong>3</strong> Дима К.</span><span>10 MVP</span></div>
+    <div class="partnerItem"><span><strong>4</strong> Женя М.</span><span>8 MVP</span></div>
+    <div class="partnerItem"><span><strong>5</strong> Вася П.</span><span>6 MVP</span></div>
+    <div class="partnerItem"><span><strong>6</strong> Антон К.</span><span>4 MVP</span></div>
+</div>
+
+    <div class="bottomNav">
+        <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
+        <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
+        <a href="draw.html"><div class="bottomNavItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
+        <a href="stats.html"><div class="bottomNavItem active"><i class="fas fa-chart-bar"></i><span>Статистика</span></div></a>
+        <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
+        <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
+    </div>
+</body>
+</html>

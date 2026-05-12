@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Beach Pro Tool · Турниры</title>
+</head>
+<body>
+    <aside class="sideBar">
+        <div class="logoArea">
+            <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
+            <div class="logoText">BeachProTool</div>
+        </div>
+        <a href="profile.html">
+            <div class="userCard">
+                <div class="userAvatar">ДО</div>
+                <div class="userInfo">
+                    <div class="userName">Дэвид Оман</div>
+                    <div class="userRole">Защитник / 1000 elo</div>
+                </div>
+            </div>
+        </a>
+        <nav class="navMenu">
+            <a href="index.html"><div class="navItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
+            <a href="events.html"><div class="navItem"><i class="far fa-calendar-alt"></i><span>События</span></div></a>
+            <a href="draw.html"><div class="navItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
+            <a href="tournaments.html"><div class="navItem active"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
+            <a href="stats.html"><div class="navItem"><i class="fas fa-chart-line"></i><span>Статистика</span></div></a>
+        </nav>
+    </aside>
+
+    <main class="mainContent">
+        <div class="topBar">
+            <div class="topBarText">
+                <h1>Турниры</h1>
+                <p><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Все активные, набирающиеся и завершённые турниры</p>
+            </div>
+            <div class="topActions">
+                <button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать турнир</button>
+            </div>
+        </div>
+
+        <!-- Фильтры -->
+        <div class="filterGroup" style="margin-bottom: clamp(16px, 2vw, 24px);">
+            <button class="buttonAccent">Все</button>
+            <button>Активные</button>
+            <button>Набираются</button>
+            <button>Завершённые</button>
+            <button>Мои</button>
+        </div>
+
+        <!-- Активные турниры -->
+        <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
+            <h3><i class="fas fa-play-circle" style="color:#10b981;"></i> Активные</h3>
+        </div>
+        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
+            <!-- Кубок Пляжа -->
+            <div class="card">
+                <div class="cardHeader">
+                    <h3>Кубок Пляжа · Май 2026</h3>
+                    <span class="tag" style="background: #e4f1ea; color: #0b4b3b;"><i class="fas fa-play-circle"></i> Активен</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 28 мая, 10:00</span>
+                    <span class="tag"><i class="fas fa-users"></i> 4×4</span>
+                    <span class="tag"><i class="fas fa-star"></i> Любитель+</span>
+                </div>
+                <div class="slotsBar"><span>Групповой этап: 3/3 тура</span><div class="progressBg"><div class="progressFill" style="width:100%; background:#10b981;"></div></div></div>
+                <a href="activeTournament.html"><button class="buttonAccent" style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button></a>
+            </div>
+
+            <!-- Пляжный Челленджер -->
+            <div class="card">
+                <div class="cardHeader">
+                    <h3>Пляжный Челленджер · 2×2</h3>
+                    <span class="tag" style="background: #e4f1ea; color: #0b4b3b;"><i class="fas fa-play-circle"></i> Активен</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 1 июня, 11:00</span>
+                    <span class="tag"><i class="fas fa-users"></i> 2×2</span>
+                    <span class="tag"><i class="fas fa-crown"></i> Профи</span>
+                </div>
+                <div class="slotsBar"><span>1/4 финала</span><div class="progressBg"><div class="progressFill" style="width:50%; background:#e5942c;"></div></div></div>
+                <button class="buttonAccent" style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
+            </div>
+        </div>
+
+        <!-- Набирающиеся турниры -->
+        <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
+            <h3><i class="fas fa-user-plus" style="color:#b76e2e;"></i> Набираются</h3>
+        </div>
+        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
+            <!-- Летний Кубок -->
+            <div class="card">
+                <div class="cardHeader">
+                    <h3>Летний Кубок · 4×4</h3>
+                    <span class="tag" style="background: #fef9f0; color: #b76e2e;"><i class="fas fa-hourglass-half"></i> Набирается</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 10 июня, 9:00</span>
+                    <span class="tag"><i class="fas fa-users"></i> 4×4</span>
+                    <span class="tag"><i class="fas fa-star"></i> Любитель</span>
+                </div>
+                <div class="slotsBar"><span>Команд: 4 / 8</span><div class="progressBg"><div class="progressFill" style="width:50%;"></div></div></div>
+                <div class="statusButtons">
+                    <button class="buttonAccent"><i class="fas fa-user-plus"></i> Записать команду</button>
+                    <button class="buttonAccent"><i class="fas fa-play"></i> Начать турнир</button>
+                </div>
+            </div>
+
+            <!-- Пляжный Бум -->
+            <div class="card">
+                <div class="cardHeader">
+                    <h3>Пляжный Бум · 2×2</h3>
+                    <span class="tag" style="background: #fef9f0; color: #b76e2e;"><i class="fas fa-hourglass-half"></i> Набирается</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 15 июня, 10:00</span>
+                    <span class="tag"><i class="fas fa-users"></i> 2×2</span>
+                    <span class="tag"><i class="fas fa-crown"></i> Профи</span>
+                </div>
+                <div class="slotsBar"><span>Команд: 6 / 8</span><div class="progressBg"><div class="progressFill" style="width:75%; background:#10b981;"></div></div></div>
+                <div class="statusButtons">
+                    <button class="buttonAccent"><i class="fas fa-user-plus"></i> Записать команду</button>
+                    <button class="buttonAccent"><i class="fas fa-play"></i> Начать турнир</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Завершённые турниры -->
+        <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
+            <h3><i class="fas fa-check-circle" style="color:#5f6b7a;"></i> Завершённые</h3>
+        </div>
+        <div class="lowerBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
+            <div class="card" style="opacity: 0.75;">
+                <div class="cardHeader">
+                    <h3>Весенний Кубок</h3>
+                    <span class="tag"><i class="fas fa-check-circle"></i> Завершён</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 10 апреля, 10:00</span>
+                    <span class="tag">3×3</span>
+                </div>
+                <div style="font-size: clamp(0.75rem, 0.9vw, 1rem); margin: 6px 0;">🏆 <strong>Оман · Хеллвиг</strong></div>
+                <button style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
+            </div>
+
+            <div class="card" style="opacity: 0.75;">
+                <div class="cardHeader">
+                    <h3>Новогодний Турнир</h3>
+                    <span class="tag"><i class="fas fa-check-circle"></i> Завершён</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 3 января, 11:00</span>
+                    <span class="tag">2×2</span>
+                </div>
+                <div style="font-size: clamp(0.75rem, 0.9vw, 1rem); margin: 6px 0;">🏆 <strong>Петров · Козлов</strong></div>
+                <button style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
+            </div>
+
+            <div class="card" style="opacity: 0.75;">
+                <div class="cardHeader">
+                    <h3>Осенний Кубок</h3>
+                    <span class="tag"><i class="fas fa-check-circle"></i> Завершён</span>
+                </div>
+                <div class="cardMeta">
+                    <span class="tag"><i class="far fa-calendar"></i> 15 ноября, 9:00</span>
+                    <span class="tag">4×4</span>
+                </div>
+                <div style="font-size: clamp(0.75rem, 0.9vw, 1rem); margin: 6px 0;">🏆 <strong>Морозов · Титов</strong></div>
+                <button style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="bottomNav">
+        <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
+        <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
+        <a href="draw.html"><div class="bottomNavItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
+        <a href="stats.html"><div class="bottomNavItem"><i class="fas fa-chart-bar"></i><span>Статистика</span></div></a>
+        <a href="tournaments.html"><div class="bottomNavItem active"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
+        <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
+    </div>
+</body>
+</html>
