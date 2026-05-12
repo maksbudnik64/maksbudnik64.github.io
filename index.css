@@ -1,529 +1,440 @@
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* ===== СБРОС И БАЗОВЫЕ СТИЛИ ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f8f6f1;
-            display: flex;
-            min-height: 100vh;
-            color: #1e2b3c;
-            letter-spacing: -0.01em;
-        }
-a{
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8f6f1;
+    display: flex;
+    min-height: 100vh;
+    color: #1e2b3c;
+    letter-spacing: -0.01em;
+}
+
+a {
     text-decoration: none;
     color: inherit;
 }
-        /* ===== БОКОВАЯ ПАНЕЛЬ (ДЕСКТОП) ===== */
-        .sideBar {
-            background: #ffffff;
-            width: clamp(200px, 18vw, 280px);
-            border-right: 1px solid #efe8d8;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: clamp(16px, 2vw, 28px) clamp(12px, 1.5vw, 20px);
-            position: sticky;
-            top: 0;
-            box-shadow: 1px 0 15px rgba(0,0,0,0.02);
-            z-index: 10;
-        }
 
-        .logoArea {
-            display: flex;
-            align-items: center;
-            gap: clamp(6px, 0.8vw, 10px);
-            margin-bottom: clamp(20px, 2.5vw, 28px);
-        }
+select {
+    padding: clamp(6px, 0.8vw, 10px) clamp(8px, 1vw, 12px);
+    border-radius: clamp(6px, 0.8vw, 12px);
+    border: 1px solid #e2d9cc;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.75rem, 0.9vw, 0.95rem);
+    font-weight: 500;
+    background: white;
+    cursor: pointer;
+}
 
-        .logoIcon {
-            background: linear-gradient(135deg, #f5b042, #e5942c);
-            width: clamp(32px, 3.5vw, 48px);
-            height: clamp(32px, 3.5vw, 48px);
-            border-radius: clamp(8px, 1vw, 14px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: clamp(0.9rem, 1.3vw, 1.4rem);
-            flex-shrink: 0;
-        }
+hr {
+    border: 0.5px solid #efe8d8;
+    margin: clamp(4px, 0.5vw, 10px) 0;
+}
 
-        .logoText {
-            font-weight: 800;
-            font-size: clamp(1rem, 1.5vw, 1.5rem);
-            color: #1e2b3c;
-            white-space: nowrap;
-        }
+/* ===== БОКОВАЯ ПАНЕЛЬ (ДЕСКТОП) ===== */
+.sideBar {
+    background: #ffffff;
+    width: clamp(200px, 18vw, 280px);
+    border-right: 1px solid #efe8d8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(16px, 2vw, 28px) clamp(12px, 1.5vw, 20px);
+    position: sticky;
+    top: 0;
+    box-shadow: 1px 0 15px rgba(0,0,0,0.02);
+    z-index: 10;
+}
 
-        /* Карточка пользователя */
-        .userCard {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 1vw, 14px);
-            padding: clamp(8px, 1vw, 14px);
-            background: #fbf9f5;
-            border-radius: clamp(12px, 1.2vw, 18px);
-            margin-bottom: clamp(10px, 0.9vw, 28px);
-            border: 1px solid #efe4cf;
-            cursor: pointer;
-        }
+.logoArea {
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 0.8vw, 10px);
+    margin-bottom: clamp(20px, 2.5vw, 28px);
+}
+
+.logoIcon {
+    background: linear-gradient(135deg, #f5b042, #e5942c);
+    width: clamp(32px, 3.5vw, 48px);
+    height: clamp(32px, 3.5vw, 48px);
+    border-radius: clamp(8px, 1vw, 14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: clamp(0.9rem, 1.3vw, 1.4rem);
+    flex-shrink: 0;
+}
+
+.logoText {
+    font-weight: 800;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    color: #1e2b3c;
+    white-space: nowrap;
+}
+
+.userCard {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 14px);
+    padding: clamp(8px, 1vw, 14px);
+    background: #fbf9f5;
+    border-radius: clamp(12px, 1.2vw, 18px);
+    margin-bottom: clamp(10px, 0.9vw, 28px);
+    border: 1px solid #efe4cf;
+    cursor: pointer;
+}
+
 .userCard:hover {
-      background: #f1efec;
-    } 
-        .userAvatar {
-            width: clamp(34px, 3.8vw, 50px);
-            height: clamp(34px, 3.8vw, 50px);
-            background: linear-gradient(135deg, #f5b042, #e5942c);
-            border-radius: clamp(8px, 1vw, 14px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: clamp(0.8rem, 1.1vw, 1.2rem);
-            flex-shrink: 0;
-        }
+    background: #f1efec;
+}
 
-        .userInfo {
-            line-height: 1.4;
-        }
+.userAvatar {
+    width: clamp(34px, 3.8vw, 50px);
+    height: clamp(34px, 3.8vw, 50px);
+    background: linear-gradient(135deg, #f5b042, #e5942c);
+    border-radius: clamp(8px, 1vw, 14px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: clamp(0.8rem, 1.1vw, 1.2rem);
+    flex-shrink: 0;
+}
 
-        .userName {
-            font-weight: 700;
-            font-size: clamp(0.7rem, 0.95vw, 1rem);
-        }
+.userInfo {
+    line-height: 1.4;
+}
 
-        .userRole {
-            font-size: clamp(0.6rem, 0.75vw, 0.85rem);
-            color: #7a8490;
-        }
+.userName {
+    font-weight: 700;
+    font-size: clamp(0.7rem, 0.95vw, 1rem);
+}
 
-        /* Навигация */
-        .navMenu {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1;
-        }
+.userRole {
+    font-size: clamp(0.6rem, 0.75vw, 0.85rem);
+    color: #7a8490;
+}
 
-        .navItem {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 1vw, 14px);
-            padding: clamp(8px, 1vw, 14px) clamp(10px, 1.2vw, 18px);
-            border-radius: clamp(8px, 1vw, 14px);
-            font-weight: 500;
-            color: #5f6b7a;
-            cursor: pointer;
-            font-size: clamp(0.75rem, 1vw, 1.1rem);
-        }
+.navMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 14px);
+    padding: clamp(8px, 1vw, 14px) clamp(10px, 1.2vw, 18px);
+    border-radius: clamp(8px, 1vw, 14px);
+    font-weight: 500;
+    color: #5f6b7a;
+    cursor: pointer;
+    font-size: clamp(0.75rem, 1vw, 1.1rem);
+}
+
 .navItem:hover:not(.active) {
-      background: #faf8f4;
-    }
-        .navItem i {
-            width: 20px;
-            font-size: clamp(0.85rem, 1.1vw, 1.2rem);
-            text-align: center;
-            color: #8e9aab;
-        }
+    background: #faf8f4;
+}
 
-        .navItem.active {
-            background: #fef7e9;
-            color: #b76e2e;
-            font-weight: 600;
-        }
-        .navItem.active i {
-            color: #e5a83e;
-        }
- .navItem.active:hover{
-      background: #fff0d3;
-    }
-        /* ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== */
-        .bottomNav {
-            display: none;
-            justify-content: space-around;
-            align-items: center;
-            padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 20px);
-            background: #ffffff;
-            border-top: 1px solid #f0e7d8;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
-        }
+.navItem i {
+    width: 20px;
+    font-size: clamp(0.85rem, 1.1vw, 1.2rem);
+    text-align: center;
+    color: #8e9aab;
+}
 
-        .bottomNavItem {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: clamp(2px, 0.5vw, 6px);
-            font-size: clamp(9px, 1.5vw, 13px);
-            color: #8e9aab;
-            cursor: pointer;
-        }
+.navItem.active {
+    background: #fef7e9;
+    color: #b76e2e;
+    font-weight: 600;
+}
 
-        .bottomNavItem i {
-            font-size: clamp(16px, 3vw, 24px);
-        }
+.navItem.active i {
+    color: #e5a83e;
+}
 
-        .bottomNavItem.active {
-            color: #c49a2c;
-            font-weight: 600;
-        }
+.navItem.active:hover {
+    background: #fff0d3;
+}
 
-        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-        .mainContent {
-            flex: 1;
-            padding: clamp(16px, 2.5vw, 32px) clamp(12px, 3vw, 36px);
-            overflow-y: auto;
-            min-height: 100vh;
-            max-height: 100vh;
-        }
+/* ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== */
+.bottomNav {
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    padding: clamp(8px, 2vw, 14px) clamp(12px, 3vw, 20px);
+    background: #ffffff;
+    border-top: 1px solid #f0e7d8;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+}
 
-        /* Верхняя панель */
-        .topBar {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: clamp(16px, 2.5vw, 32px);
-            gap: clamp(12px, 2vw, 24px);
-        }
+.bottomNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(2px, 0.5vw, 6px);
+    font-size: clamp(9px, 1.5vw, 13px);
+    color: #8e9aab;
+    cursor: pointer;
+}
 
-        .topBarText h1 {
-            font-size: clamp(1.2rem, 2vw, 2rem);
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+.bottomNavItem i {
+    font-size: clamp(16px, 3vw, 24px);
+}
 
-        .topBarText p {
-            color: #6b7583;
-            font-size: clamp(0.7rem, 1vw, 1rem);
-        }
+.bottomNavItem.active {
+    color: #c49a2c;
+    font-weight: 600;
+}
 
-        .topActions {
-            display: flex;
-            gap: clamp(6px, 1vw, 12px);
-            align-items: center;
-        }
+/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+.mainContent {
+    flex: 1;
+    padding: clamp(16px, 2.5vw, 32px) clamp(12px, 3vw, 36px);
+    overflow-y: auto;
+    min-height: 100vh;
+    max-height: 100vh;
+}
 
-        /* Кнопки */
-        button {
-            border: none;
-            border-radius: clamp(8px, 1vw, 14px);
-            padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 20px);
-            font-weight: 600;
-            font-size: clamp(0.7rem, 0.95vw, 1rem);
-            display: flex;
-            align-items: center;
-            gap: clamp(4px, 0.6vw, 8px);
-            cursor: pointer;
-            background: white;
-            border: 1px solid #e2d9cc;
-            font-family: 'Inter', sans-serif;
-            white-space: nowrap;
-        }
+.topBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: clamp(16px, 2.5vw, 32px);
+    gap: clamp(12px, 2vw, 24px);
+}
 
-        .buttonAccent {
-            background: #f5b042;
-            border: 1px solid #f5b042;
-            color: #1e2b3c;
-        }
+.topBarText h1 {
+    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.topBarText p {
+    color: #6b7583;
+    font-size: clamp(0.7rem, 1vw, 1rem);
+}
+
+.topActions {
+    display: flex;
+    gap: clamp(6px, 1vw, 12px);
+    align-items: center;
+}
+
+/* ===== КНОПКИ ===== */
+button {
+    border: none;
+    border-radius: clamp(8px, 1vw, 14px);
+    padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 20px);
+    font-weight: 600;
+    font-size: clamp(0.7rem, 0.95vw, 1rem);
+    display: flex;
+    align-items: center;
+    gap: clamp(4px, 0.6vw, 8px);
+    cursor: pointer;
+    background: white;
+    border: 1px solid #e2d9cc;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.buttonAccent {
+    background: #f5b042;
+    border: 1px solid #f5b042;
+    color: #1e2b3c;
+}
+
 .buttonAccent:hover {
-      background: #e5942c;
-    }
-    button:hover:not(.buttonAccent) {
-      background: #faf7f2;
-    }
-        /* Основная сетка */
-        .mainBoard {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(16px, 2vw, 28px);
-            margin-bottom: clamp(16px, 2vw, 28px);
-        }
+    background: #e5942c;
+}
 
-        /* Карточки */
-        .card {
-            background: #ffffff;
-            border-radius: clamp(14px, 1.8vw, 24px);
-            padding: clamp(16px, 2vw, 26px);
-            border: 1px solid #efe8d8;
-        }
+button:hover:not(.buttonAccent):not(:disabled) {
+    background: #faf7f2;
+}
 
-        .cardHeader {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: clamp(12px, 1.5vw, 20px);
-        }
-
-        .cardHeader h3 {
-            font-size: clamp(0.9rem, 1.3vw, 1.6rem);
-            font-weight: 700;
-        }
-
-        /* Мета-данные */
-        .cardMeta {
-            display: flex;
-            gap: clamp(6px, 0.8vw, 12px);
-            flex-wrap: wrap;
-            margin-bottom: clamp(8px, 1vw, 16px);
-        }
-
-        .tag {
-            background: #f5ede0;
-            border-radius: 20px;
-            padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 14px);
-            font-size: clamp(0.65rem, 0.85vw, 0.95rem);
-            font-weight: 600;
-            color: #5e3a1c;
-        }
-
-        /* Слоты */
-        .slotsBar {
-            display: flex;
-            align-items: center;
-            gap: clamp(8px, 1vw, 14px);
-            margin: clamp(8px, 1vw, 16px) 0;
-        }
-
-        .progressBg {
-            flex: 1;
-            height: clamp(6px, 0.7vw, 10px);
-            background: #e9e2d5;
-            border-radius: 10px;
-        }
-
-        .progressFill {
-            height: clamp(6px, 0.7vw, 10px);
-            background: #c49a2c;
-            border-radius: 10px;
-        }
-
-        /* Статусы */
-        .statusButtons {
-            display: flex;
-            gap: clamp(4px, 0.6vw, 10px);
-            flex-wrap: wrap;
-            margin: clamp(10px, 1.2vw, 18px) 0;
-        }
-        button:disabled {
+button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-        /* Лист ожидания */
-        .waitList {
-            background: #fef9f0;
-            border-radius: clamp(8px, 1vw, 14px);
-            padding: clamp(8px, 1vw, 14px);
-            font-size: clamp(0.7rem, 0.9vw, 1rem);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: clamp(6px, 0.8vw, 12px);
-            gap: 10px;
-        }
+.buttonCenter {
+    display: flex;
+    justify-content: center;
+    padding: clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px);
+    gap: 8px;
+}
 
-        .textLink {
-            color: #b76e2e;
-            font-weight: 500;
-            text-decoration: none;
-            font-size: clamp(0.7rem, 0.9vw, 1rem);
-        }
+/* ===== КАРТОЧКИ ===== */
+.card {
+    background: #ffffff;
+    border-radius: clamp(14px, 1.8vw, 24px);
+    padding: clamp(16px, 2vw, 26px);
+    border: 1px solid #efe8d8;
+}
 
-        /* ELO */
-        .eloDisplay {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #fbf9f5;
-            border-radius: clamp(10px, 1.2vw, 18px);
-            padding: clamp(10px, 1.2vw, 18px);
-            margin-bottom: clamp(10px, 1.2vw, 20px);
-        }
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(12px, 1.5vw, 20px);
+}
 
-        .eloNumber {
-            font-size: clamp(1.3rem, 2.2vw, 2.4rem);
-            font-weight: 800;
-            color: #c49a2c;
-        }
+.cardHeader h3 {
+    font-size: clamp(0.9rem, 1.3vw, 1.6rem);
+    font-weight: 700;
+}
 
-        /* Партнеры */
-        .partnerItem {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: clamp(8px, 1vw, 14px) 0;
-            font-size: clamp(0.7rem, 0.95vw, 1.1rem);
-        }
+.cardMeta {
+    display: flex;
+    gap: clamp(6px, 0.8vw, 12px);
+    flex-wrap: wrap;
+    margin-bottom: clamp(8px, 1vw, 16px);
+}
 
-        .partnerItem:last-child {
-            border-bottom: none;
-        }
+/* ===== ТЕГИ ===== */
+.tag {
+    background: #f5ede0;
+    border-radius: 20px;
+    padding: clamp(4px, 0.5vw, 6px) clamp(8px, 1vw, 14px);
+    font-size: clamp(0.65rem, 0.85vw, 0.95rem);
+    font-weight: 600;
+    color: #5e3a1c;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
 
-        /* Нижняя сетка */
-        .lowerBoard {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: clamp(16px, 2vw, 28px);
-            margin-top: 4px;
-        }
+/* ===== ПРОГРЕСС-БАРЫ ===== */
+.slotsBar {
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 14px);
+    margin: clamp(8px, 1vw, 16px) 0;
+}
 
-        /* История матчей */
-        .matchHistoryItem {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: clamp(5px, 0.6vw, 10px) 0;
-            font-size: clamp(0.65rem, 0.85vw, 1rem);
-        }
+.progressBg {
+    flex: 1;
+    height: clamp(6px, 0.7vw, 10px);
+    background: #e9e2d5;
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-        hr {
-            border: 0.5px solid #efe8d8;
-            margin: clamp(4px, 0.5vw, 10px) 0;
-        }
+.progressFill {
+    height: clamp(6px, 0.7vw, 10px);
+    background: #c49a2c;
+    border-radius: 10px;
+}
 
-        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
-        @media screen and (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
+/* ===== СЕТКИ ===== */
+.mainBoard {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 28px);
+    margin-bottom: clamp(16px, 2vw, 28px);
+    align-items: start;
+}
 
-            /* Скрываем боковую панель */
-            .sideBar {
-                display: none;
-            }
+.lowerBoard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(16px, 2vw, 28px);
+    margin-top: 4px;
+    align-items: start;
+}
 
-            /* Показываем нижнюю навигацию */
-            .bottomNav {
-                display: flex;
-            }
+/* ===== СТАТУСЫ ===== */
+.statusButtons {
+    display: flex;
+    gap: clamp(4px, 0.6vw, 10px);
+    flex-wrap: wrap;
+    margin: clamp(10px, 1.2vw, 18px) 0;
+}
 
-            /* Основной контент */
-            .mainContent {
-                padding: 16px 12px 90px;
-                max-height: none;
-                min-height: 100vh;
-            }
+.waitList {
+    background: #fef9f0;
+    border-radius: clamp(8px, 1vw, 14px);
+    padding: clamp(8px, 1vw, 14px);
+    font-size: clamp(0.7rem, 0.9vw, 1rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: clamp(6px, 0.8vw, 12px);
+    gap: 10px;
+}
 
-            .topBar {
-                flex-direction: column;
-                gap: 12px;
-            }
+/* ===== ТЕКСТОВЫЕ ССЫЛКИ ===== */
+.textLink {
+    color: #b76e2e;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: clamp(0.7rem, 0.9vw, 1rem);
+}
 
-            .topBarText h1 {
-                font-size: clamp(1.4rem, 6vw, 2rem);
-            }
+/* ===== ELO ===== */
+.eloDisplay {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fbf9f5;
+    border-radius: clamp(10px, 1.2vw, 18px);
+    padding: clamp(10px, 1.2vw, 18px);
+    margin-bottom: clamp(10px, 1.2vw, 20px);
+}
 
-            .topBarText p {
-                font-size: clamp(0.8rem, 3.5vw, 1.1rem);
-            }
+.eloNumber {
+    font-size: clamp(1.3rem, 2.2vw, 2.4rem);
+    font-weight: 800;
+    color: #c49a2c;
+}
 
-            .topActions {
-                width: 100%;
-            }
+/* ===== ПАРТНЁРЫ / СТРОКИ СПИСКА ===== */
+.partnerItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(8px, 1vw, 14px) 0;
+    font-size: clamp(0.7rem, 0.95vw, 1.1rem);
+    border-bottom: 1px solid #f3ead9;
+}
 
-            .topActions button {
-                width: 100%;
-                justify-content: center;
-                font-size: clamp(0.85rem, 3.5vw, 1.1rem);
-                padding: 12px 20px;
-            }
+.partnerItem:last-child {
+    border-bottom: none;
+}
 
-            button {
-                font-size: clamp(0.6rem, 2.7vw, 1rem);
-                padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3vw, 20px);
-            }
+/* ===== ИСТОРИЯ МАТЧЕЙ ===== */
+.matchHistoryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(5px, 0.6vw, 10px) 0;
+    font-size: clamp(0.65rem, 0.85vw, 1rem);
+}
 
-            .mainBoard {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .lowerBoard {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .card {
-                border-radius: 16px;
-                padding: 16px;
-            }
-
-            .cardHeader h3 {
-                font-size: clamp(1rem, 4.5vw, 1.4rem);
-            }
-
-            .tag {
-                font-size: clamp(0.75rem, 3vw, 0.95rem);
-                padding: 5px 12px;
-            }
-
-            .statusButtons {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-
-            .statusButtons button {
-                flex: 1;
-                min-width: 70px;
-                justify-content: center;
-                font-size: clamp(0.75rem, 3vw, 0.95rem);
-            }
-
-            .waitList {
-                flex-direction: column;
-                gap: 10px;
-                font-size: clamp(0.8rem, 3.2vw, 1rem);
-            }
-
-            .matchHistoryItem {
-                font-size: clamp(0.75rem, 3vw, 0.95rem);
-            }
-
-            .eloNumber {
-                font-size: clamp(1.5rem, 7vw, 2.5rem);
-            }
-
-            .partnerItem {
-                font-size: clamp(0.8rem, 3.2vw, 1rem);
-            }
-
-            .bottomNavItem {
-                font-size: clamp(9px, 2.2vw, 13px);
-            }
-
-            .bottomNavItem i {
-                font-size: clamp(16px, 5vw, 26px);
-            }
-        }
-
-        /* Промежуточные планшеты */
-        @media screen and (min-width: 769px) and (max-width: 1024px) {
-            .mainBoard {
-                grid-template-columns: 1fr;
-            }
-
-            .lowerBoard {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        /*Страница событий*/
-        .filtersSection {
+/* ===== СТРАНИЦА СОБЫТИЙ ===== */
+.filtersSection {
     display: flex;
     flex-direction: column;
     gap: clamp(10px, 1.2vw, 16px);
     margin-bottom: clamp(16px, 2vw, 24px);
 }
+
 .filterGroup {
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: clamp(8px, 1vw, 12px);
     flex-wrap: wrap;
@@ -535,6 +446,7 @@ a{
     color: #5f6b7a;
     min-width: clamp(60px, 8vw, 90px);
 }
+
 .eventTopRow {
     display: flex;
     align-items: center;
@@ -556,7 +468,19 @@ a{
     color: #c49a2c;
 }
 
-/* Статусы события */
+.eventLocation {
+    font-size: clamp(0.85rem, 1vw, 1.15rem);
+    color: #5f6b7a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.eventLocation i {
+    color: #c49a2c;
+}
+
 .eventStatus {
     display: inline-flex;
     align-items: center;
@@ -581,28 +505,14 @@ a{
     background: #fce8e8;
     color: #c0392b;
 }
-.eventLocation {
-    font-size: clamp(0.85rem, 1vw, 1.15rem);
-    color: #5f6b7a;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 500;
-}
 
-.eventLocation i {
-    color: #c49a2c;
-}
-/*Страница жеребьевка*/
-/* ===== СТИЛИ СТРАНИЦЫ ЖЕРЕБЬЁВКИ ===== */
-
-
+/* ===== СТРАНИЦА ЖЕРЕБЬЁВКИ ===== */
 .eventSelector {
     display: flex;
     align-items: center;
     gap: clamp(8px, 1vw, 14px);
     flex-wrap: wrap;
-     padding: clamp(10px, 1.2vw, 14px)
+    padding: clamp(10px, 1.2vw, 14px);
 }
 
 .eventSelector label {
@@ -612,39 +522,11 @@ a{
     white-space: nowrap;
 }
 
-.selectWrapper {
-    position: relative;
-    flex: 1;
-    min-width: 200px;
-}
-
-.selectWrapper select {
-    width: 100%;
-    padding: clamp(8px, 1vw, 12px) clamp(30px, 2vw, 36px) clamp(8px, 1vw, 12px) clamp(10px, 1.2vw, 16px);
-    border-radius: clamp(8px, 1vw, 14px);
-    border: 1px solid #e2d9cc;
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(0.8rem, 0.95vw, 1.05rem);
-    font-weight: 500;
-    background: white;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-}
-
-.selectWrapper i {
-    position: absolute;
-    right: clamp(8px, 1vw, 12px);
-    top: 50%;
-    transform: translateY(-50%);
-    color: #8e9aab;
-    pointer-events: none;
-}
 .drawActions {
     display: flex;
     gap: clamp(8px, 1vw, 14px);
     flex-wrap: wrap;
-   padding: clamp(8px, 1vw, 12px)
+    padding: clamp(8px, 1vw, 12px);
 }
 
 .drawActions button {
@@ -665,15 +547,180 @@ a{
     font-weight: 800;
 }
 
-.buttonCenter {
-display: flex;
-justify-content: center;
-padding: clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px);
-gap: 8px;
+/* ===== ТАБЛИЦА МАТЧЕЙ ===== */
+.matchRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(6px, 0.7vw, 10px) clamp(8px, 1vw, 12px);
+    background: #fbf9f5;
+    border-radius: clamp(6px, 0.8vw, 10px);
+    border: 1px solid #efe4cf;
+    font-size: clamp(0.7rem, 0.85vw, 0.9rem);
+    font-weight: 500;
+    gap: 8px;
 }
 
-/* Медиа-запросы для жеребьёвки */
+.matchScore {
+    font-weight: 700;
+    color: #c49a2c;
+    white-space: nowrap;
+}
+
+.matchVs {
+    color: #8e9aab;
+    font-weight: 600;
+    font-size: clamp(0.6rem, 0.7vw, 0.75rem);
+}
+
+/* ===== СЕТКА ПЛЕЙ-ОФФ ===== */
+.matchCell {
+    border: 1px solid #e2d9cc;
+    border-radius: clamp(4px, 0.5vw, 8px);
+    padding: clamp(5px, 0.6vw, 8px);
+    text-align: center;
+    background: #fbf9f5;
+    min-width: 110px;
+}
+
+.matchCellRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 500;
+    font-size: clamp(0.6rem, 0.9vw, 1.2rem);
+    padding: 1px 0;
+}
+
+.matchCell .matchScore {
+    font-size: clamp(0.7rem, 0.8vw, 0.9rem);
+    min-width: 14px;
+}
+
+.matchCell .matchVs {
+    font-size: clamp(0.5rem, 0.6vw, 0.65rem);
+}
+
+/* ===== СТАТИСТИКА ===== */
+.statValue {
+    font-size: clamp(1.2rem, 1.8vw, 2rem);
+    font-weight: 800;
+    color: #1e2b3c;
+}
+
+.statLabel {
+    font-size: clamp(0.65rem, 0.8vw, 0.85rem);
+    color: #7a8490;
+    font-weight: 500;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
 @media screen and (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .sideBar {
+        display: none;
+    }
+
+    .bottomNav {
+        display: flex;
+    }
+
+    .mainContent {
+        padding: 16px 12px 90px;
+        max-height: none;
+        min-height: 100vh;
+    }
+
+    .topBar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .topBarText h1 {
+        font-size: clamp(1.4rem, 6vw, 2rem);
+    }
+
+    .topBarText p {
+        font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+    }
+
+    .topActions {
+        width: 100%;
+    }
+
+    .topActions button {
+        width: 100%;
+        justify-content: center;
+        font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+        padding: 12px 20px;
+    }
+
+    button {
+        font-size: clamp(0.6rem, 2.7vw, 1rem);
+        padding: clamp(10px, 2.5vw, 14px) clamp(14px, 3vw, 20px);
+    }
+
+    .mainBoard {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .lowerBoard {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card {
+        border-radius: 16px;
+        padding: 16px;
+    }
+
+    .cardHeader h3 {
+        font-size: clamp(1rem, 4.5vw, 1.4rem);
+    }
+
+    .tag {
+        font-size: clamp(0.75rem, 3vw, 0.95rem);
+        padding: 5px 12px;
+    }
+
+    .statusButtons button {
+        flex: 1;
+        min-width: 70px;
+        justify-content: center;
+        font-size: clamp(0.75rem, 3vw, 0.95rem);
+    }
+
+    .waitList {
+        flex-direction: column;
+        gap: 10px;
+        font-size: clamp(0.8rem, 3.2vw, 1rem);
+    }
+
+    .matchHistoryItem {
+        font-size: clamp(0.75rem, 3vw, 0.95rem);
+    }
+
+    .eloNumber {
+        font-size: clamp(1.5rem, 7vw, 2.5rem);
+    }
+
+    .partnerItem {
+        font-size: clamp(0.8rem, 3.2vw, 1rem);
+    }
+
+    .bottomNavItem {
+        font-size: clamp(9px, 2.2vw, 13px);
+    }
+
+    .bottomNavItem i {
+        font-size: clamp(16px, 5vw, 26px);
+    }
+
     .drawActions {
         flex-direction: column;
     }
@@ -682,5 +729,15 @@ gap: 8px;
         flex: none;
         width: 100%;
         min-width: auto;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .mainBoard {
+        grid-template-columns: 1fr;
+    }
+
+    .lowerBoard {
+        grid-template-columns: 1fr 1fr;
     }
 }
