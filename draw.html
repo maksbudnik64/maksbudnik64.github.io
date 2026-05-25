@@ -152,7 +152,7 @@
         </div>
 
         <!-- Счётчик матча -->
-        <div class="card" style="margin-bottom: clamp(16px, 2vw, 24px);">
+        <div class="card" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: center;" data-js-counter-card>
             <div class="cardHeader">
                 <h3><i class="fas fa-stopwatch" style="color:#c49a2c;"></i> Счётчик матча</h3>
                 <span class="tag">Сет 1 из 3</span>
@@ -183,24 +183,24 @@
 
             <!-- Счёт -->
             <div class="score">
-                <span>18</span>
+                <span data-js-count-left>0</span>
                 <span>:</span>
-                <span>15</span>
+                <span data-js-count-right>0</span>
             </div>
 
             <!-- Кнопки ±1 -->
             <div class="buttonCenter">
-                <button style="background: #fce8e8; border-color: #f5c6c6;">−1</button>
-                <button>+1</button>
+                <button style="background: #fce8e8; border-color: #f5c6c6;" data-js-counter-button-left-minus>−1</button>
+                <button data-js-counter-button-left-plus>+1</button>
                 <span style="width: 12px;"></span>
-                <button style="background: #fce8e8; border-color: #f5c6c6;">−1</button>
-                <button>+1</button>
+                <button style="background: #fce8e8; border-color: #f5c6c6;" data-js-counter-button-right-minus>−1</button>
+                <button data-js-counter-button-right-plus>+1</button>
             </div>
 
             <!-- Кнопки действий -->
             <div class="buttonCenter">
-                <button><i class="fas fa-redo"></i> Сбросить счёт</button>
-                <button class="buttonAccent"><i class="fas fa-save"></i> Записать результат</button>
+                <button data-js-counter-button-reset><i class="fas fa-redo"></i> Сбросить счёт</button>
+                <button class="buttonAccent" data-js-counter-button-save><i class="fas fa-save"></i> Записать результат</button>
             </div>
         </div>
     </main>
@@ -213,5 +213,6 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
+    <script src="counter.js"></script>
 </body>
 </html>
