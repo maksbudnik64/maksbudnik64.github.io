@@ -33,9 +33,11 @@ function resetCount() {
     countRight.textContent = '0'
 }
 function saveCount(){
+    let counterTag = document.querySelector('[data-js-counter-save=tag]')
+    if(counterTag) return
 counterCard.insertAdjacentHTML('beforeend', counterTagHTML)
 setTimeout( () => {
-const counterTag = document.querySelector('[data-js-counter-save=tag]')
+counterTag = document.querySelector('[data-js-counter-save=tag]')
 counterTag.remove()    
 }, 3000)
 }
