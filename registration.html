@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Beach Pro Tool · Регистрация</title>
+</head>
+<body>
+    <div class="authContainer">
+        <!-- Заголовок -->
+        <div class="authHeader">
+            <h1>Регистрация</h1>
+            <p><i class="fas fa-volleyball-ball" style="color:#c49a2c;"></i> Присоединяйся к пляжному сообществу</p>
+        </div>
+
+        <!-- Форма -->
+        <div class="card">
+            <form data-js-registration-form>
+                <!-- Имя + Фамилия -->
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label for="firstName">Имя <span class="authRequired">*</span></label>
+                        <input type="text" name="firstName" placeholder="Дэвид" required>
+                    </div>
+                    <div class="authFormGroup">
+                        <label for="lastName">Фамилия <span class="authRequired">*</span></label>
+                        <input type="text" name="lastName" placeholder="Оман" required>
+                    </div>
+                </div>
+
+                <!-- Пол -->
+                <div class="authFormGroup">
+                    <label>Пол <span class="authRequired">*</span></label>
+                    <div class="authRadioGroup">
+                        <label><input type="radio" name="gender" value="male" required> Мужской</label>
+                        <label><input type="radio" name="gender" value="female" required> Женский</label>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="authFormGroup">
+                    <label for="email">Email <span class="authRequired">*</span></label>
+                    <input type="email" name="email" placeholder="david@example.com" required>
+                </div>
+
+                <!-- Пароль -->
+                <div class="authFormGroup">
+                    <label for="password">Пароль <span class="authRequired">*</span></label>
+                    <input type="password" name="password" placeholder="Минимум 6 символов" required minlength="6" maxlength="25">
+                </div>
+
+                <!-- Город -->
+                <div class="authFormGroup">
+                    <label for="city">Город</label>
+                    <input type="text" name="city" placeholder="Например: Борисов">
+                </div>
+
+                <!-- Возраст + Рост -->
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label for="age">Возраст</label>
+                        <input type="number" name="age" placeholder="24" min="14" max="99">
+                    </div>
+                    <div class="authFormGroup">
+                        <label for="height">Рост (см)</label>
+                        <input type="number" name="height" placeholder="188" min="140" max="250">
+                    </div>
+                </div>
+
+                <!-- Позиция -->
+                <div class="authFormGroup">
+                    <label for="position">Позиция</label>
+                    <select name="position">
+                        <option value="">Выберите позицию</option>
+                        <option>Защитник</option>
+                        <option>Блокирующий</option>
+                        <option>Универсал</option>
+                    </select>
+                </div>
+
+                <!-- Уровень игры -->
+                <div class="authFormGroup">
+                    <label for="level">Уровень игры</label>
+                    <select name="level">
+                        <option value="">Выберите уровень</option>
+                        <option>Новичок</option>
+                        <option>Любитель</option>
+                        <option>Любитель+</option>
+                        <option>Профи</option>
+                    </select>
+                </div>
+
+                <!-- Кнопка -->
+                <button type="submit" class="buttonAccent authSubmit">
+                    <i class="fas fa-user-plus"></i> Зарегистрироваться
+                </button>
+            </form>
+        </div>
+
+        <!-- Ссылка на вход -->
+        <div class="authLink">
+            Уже есть аккаунт? <a href="login.html">Войти</a>
+        </div>
+    </div>
+    <script src="registration.js"></script>
+</body>
+</html>
