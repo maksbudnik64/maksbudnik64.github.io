@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Beach Pro Tool · Создать событие</title>
+        <style>
+            body {
+                justify-content: center;
+                align-items: flex-start;
+                background: #f8f6f1;
+            }
+
+            .authContainer {
+                max-width: 580px;
+                width: 100%;
+                padding: clamp(16px, 3vw, 32px) clamp(12px, 2vw, 24px);
+            }
+
+            .authHeader {
+                text-align: center;
+                margin-bottom: clamp(20px, 2.5vw, 32px);
+            }
+
+            .authHeader h1 {
+                font-size: clamp(1.4rem, 2.5vw, 2rem);
+                font-weight: 700;
+                margin-bottom: 4px;
+            }
+
+            .authHeader p {
+                color: #6b7583;
+                font-size: clamp(0.8rem, 1vw, 1rem);
+            }
+
+            .authFormGroup {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(4px, 0.5vw, 6px);
+                margin-bottom: clamp(12px, 1.5vw, 18px);
+            }
+
+            .authFormGroup label {
+                font-weight: 600;
+                font-size: clamp(0.8rem, 0.95vw, 1rem);
+                color: #5f6b7a;
+            }
+
+            .authFormGroup input,
+            .authFormGroup select,
+            .authFormGroup textarea {
+                width: 100%;
+                padding: clamp(10px, 1.2vw, 14px) clamp(12px, 1.5vw, 16px);
+                border-radius: clamp(8px, 1vw, 12px);
+                border: 1px solid #e2d9cc;
+                font-family: 'Inter', sans-serif;
+                font-size: clamp(0.85rem, 1vw, 1.05rem);
+                font-weight: 500;
+                background: white;
+                color: #1e2b3c;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+
+            .authFormGroup input:focus,
+            .authFormGroup select:focus,
+            .authFormGroup textarea:focus {
+                border-color: #f5b042;
+                box-shadow: 0 0 0 3px rgba(245, 176, 66, 0.15);
+            }
+
+            .authFormGroup input::placeholder,
+            .authFormGroup textarea::placeholder {
+                color: #b0b8c1;
+                font-weight: 400;
+            }
+
+            .authFormGroup textarea {
+                resize: vertical;
+                min-height: 80px;
+            }
+
+            .authFormRow {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: clamp(8px, 1vw, 14px);
+            }
+
+            .authFormRow3 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: clamp(8px, 1vw, 14px);
+            }
+
+            .authRadioGroup {
+                display: flex;
+                gap: clamp(12px, 1.5vw, 20px);
+                flex-wrap: wrap;
+            }
+
+            .authRadioGroup label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-weight: 500;
+                font-size: clamp(0.8rem, 0.95vw, 1rem);
+                cursor: pointer;
+                color: #1e2b3c;
+            }
+
+            .authRadioGroup input[type="radio"] {
+                width: auto;
+                accent-color: #f5b042;
+            }
+
+            .authRequired {
+                color: #c0392b;
+            }
+
+            .authHint {
+                font-size: clamp(0.65rem, 0.75vw, 0.8rem);
+                color: #8e9aab;
+                font-weight: 400;
+            }
+
+            .authSubmit {
+                width: 100%;
+                justify-content: center;
+                margin-top: clamp(12px, 1.5vw, 18px);
+                padding: clamp(12px, 1.4vw, 16px);
+            }
+
+            @media screen and (max-width: 768px) {
+                body {
+                    padding: 20px 12px;
+                }
+
+                .authContainer {
+                    padding: 0;
+                }
+
+                .authFormRow3 {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+</head>
+<body>
+    <div class="authContainer">
+        <!-- Заголовок -->
+        <div class="authHeader">
+            <h1>Создать событие</h1>
+            <p><i class="fas fa-calendar-plus" style="color:#c49a2c;"></i> Тренировка, игра или турнир</p>
+        </div>
+
+        <!-- Форма -->
+        <div class="card">
+            <form>
+                <!-- Тип события -->
+                <div class="authFormGroup">
+                    <label>Тип события <span class="authRequired">*</span></label>
+                    <div class="authRadioGroup">
+                        <label><input type="radio" name="type" value="training" checked> Тренировка</label>
+                        <label><input type="radio" name="type" value="game"> Игра</label>
+                        <label><input type="radio" name="type" value="tournament"> Турнир</label>
+                    </div>
+                </div>
+
+                <!-- Название -->
+                <div class="authFormGroup">
+                    <label for="title">Название <span class="authRequired">*</span></label>
+                    <input type="text" id="title" placeholder="Например: Тренировка 2×2" required>
+                </div>
+
+                <!-- Дата + Время -->
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label for="date">Дата <span class="authRequired">*</span></label>
+                        <input type="date" id="date" required>
+                    </div>
+                    <div class="authFormGroup">
+                        <label for="time">Время <span class="authRequired">*</span></label>
+                        <input type="time" id="time" value="17:30" required>
+                    </div>
+                </div>
+
+                <!-- Длительность -->
+                <div class="authFormGroup">
+                    <label for="duration">Длительность (часов)</label>
+                    <input type="number" id="duration" placeholder="2" min="1" max="8" value="2">
+                </div>
+
+                <!-- Формат + Уровень + Мест -->
+                <div class="authFormRow3">
+                    <div class="authFormGroup">
+                        <label for="format">Формат <span class="authRequired">*</span></label>
+                        <select id="format" required>
+                            <option value="">Выберите</option>
+                            <option>2×2</option>
+                            <option>3×3</option>
+                            <option>4×4</option>
+                        </select>
+                    </div>
+                    <div class="authFormGroup">
+                        <label for="level">Уровень <span class="authRequired">*</span></label>
+                        <select id="level" required>
+                            <option value="">Выберите</option>
+                            <option>Новичок</option>
+                            <option>Любитель</option>
+                            <option selected>Любитель+</option>
+                            <option>Профи</option>
+                        </select>
+                    </div>
+                    <div class="authFormGroup">
+                        <label for="maxPlayers">Макс. игроков <span class="authRequired">*</span></label>
+                        <select id="maxPlayers" required>
+                            <option value="">Выберите</option>
+                            <option>4</option>
+                            <option>6</option>
+                            <option selected>8</option>
+                            <option>12</option>
+                            <option>16</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Локация -->
+                <div class="authFormGroup">
+                    <label for="location">Место проведения <span class="authRequired">*</span></label>
+                    <input type="text" id="location" placeholder="Например: Городской пляж, сетка 1" required>
+                </div>
+
+                <!-- Описание -->
+                <div class="authFormGroup">
+                    <label for="description">Описание</label>
+                    <textarea id="description" rows="3" placeholder="Дополнительная информация: инвентарь, правила, пожелания..."></textarea>
+                </div>
+
+                <!-- Кнопка -->
+                <button type="submit" class="buttonAccent authSubmit">
+                    <i class="fas fa-plus-circle"></i> Создать событие
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

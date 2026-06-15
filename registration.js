@@ -1,23 +1,45 @@
 const registerForm = document.querySelector('[data-js-registration-form]')
+const messageEl = document.querySelector('[data-js-auth-message]')
+
+function showMessage(text, type) {
+    messageEl.textContent = text
+    messageEl.className = `authMessage ${type}`
+    
+    setTimeout(() => {
+        messageEl.className = 'authMessage'
+    }, 5000)
+}
+
 registerForm.addEventListener('submit', (event) => {
     event.preventDefault()
+    
     const formData = new FormData(registerForm)
     const formDataObject = Object.fromEntries(formData)
-    console.log(formDataObject)
-    fetch('http://192.168.0.105:5000/', {
+    
+    fetch('http://localhost:5000/api/registration', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            ...formDataObject
-        })
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',    // ← принимать и отправлять куки
+        body: JSON.stringify(formDataObject)
     })
-    .then((response) => {
-        console.log('response:', response)
-        return response.json()
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.success) {
+            console.log(data.user)
+            showMessage(`Регистрация успешна! Добро пожаловать, ${data.user.name}!`, 'success')
+            registerForm.reset()
+            
+            // Редирект на главную через 1 секунду
+            setTimeout(() => {
+                window.location.href = 'index.html'
+            }, 1000)
+        } else {
+            showMessage(data.message, 'error')
+            document.querySelector('input[name="email"]').focus()
+        }
     })
-    .then((json) => {
-        console.log('json', json)
+    .catch((error) => {
+        console.error('Ошибка:', error)
+        showMessage('Не удалось подключиться к серверу. Проверьте соединение.', 'error')
     })
 })

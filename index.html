@@ -9,7 +9,6 @@
     <title>Beach Pro Tool</title>
 </head>
 <body>
-    <!-- Боковое меню (десктоп) -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
@@ -20,8 +19,8 @@
             <div class="userCard">
                 <div class="userAvatar">ДО</div>
                 <div class="userInfo">
-                    <div class="userName">Дэвид Оман</div>
-                    <div class="userRole">Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Дэвид Оман</div>
+                    <div class="userRole" data-js-user-role>Защитник / 1000 elo</div>
                 </div>
             </div>
         </a>
@@ -35,20 +34,18 @@
         </nav>
     </aside>
 
-    <!-- Основная область -->
     <main class="mainContent">
-        <!-- Верхняя панель -->
         <div class="topBar">
             <div class="topBarText">
-                <h1>Добрый день, Дэвид Оман</h1>
+                <h1 data-js-greeting>Добрый день, Дэвид Оман</h1>
                 <p>
                     <i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i>
                     Городской пляж г. Борисова, сетка 1 · Ближайшая игра сегодня
                 </p>
             </div>
             <div class="topActions">
-                 <a href="registration.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Регистрация</button></a>
                 <a href="events.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Добавить игру</button></a>
+                <button data-js-logout-button><i class="fas fa-sign-out-alt"></i> Выйти</button>
             </div>
         </div>
 
@@ -74,13 +71,13 @@
                     <div class="progressBg"><div class="progressFill" style="width:50%;"></div></div>
                 </div>
                 <div class="statusButtons">
-                    <button class="buttonAccent"><i class="fas fa-check"></i> Иду</button>
-                    <button><i class="fas fa-question"></i> Возможно</button>
-                    <button><i class="fas fa-times"></i> Не иду</button>
+                    <button class="buttonAccent" data-js-switch-button><i class="fas fa-check"></i> Иду</button>
+                    <button data-js-switch-button><i class="fas fa-question" ></i> Возможно</button>
+                    <button data-js-switch-button><i class="fas fa-times" ></i> Не иду</button>
                 </div>
                 <div class="waitList">
                     <span><i class="fas fa-list-ol"></i> Лист ожидания: 2</span>
-                    <button>Записаться в резерв</button>
+                    <button data-js-reserve-button>Записаться в резерв</button>
                 </div>
             </div>
 
@@ -112,7 +109,7 @@
             <div class="card">
                 <div class="cardHeader"><h3><i class="fas fa-random"></i> Жеребьёвка</h3></div>
                 <a href="draw.html"><button class="buttonAccent" style="margin-bottom: 8px; width: 100%;"><i class="fas fa-magic"></i> Перемешать команды</button></a>
-                <button class="buttonAccent" style="margin-bottom: 8px; width: 100%;"><i class="fas fa-stopwatch"></i> Открыть счётчик матча</button>
+                <a href="draw.html#counter"><button class="buttonAccent" style="margin-bottom: 8px; width: 100%;"><i class="fas fa-stopwatch"></i> Открыть счётчик матча</button></a>
                 <button class="buttonAccent" style="width: 100%;"><i class="fas fa-sitemap"></i> Сгенерировать сетку турнира</button>
             </div>
 
@@ -159,7 +156,7 @@
     </main>
 
     <!-- Нижняя навигация (мобильная) -->
-    <div class="bottomNav">
+ <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem active"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
         <a href="draw.html"><div class="bottomNavItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
@@ -167,5 +164,8 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
+
+    <script src="auth.js"></script>
+    <script src="eventButtons.js"></script>
 </body>
 </html>

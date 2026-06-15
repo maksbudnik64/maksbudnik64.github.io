@@ -12,6 +12,8 @@ body {
     min-height: 100vh;
     color: #1e2b3c;
     letter-spacing: -0.01em;
+    justify-content: center;
+            align-items: center;
 }
 
 a {
@@ -741,3 +743,144 @@ button:disabled {
         grid-template-columns: 1fr 1fr;
     }
 }
+/* ===== ФОРМЫ ===== */
+  /* Контейнер формы */
+        .authContainer {
+            max-width: 480px;
+            width: 100%;
+            padding: clamp(16px, 3vw, 32px) clamp(12px, 2vw, 24px);
+        }
+
+        /* Заголовок */
+        .authHeader {
+            text-align: center;
+            margin-bottom: clamp(20px, 2.5vw, 32px);
+        }
+
+        .authHeader h1 {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .authHeader p {
+            color: #6b7583;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+        }
+
+        /* Группа полей */
+        .authFormGroup {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(4px, 0.5vw, 6px);
+            margin-bottom: clamp(12px, 1.5vw, 18px);
+        }
+
+        .authFormGroup label {
+            font-weight: 600;
+            font-size: clamp(0.8rem, 0.95vw, 1rem);
+            color: #5f6b7a;
+        }
+
+        .authFormGroup input,
+        .authFormGroup select {
+            width: 100%;
+            padding: clamp(10px, 1.2vw, 14px) clamp(12px, 1.5vw, 16px);
+            border-radius: clamp(8px, 1vw, 12px);
+            border: 1px solid #e2d9cc;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.85rem, 1vw, 1.05rem);
+            font-weight: 500;
+            background: white;
+            color: #1e2b3c;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .authFormGroup input:focus,
+        .authFormGroup select:focus {
+            border-color: #f5b042;
+            box-shadow: 0 0 0 3px rgba(245, 176, 66, 0.15);
+        }
+
+        .authFormGroup input:-webkit-autofill,
+.authFormGroup input:-webkit-autofill:hover,
+.authFormGroup input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #1e2b3c !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+        .authFormGroup input::placeholder {
+            color: #b0b8c1;
+            font-weight: 400;
+        }
+
+        /* Строка с двумя полями */
+        .authFormRow {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(8px, 1vw, 14px);
+        }
+
+        /* Радиокнопки */
+        .authRadioGroup {
+            display: flex;
+            gap: clamp(12px, 1.5vw, 20px);
+            flex-wrap: wrap;
+        }
+
+        .authRadioGroup label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            font-size: clamp(0.8rem, 0.95vw, 1rem);
+            cursor: pointer;
+            color: #1e2b3c;
+        }
+
+        .authRadioGroup input[type="radio"] {
+            width: auto;
+            accent-color: #f5b042;
+        }
+
+        /* Звёздочка */
+        .authRequired {
+            color: #c0392b;
+        }
+
+        /* Ссылка внизу */
+        .authLink {
+            text-align: center;
+            margin-top: clamp(12px, 1.5vw, 18px);
+            font-size: clamp(0.8rem, 0.95vw, 1rem);
+            color: #6b7583;
+        }
+
+        .authLink a {
+            color: #b76e2e;
+            font-weight: 600;
+        }
+
+        .authLink a:hover {
+            text-decoration: underline;
+        }
+
+        /* Кнопка отправки */
+        .authSubmit {
+            width: 100%;
+            justify-content: center;
+            margin-top: clamp(12px, 1.5vw, 18px);
+            padding: clamp(12px, 1.4vw, 16px);
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .authContainer {
+                padding: 0;
+            }
+        }

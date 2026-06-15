@@ -9,6 +9,31 @@
     <title>Beach Pro Tool · Регистрация</title>
 </head>
 <body>
+    <style>
+.authMessage {
+    padding: clamp(10px, 1.2vw, 14px);
+    border-radius: clamp(8px, 1vw, 12px);
+    margin-bottom: clamp(12px, 1.5vw, 18px);
+    font-weight: 600;
+    font-size: clamp(0.8rem, 0.95vw, 1rem);
+    text-align: center;
+    display: none;
+}
+
+.authMessage.success {
+    display: block;
+    background: #e4f1ea;
+    color: #0b4b3b;
+    border: 1px solid #a3d9b1;
+}
+
+.authMessage.error {
+    display: block;
+    background: #fce8e8;
+    color: #c0392b;
+    border: 1px solid #f5c6c6;
+}
+    </style>
     <div class="authContainer">
         <!-- Заголовок -->
         <div class="authHeader">
@@ -18,6 +43,7 @@
 
         <!-- Форма -->
         <div class="card">
+            <div class="authMessage" data-js-auth-message></div>
             <form data-js-registration-form>
                 <!-- Имя + Фамилия -->
                 <div class="authFormRow">

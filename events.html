@@ -42,7 +42,7 @@
                 <p><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Городской пляж г. Борисова · Все предстоящие игры</p>
             </div>
             <div class="topActions">
-                <button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать событие</button>
+                <a href="createEvent.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать событие</button></a>
             </div>
         </div>
 
@@ -51,28 +51,28 @@
             <!-- Вид -->
             <span class="filterLabel">Вид:</span>
             <div class="filterGroup">
-                <button class="buttonAccent">Все</button>
-                <button><i class="fas fa-dumbbell"></i> Тренировка</button>
-                <button><i class="fas fa-volleyball-ball"></i> Игра</button>
-                <button><i class="fas fa-trophy"></i> Турнир</button>
+                <button class="buttonAccent" data-js-switch-button>Все</button>
+                <button data-js-switch-button><i class="fas fa-dumbbell"></i> Тренировка</button>
+                <button data-js-switch-button><i class="fas fa-volleyball-ball"></i> Игра</button>
+                <button data-js-switch-button><i class="fas fa-trophy"></i> Турнир</button>
             </div>
 
             <!-- Уровень -->
             <span class="filterLabel">Уровень:</span>
             <div class="filterGroup">
-                <button class="buttonAccent">Все</button>
-                <button><i class="fas fa-seedling"></i> Новичок</button>
-                <button><i class="fas fa-star"></i> Любитель</button>
-                <button><i class="fas fa-crown"></i> Профи</button>
+                <button class="buttonAccent" data-js-switch-button>Все</button>
+                <button data-js-switch-button><i class="fas fa-seedling"></i> Новичок</button>
+                <button data-js-switch-button><i class="fas fa-star"></i> Любитель</button>
+                <button data-js-switch-button><i class="fas fa-crown"></i> Профи</button>
             </div>
 
             <!-- Формат -->
             <span class="filterLabel">Формат:</span>
             <div class="filterGroup">
-                <button class="buttonAccent">Все</button>
-                <button><i class="fas fa-user-friends"></i> 2×2</button>
-                <button><i class="fas fa-users"></i> 3×3</button>
-                <button><i class="fas fa-users"></i> 4×4</button>
+                <button class="buttonAccent" data-js-switch-button>Все</button>
+                <button data-js-switch-button><i class="fas fa-user-friends"></i> 2×2</button>
+                <button data-js-switch-button><i class="fas fa-users"></i> 3×3</button>
+                <button data-js-switch-button><i class="fas fa-users"></i> 4×4</button>
             </div>
         </div>
 
@@ -99,13 +99,13 @@
                     <div class="progressBg"><div class="progressFill" style="width:50%;"></div></div>
                 </div>
                 <div class="statusButtons">
-                    <button class="buttonAccent"><i class="fas fa-check"></i> Иду</button>
-                    <button><i class="fas fa-question"></i> Возможно</button>
-                    <button><i class="fas fa-times"></i> Не иду</button>
+                    <button class="buttonAccent" data-js-switch-button><i class="fas fa-check"></i> Иду</button>
+                    <button data-js-switch-button><i class="fas fa-question"></i> Возможно</button>
+                    <button data-js-switch-button><i class="fas fa-times"></i> Не иду</button>
                 </div>
                 <div class="waitList">
                     <span><i class="fas fa-list-ol"></i> Лист ожидания: 2</span>
-                    <button>Записаться в резерв</button>
+                    <button data-js-reserve-button>Записаться в резерв</button>
                 </div>
             </div>
 
@@ -130,13 +130,13 @@
                     <div class="progressBg"><div class="progressFill" style="width:62%;"></div></div>
                 </div>
                 <div class="statusButtons">
-                    <button class="buttonAccent"><i class="fas fa-check"></i> Иду</button>
-                    <button><i class="fas fa-question"></i> Возможно</button>
-                    <button><i class="fas fa-times"></i> Не иду</button>
+                    <button class="buttonAccent" data-js-switch-button><i class="fas fa-check"></i> Иду</button>
+                    <button data-js-switch-button><i class="fas fa-question"></i> Возможно</button>
+                    <button data-js-switch-button><i class="fas fa-times"></i> Не иду</button>
                 </div>
                 <div class="waitList">
                     <span><i class="fas fa-list-ol"></i> Лист ожидания: 0</span>
-                    <button>Записаться в резерв</button>
+                    <button data-js-reserve-button>Записаться в резерв</button>
                 </div>
             </div>
 
@@ -167,7 +167,7 @@
                 </div>
                 <div class="waitList">
                     <span><i class="fas fa-list-ol"></i> Лист ожидания: 5</span>
-                    <button>Записаться в резерв</button>
+                    <button data-js-reserve-button="">Записаться в резерв</button>
                 </div>
             </div>
 
@@ -203,5 +203,6 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
+    <script src="eventButtons.js"></script>
 </body>
 </html>

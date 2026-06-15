@@ -45,11 +45,11 @@
 
         <!-- Фильтры -->
         <div class="filterGroup" style="margin-bottom: clamp(16px, 2vw, 24px);">
-            <button class="buttonAccent">Все</button>
-            <button>Активные</button>
-            <button>Набираются</button>
-            <button>Завершённые</button>
-            <button>Мои</button>
+            <button class="buttonAccent" data-js-switch-button>Все</button>
+            <button data-js-switch-button>Активные</button>
+            <button data-js-switch-button>Набираются</button>
+            <button data-js-switch-button>Завершённые</button>
+            <button data-js-switch-button>Мои</button>
         </div>
 
         <!-- Активные турниры -->
@@ -184,5 +184,6 @@
         <a href="tournaments.html"><div class="bottomNavItem active"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
+    <script src="eventButtons.js"></script>
 </body>
 </html>
