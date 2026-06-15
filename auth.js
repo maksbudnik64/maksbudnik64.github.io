@@ -1,7 +1,7 @@
 // ===== ПРОВЕРКА АВТОРИЗАЦИИ =====
 async function checkAuth() {
     try {
-        const response = await fetch('http://localhost:5000/api/me', {
+        const response = await fetch('https://beachvolleyballserver.onrender.com/api/me', {
             credentials: 'include'
         })
         const data = await response.json()
@@ -20,7 +20,7 @@ async function checkAuth() {
 // ===== ВЫХОД =====
 async function logout() {
     try {
-        await fetch('http://localhost:5000/api/logout', {
+        await fetch('https://beachvolleyballserver.onrender.com/api/logout', {
             method: 'POST',
             credentials: 'include'
         })
@@ -33,6 +33,9 @@ async function logout() {
 
 // ===== ИНИЦИАЛИЗАЦИЯ ГЛАВНОЙ СТРАНИЦЫ =====
 async function initIndexPage() {
+
+await new Promise(resolve => setTimeout(resolve, 300))
+
     const user = await checkAuth()
 
     if (!user) {

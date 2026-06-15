@@ -16,10 +16,10 @@ registerForm.addEventListener('submit', (event) => {
     const formData = new FormData(registerForm)
     const formDataObject = Object.fromEntries(formData)
     
-    fetch('http://localhost:5000/api/registration', {
+    fetch('https://beachvolleyballserver.onrender.com/api/registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',    // ← принимать и отправлять куки
+        credentials: 'include',
         body: JSON.stringify(formDataObject)
     })
     .then((response) => response.json())
@@ -29,10 +29,10 @@ registerForm.addEventListener('submit', (event) => {
             showMessage(`Регистрация успешна! Добро пожаловать, ${data.user.name}!`, 'success')
             registerForm.reset()
             
-            // Редирект на главную через 1 секунду
+            // Даём браузеру время сохранить куку (1.5 секунды)
             setTimeout(() => {
                 window.location.href = 'index.html'
-            }, 1000)
+            }, 1500)
         } else {
             showMessage(data.message, 'error')
             document.querySelector('input[name="email"]').focus()
