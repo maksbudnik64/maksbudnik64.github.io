@@ -16,7 +16,7 @@ registerForm.addEventListener('submit', (event) => {
     const formData = new FormData(registerForm)
     const formDataObject = Object.fromEntries(formData)
     
-    fetch('https://beachvolleyballserver.onrender.com/api/registration', {
+    fetch('https://https://petite-wasps-laugh.loca.lt/api/registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

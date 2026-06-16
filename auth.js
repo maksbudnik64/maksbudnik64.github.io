@@ -1,7 +1,7 @@
 // ===== ПРОВЕРКА АВТОРИЗАЦИИ =====
 async function checkAuth() {
     try {
-        const response = await fetch('https://beachvolleyballserver.onrender.com/api/me', {
+        const response = await fetch('https://petite-wasps-laugh.loca.lt/api/me', {
             credentials: 'include'
         })
         const data = await response.json()
@@ -20,7 +20,7 @@ async function checkAuth() {
 // ===== ВЫХОД =====
 async function logout() {
     try {
-        await fetch('https://beachvolleyballserver.onrender.com/api/logout', {
+        await fetch('https://petite-wasps-laugh.loca.lt/api/logout', {
             method: 'POST',
             credentials: 'include'
         })
