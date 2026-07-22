@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Beach Pro Tool · Начать турнир</title>
+</head>
+<body>
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
+    <aside class="sideBar">
+        <div class="logoArea">
+            <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
+            <div class="logoText">BeachProTool</div>
+        </div>
+        <a href="profile.html">
+            <div class="userCard">
+                <div class="userAvatar">—</div>
+                <div class="userInfo">
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
+                </div>
+            </div>
+        </a>
+        <nav class="navMenu">
+            <a href="index.html"><div class="navItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
+            <a href="events.html"><div class="navItem"><i class="far fa-calendar-alt"></i><span>События</span></div></a>
+            <a href="draw.html"><div class="navItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
+            <a href="tournaments.html"><div class="navItem active"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
+            <a href="stats.html"><div class="navItem"><i class="fas fa-chart-line"></i><span>Статистика</span></div></a>
+        </nav>
+    </aside>
+
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
+    <div class="start-page-wrapper">
+        <main class="mainContent start-tournament">
+            <div class="topBar">
+                <div class="topBarText">
+                    <h1>Начать турнир</h1>
+                    <p id="tournament-title">Загрузка...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form id="start-tournament-form">
+                        <input type="hidden" id="event-id" />
+                        <input type="hidden" id="tournament-format" name="format" />
+
+                        <div class="authFormGroup">
+                            <label>Формат турнира</label>
+                            <div id="format-display" style="font-weight: 600; padding: 6px 0;"></div>
+                        </div>
+
+                        <div id="group-params">
+                            <div class="authFormRow">
+                                <div class="authFormGroup">
+                                    <label>Количество групп</label>
+                                    <select id="group-count" name="groupCount">
+                                        <option value="2">2 группы</option>
+                                    </select>
+                                </div>
+                                <div class="authFormGroup">
+                                    <label>Выходят из группы</label>
+                                    <select id="advance-count" name="advanceCount">
+                                        <option value="1">1 команда</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="shuffle-container">
+                            <button type="button" id="shuffle-btn" class="buttonAccent">
+                                <i class="fas fa-random"></i> Перемешать
+                            </button>
+                        </div>
+
+                        <div id="manual-placement" style="padding: 10px 0px 0px 0px;">
+                            <p style="font-size: 1.1rem; margin-bottom: 12px;">Перетащите команды для ручной расстановки</p>
+                            <div id="groups-container" class="groups-grid"></div>
+                        </div>
+
+                        <div id="validation-message" class="error-message"></div>
+
+                        <button type="submit" class="buttonAccent authSubmit">Начать турнир</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
+        <div class="bottomNav">
+            <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
+            <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
+            <a href="draw.html"><div class="bottomNavItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
+            <a href="stats.html"><div class="bottomNavItem"><i class="fas fa-chart-bar"></i><span>Статистика</span></div></a>
+            <a href="tournaments.html"><div class="bottomNavItem active"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
+            <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
+        </div>
+    </div>
+
+    <script type="module" src="startTournament.js"></script>
+</body>
+</html>

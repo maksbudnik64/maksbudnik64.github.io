@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool · Профиль</title>
 </head>
 <body>
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
@@ -16,10 +17,10 @@
         </div>
         <a href="profile.html">
             <div class="userCard">
-                <div class="userAvatar">ДО</div>
+                <div class="userAvatar">—</div>
                 <div class="userInfo">
-                    <div class="userName">Дэвид Оман</div>
-                    <div class="userRole">Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
                 </div>
             </div>
         </a>
@@ -32,81 +33,86 @@
         </nav>
     </aside>
 
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="mainContent">
-        <!-- Верхняя панель -->
         <div class="topBar">
             <div class="topBarText">
                 <h1>Профиль</h1>
-                <p><i class="fas fa-user" style="color:#c49a2c;"></i> Дэвид Оман · Защитник</p>
+                <p><i class="fas fa-user" style="color:#c49a2c;"></i> Загрузка...</p>
             </div>
             <div class="topActions">
-                <button class="buttonAccent"><i class="fas fa-edit"></i> Редактировать</button>
+                <button class="buttonAccent" id="edit-profile-btn" style="display:none;">
+                    <i class="fas fa-edit"></i> Редактировать
+                </button>
+                <button id="notification-toggle-btn" style="display:none;" title="Управление уведомлениями">
+                    <i class="fas fa-bell" id="notification-icon"></i>
+                    <span id="notification-text">Уведомления</span>
+                </button>
+                <button id="logout-profile-btn" style="display:none;">
+                    <i class="fas fa-sign-out-alt"></i> Выйти
+                </button>
             </div>
         </div>
 
-        <!-- Карточка игрока -->
-        <div class="card" style="margin-bottom: clamp(16px, 2vw, 24px);">
-            <div style="display: flex; align-items: center; gap: clamp(14px, 2vw, 24px); flex-wrap: wrap;">
-                <div class="userAvatar" style="width: clamp(60px, 7vw, 80px); height: clamp(60px, 7vw, 80px); font-size: clamp(1.5rem, 2vw, 2.2rem);">ДО</div>
-                <div style="flex: 1;">
-                    <div style="font-weight: 700; font-size: clamp(1rem, 1.3vw, 1.5rem); margin-bottom: 6px;">Дэвид Оман</div>
-                    <div style="display: flex; flex-wrap: wrap; gap: clamp(4px, 0.8vw, 10px); font-size: clamp(0.7rem, 0.85vw, 0.9rem); color: #6b7583;">
-                        <span><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> г. Борисов</span>
-                        <span>·</span>
-                        <span>24 года</span>
-                        <span>·</span>
-                        <span>188 см</span>
-                        <span>·</span>
-                        <span>Защитник · Любитель</span>
+        <!-- Информационное сообщение -->
+        <div class="authMessage" style="display:block; background:#fef9f0; color:#b76e2e; border:1px solid #f5d89a; margin-bottom:clamp(16px,2vw,24px);">
+            <i class="fas fa-info-circle"></i>
+            Вся статистика и архивные данные на этой странице являются демонстрационными и отображают будущие возможности сайта
+        </div>
+
+        <!-- Карточка профиля -->
+        <div id="profile-card-container">
+            <div class="card" style="text-align:center;padding:40px;">
+                <div style="font-size:2rem;">⏳</div>
+                <div style="font-weight:600;margin-top:8px;">Загрузка профиля...</div>
+            </div>
+        </div>
+
+        <!-- Статистика и напарники -->
+        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: stretch;">
+            <div class="card" style="display: flex; flex-direction: column;">
+                <div class="cardHeader">
+                    <h3><i class="fas fa-chart-bar" style="color:#c49a2c;"></i> Общая статистика</h3>
+                    <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.2vw, 16px); flex: 1; align-content: start;">
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue">47</div>
+                        <div class="statLabel">Игр сыграно</div>
+                    </div>
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue" style="color: #10b981;">61%</div>
+                        <div class="statLabel">Побед</div>
+                    </div>
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue">12</div>
+                        <div class="statLabel">MVP</div>
+                    </div>
+                    <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
+                        <div class="statValue">3</div>
+                        <div class="statLabel">Турниров</div>
                     </div>
                 </div>
-                <div style="text-align: center; padding: clamp(6px, 0.8vw, 10px) clamp(10px, 1.2vw, 14px); background: #fbf9f5; border-radius: clamp(8px, 1vw, 12px); border: 1px solid #efe4cf;">
-                    <div style="font-size: clamp(0.6rem, 0.7vw, 0.75rem); color: #8e9aab;">ELO</div>
-                    <div style="font-size: clamp(1.2rem, 1.6vw, 1.8rem); font-weight: 800; color: #c49a2c;">1000</div>
+            </div>
+
+            <div class="card" style="display: flex; flex-direction: column;">
+                <div class="cardHeader">
+                    <h3><i class="fas fa-handshake" style="color:#c49a2c;"></i> Лучшие напарники</h3>
+                    <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="partnerItem"><span>Алексей С.</span><span>12 игр</span><span class="tag" style="background: #e4f1ea; color: #0b4b3b;">75%</span></div>
+                    <div class="partnerItem"><span>Михаил К.</span><span>8 игр</span><span class="tag" style="background: #e4f1ea; color: #0b4b3b;">68%</span></div>
+                    <div class="partnerItem"><span>Дмитрий Р.</span><span>15 игр</span><span class="tag">58%</span></div>
+                    <div class="partnerItem"><span>Сергей В.</span><span>6 игр</span><span class="tag" style="background: #fce8e8; color: #c0392b;">33%</span></div>
                 </div>
             </div>
         </div>
-
-    <!-- Статистика + Напарники -->
-<div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: stretch;">
-    <!-- Общая статистика -->
-    <div class="card" style="display: flex; flex-direction: column;">
-        <div class="cardHeader"><h3><i class="fas fa-chart-bar" style="color:#c49a2c;"></i> Общая статистика</h3></div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.2vw, 16px); flex: 1; align-content: start;">
-            <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
-                <div class="statValue">47</div>
-                <div class="statLabel">Игр сыграно</div>
-            </div>
-            <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
-                <div class="statValue" style="color: #10b981;">61%</div>
-                <div class="statLabel">Побед</div>
-            </div>
-            <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
-                <div class="statValue">12</div>
-                <div class="statLabel">MVP</div>
-            </div>
-            <div style="text-align: center; padding: clamp(8px, 1vw, 12px); background: #fbf9f5; border-radius: clamp(6px, 0.8vw, 10px);">
-                <div class="statValue">3</div>
-                <div class="statLabel">Турниров</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Лучшие напарники -->
-    <div class="card" style="display: flex; flex-direction: column;">
-        <div class="cardHeader"><h3><i class="fas fa-handshake" style="color:#c49a2c;"></i> Лучшие напарники</h3></div>
-        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
-            <div class="partnerItem"><span>Антон К.</span><span>12 игр</span><span class="tag" style="background: #e4f1ea; color: #0b4b3b;">75%</span></div>
-            <div class="partnerItem"><span>Вася П.</span><span>8 игр</span><span class="tag" style="background: #e4f1ea; color: #0b4b3b;">68%</span></div>
-            <div class="partnerItem"><span>Женя М.</span><span>15 игр</span><span class="tag">58%</span></div>
-            <div class="partnerItem"><span>Олег Л.</span><span>6 игр</span><span class="tag" style="background: #fce8e8; color: #c0392b;">33%</span></div>
-        </div>
-    </div>
-</div>
 
         <!-- Достижения -->
         <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
             <h3><i class="fas fa-medal" style="color:#c49a2c;"></i> Достижения</h3>
+            <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
         </div>
         <div class="lowerBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
             <div class="card" style="text-align: center;">
@@ -129,36 +135,110 @@
         <!-- Последние игры -->
         <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
             <h3><i class="fas fa-history" style="color:#c49a2c;"></i> Последние игры</h3>
-            <a href="#" class="textLink">Все игры →</a>
+            <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
         </div>
         <div class="card" style="margin-bottom: clamp(16px, 2vw, 24px);">
             <div class="matchHistoryItem">
-                <span>21 мая · 2×2 · с Антон</span>
+                <span>21 мая · 2×2 · с Антон С.</span>
                 <span class="tag" style="background: #e4f1ea; color: #0b4b3b;">2 : 0</span>
             </div>
             <hr>
             <div class="matchHistoryItem">
-                <span>20 мая · 2×2 · с Вася</span>
+                <span>20 мая · 2×2 · с Василий К.</span>
                 <span class="tag" style="background: #e4f1ea; color: #0b4b3b;">2 : 1</span>
             </div>
             <hr>
             <div class="matchHistoryItem">
-                <span>18 мая · 4×4 · с Женя</span>
+                <span>18 мая · 4×4 · с Евгений М.</span>
                 <span class="tag" style="background: #fce8e8; color: #c0392b;">0 : 2</span>
             </div>
             <hr>
             <div class="matchHistoryItem">
-                <span>14 мая · 2×2 · с Олег</span>
+                <span>14 мая · 2×2 · с Олег Н.</span>
                 <span class="tag" style="background: #e4f1ea; color: #0b4b3b;">2 : 0</span>
             </div>
             <hr>
             <div class="matchHistoryItem">
-                <span>10 мая · Турнир · с Антон</span>
+                <span>10 мая · Турнир · с Антон С.</span>
                 <span class="tag" style="background: #e4f1ea; color: #0b4b3b;">2 : 1</span>
             </div>
         </div>
     </main>
 
+    <!-- ===== МОДАЛЬНОЕ ОКНО: РЕДАКТИРОВАНИЕ ПРОФИЛЯ ===== -->
+    <div id="edit-profile-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width: 500px; margin: 50px auto;">
+            <div class="cardHeader">
+                <h3>Редактирование профиля</h3>
+                <button class="close-modal" data-modal="edit-profile-modal">&times;</button>
+            </div>
+            <form id="edit-profile-form">
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label>Имя</label>
+                        <input type="text" name="name" required />
+                    </div>
+                    <div class="authFormGroup">
+                        <label>Фамилия</label>
+                        <input type="text" name="surname" required />
+                    </div>
+                </div>
+                <div class="authFormGroup">
+                    <label>Пол</label>
+                    <div class="authRadioGroup">
+                        <label><input type="radio" name="gender" value="male" /> Мужской</label>
+                        <label><input type="radio" name="gender" value="female" /> Женский</label>
+                    </div>
+                </div>
+                <div class="authFormGroup">
+                    <label>Город</label>
+                    <input type="text" name="city" />
+                </div>
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label>Дата рождения</label>
+                        <input type="date" name="dateOfBirth" />
+                    </div>
+                    <div class="authFormGroup">
+                        <label>Рост (см)</label>
+                        <input type="number" name="height" min="140" max="250" />
+                    </div>
+                </div>
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label>Позиция</label>
+                        <select name="position">
+                            <option value="">Не выбрано</option>
+                            <option>Защитник</option>
+                            <option>Блокирующий</option>
+                            <option>Универсал</option>
+                        </select>
+                    </div>
+                    <div class="authFormGroup">
+                        <label>Уровень</label>
+                        <select name="level">
+                            <option value="">Не выбрано</option>
+                            <option>Новичок</option>
+                            <option>Любитель</option>
+                            <option>Любитель+</option>
+                            <option>Профи</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="authFormGroup">
+                    <label>Старый пароль (для смены пароля)</label>
+                    <input type="password" name="oldPassword" placeholder="Оставьте пустым, если не хотите менять" />
+                </div>
+                <div class="authFormGroup">
+                    <label>Новый пароль</label>
+                    <input type="password" name="newPassword" placeholder="Минимум 6 символов" minlength="6" />
+                </div>
+                <button type="submit" class="buttonAccent authSubmit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
     <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
@@ -167,5 +247,7 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem active"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
+
+    <script type="module" src="profile.js"></script>
 </body>
 </html>

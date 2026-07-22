@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool · Жеребьёвка</title>
 </head>
 <body>
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
@@ -16,10 +17,10 @@
         </div>
         <a href="profile.html">
             <div class="userCard">
-                <div class="userAvatar">ДО</div>
+                <div class="userAvatar">—</div>
                 <div class="userInfo">
-                    <div class="userName">Дэвид Оман</div>
-                    <div class="userRole">Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
                 </div>
             </div>
         </a>
@@ -32,15 +33,19 @@
         </nav>
     </aside>
 
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="mainContent">
         <div class="topBar">
             <div class="topBarText">
                 <h1>Жеребьёвка и расстановка</h1>
                 <p><i class="fas fa-balance-scale" style="color:#c49a2c;"></i> Автоматический баланс команд по уровню игроков</p>
             </div>
-            <div class="topActions">
-                <button class="buttonAccent"><i class="fas fa-magic"></i> Перемешать</button>
-            </div>
+        </div>
+
+        <!-- Информационное сообщение -->
+        <div class="authMessage" style="display:block; background:#fef9f0; color:#b76e2e; border:1px solid #f5b042; margin-bottom:clamp(16px,2vw,24px); text-align:center;">
+            <i class="fas fa-info-circle" style="margin-right:8px;"></i>
+            Страница находится в разработке
         </div>
 
         <!-- Выбор события -->
@@ -65,19 +70,17 @@
             <button><i class="fas fa-undo"></i> Сбросить</button>
         </div>
 
-        <!-- 4 команды -->
+        <!-- Карточки команд -->
         <div class="mainBoard">
-            <!-- Команда 1 -->
             <div class="card">
                 <div class="cardHeader">
-                    <h3><span class="teamColor blue"></span> Оман · Хеллвиг</h3>
+                    <h3><span class="teamColor blue"></span> Волков · Цветков</h3>
                     <span class="tag">ELO: 2390</span>
                 </div>
-                <div class="userCard"><div class="userAvatar">ДО</div><div class="userInfo"><div class="userName">Дэвид Оман</div><div class="userRole">Защитник · Любитель</div></div></div>
-                <div class="userCard"><div class="userAvatar">ХЕ</div><div class="userInfo"><div class="userName">Алекс Хеллвиг</div><div class="userRole">Нападающий · Любитель+</div></div></div>
+                <div class="userCard"><div class="userAvatar">АВ</div><div class="userInfo"><div class="userName">Андрей Волков</div><div class="userRole">Защитник · Любитель</div></div></div>
+                <div class="userCard"><div class="userAvatar">ЕЦ</div><div class="userInfo"><div class="userName">Евгений Цветков</div><div class="userRole">Нападающий · Любитель+</div></div></div>
             </div>
 
-            <!-- Команда 2 -->
             <div class="card">
                 <div class="cardHeader">
                     <h3><span class="teamColor orange"></span> Петров · Козлов</h3>
@@ -87,7 +90,6 @@
                 <div class="userCard"><div class="userAvatar">АК</div><div class="userInfo"><div class="userName">Антон Козлов</div><div class="userRole">Защитник · Новичок</div></div></div>
             </div>
 
-            <!-- Команда 3 -->
             <div class="card">
                 <div class="cardHeader">
                     <h3><span class="teamColor green"></span> Морозов · Титов</h3>
@@ -97,7 +99,6 @@
                 <div class="userCard"><div class="userAvatar">ИТ</div><div class="userInfo"><div class="userName">Игорь Титов</div><div class="userRole">Нападающий · Любитель</div></div></div>
             </div>
 
-            <!-- Команда 4 -->
             <div class="card">
                 <div class="cardHeader">
                     <h3><span class="teamColor red"></span> Кузнецов · Лебедев</h3>
@@ -117,7 +118,7 @@
 
             <div style="display: flex; flex-direction: column; gap: 2px;">
                 <div class="partnerItem" style="border-bottom: none; padding-bottom: 2px;">
-                    <span>Оман · Хеллвиг</span><span>2390 ELO</span><span>47%</span>
+                    <span>Волков · Цветков</span><span>2390 ELO</span><span>47%</span>
                 </div>
                 <div class="slotsBar" style="margin: 0 0 4px;">
                     <div class="progressBg"><div class="progressFill" style="width:47%; background:#3b82c4;"></div></div>
@@ -146,7 +147,7 @@
             </div>
         </div>
 
-        <!-- Перемешать -->
+        <!-- Кнопка перемешивания -->
         <div class="buttonCenter">
             <button class="buttonAccent"><i class="fas fa-dice"></i> Перемешать команды заново</button>
         </div>
@@ -158,10 +159,9 @@
                 <span class="tag">Сет 1 из 3</span>
             </div>
 
-            <!-- Выбор команд -->
             <div class="eventSelector">
                 <select style="flex:1; min-width:140px;">
-                    <option>Оман · Хеллвиг</option>
+                    <option>Волков · Цветков</option>
                     <option>Петров · Козлов</option>
                     <option>Морозов · Титов</option>
                     <option>Кузнецов · Лебедев</option>
@@ -169,26 +169,23 @@
                 <span style="font-weight: 700; font-size: clamp(0.9rem, 1.2vw, 1.3rem); color: #c49a2c;">VS</span>
                 <select style="flex:1; min-width:140px;">
                     <option>Морозов · Титов</option>
-                    <option>Оман · Хеллвиг</option>
+                    <option>Волков · Цветков</option>
                     <option>Петров · Козлов</option>
                     <option>Кузнецов · Лебедев</option>
                 </select>
             </div>
 
-            <!-- Сеты -->
             <div class="score" style="font-size: clamp(0.75rem, 0.9vw, 1rem); gap: 40px;">
                 <span style="color: #8e9aab;">Сеты: 1</span>
                 <span style="color: #8e9aab;">Сеты: 0</span>
             </div>
 
-            <!-- Счёт -->
             <div class="score">
                 <span data-js-count-left>0</span>
                 <span>:</span>
                 <span data-js-count-right>0</span>
             </div>
 
-            <!-- Кнопки ±1 -->
             <div class="buttonCenter">
                 <button style="background: #fce8e8; border-color: #f5c6c6;" data-js-counter-button-left-minus>−1</button>
                 <button data-js-counter-button-left-plus>+1</button>
@@ -197,7 +194,6 @@
                 <button data-js-counter-button-right-plus>+1</button>
             </div>
 
-            <!-- Кнопки действий -->
             <div class="buttonCenter">
                 <button data-js-counter-button-reset><i class="fas fa-redo"></i> Сбросить счёт</button>
                 <button class="buttonAccent" data-js-counter-button-save><i class="fas fa-save"></i> Записать результат</button>
@@ -205,6 +201,7 @@
         </div>
     </main>
 
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
     <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
@@ -213,6 +210,7 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
-    <script src="counter.js"></script>
+
+    <script type="module" src="draw.js"></script>
 </body>
 </html>

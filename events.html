@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool · События</title>
 </head>
 <body>
-    <!-- Боковое меню (десктоп) -->
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
@@ -17,10 +17,10 @@
         </div>
         <a href="profile.html">
             <div class="userCard">
-                <div class="userAvatar">ДО</div>
+                <div class="userAvatar">—</div>
                 <div class="userInfo">
-                    <div class="userName">Дэвид Оман</div>
-                    <div class="userRole">Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
                 </div>
             </div>
         </a>
@@ -33,13 +33,12 @@
         </nav>
     </aside>
 
-    <!-- Основная область -->
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="mainContent">
-        <!-- Верхняя панель -->
         <div class="topBar">
             <div class="topBarText">
                 <h1>События и игры</h1>
-                <p><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Городской пляж г. Борисова · Все предстоящие игры</p>
+                <p><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Все предстоящие игры</p>
             </div>
             <div class="topActions">
                 <a href="createEvent.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать событие</button></a>
@@ -48,153 +47,82 @@
 
         <!-- Фильтры -->
         <div class="filtersSection">
-            <!-- Вид -->
             <span class="filterLabel">Вид:</span>
-            <div class="filterGroup">
-                <button class="buttonAccent" data-js-switch-button>Все</button>
-                <button data-js-switch-button><i class="fas fa-dumbbell"></i> Тренировка</button>
-                <button data-js-switch-button><i class="fas fa-volleyball-ball"></i> Игра</button>
-                <button data-js-switch-button><i class="fas fa-trophy"></i> Турнир</button>
+            <div class="filterGroup" data-filter-group="type">
+                <button class="buttonAccent" data-filter-value="all">Все</button>
+                <button data-filter-value="training"><i class="fas fa-dumbbell"></i> Тренировка</button>
+                <button data-filter-value="game"><i class="fas fa-volleyball-ball"></i> Игра</button>
+                <button data-filter-value="tournament"><i class="fas fa-trophy"></i> Турнир</button>
             </div>
-
-            <!-- Уровень -->
             <span class="filterLabel">Уровень:</span>
-            <div class="filterGroup">
-                <button class="buttonAccent" data-js-switch-button>Все</button>
-                <button data-js-switch-button><i class="fas fa-seedling"></i> Новичок</button>
-                <button data-js-switch-button><i class="fas fa-star"></i> Любитель</button>
-                <button data-js-switch-button><i class="fas fa-crown"></i> Профи</button>
+            <div class="filterGroup" data-filter-group="level">
+                <button class="buttonAccent" data-filter-value="all">Все</button>
+                <button data-filter-value="Новичок"><i class="fas fa-seedling"></i> Новичок</button>
+                <button data-filter-value="Любитель"><i class="fas fa-star"></i> Любитель</button>
+                <button data-filter-value="Профи"><i class="fas fa-crown"></i> Профи</button>
             </div>
-
-            <!-- Формат -->
             <span class="filterLabel">Формат:</span>
-            <div class="filterGroup">
-                <button class="buttonAccent" data-js-switch-button>Все</button>
-                <button data-js-switch-button><i class="fas fa-user-friends"></i> 2×2</button>
-                <button data-js-switch-button><i class="fas fa-users"></i> 3×3</button>
-                <button data-js-switch-button><i class="fas fa-users"></i> 4×4</button>
+            <div class="filterGroup" data-filter-group="format">
+                <button class="buttonAccent" data-filter-value="all">Все</button>
+                <button data-filter-value="2×2"><i class="fas fa-user-friends"></i> 2×2</button>
+                <button data-filter-value="3×3"><i class="fas fa-users"></i> 3×3</button>
+                <button data-filter-value="4×4"><i class="fas fa-users"></i> 4×4</button>
             </div>
         </div>
 
         <!-- Список событий -->
         <div class="mainBoard">
-            <!-- 1. Тренировка 2×2 -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Тренировка 2×2 — Любительский уровень</h3>
-                    <span class="eventStatus pending">Набирается</span>
-                </div>
-                <div class="eventTopRow">
-                    <div class="eventDate"><i class="far fa-calendar-check"></i> Сб, 28 мая · 17:30</div>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="fas fa-dumbbell"></i> Тренировка</span>
-                    <span class="tag"><i class="fas fa-user-friends"></i> 2×2</span>
-                    <span class="tag"><i class="fas fa-star"></i> Любитель</span>
-                    <span class="tag"><i class="far fa-clock"></i> 2 часа</span>
-                </div>
-                <div class="eventLocation"><i class="fas fa-map-marker-alt"></i> Городской пляж г. Борисова, сетка 1</div>
-                <div class="slotsBar">
-                    <span>2/4</span>
-                    <div class="progressBg"><div class="progressFill" style="width:50%;"></div></div>
-                </div>
-                <div class="statusButtons">
-                    <button class="buttonAccent" data-js-switch-button><i class="fas fa-check"></i> Иду</button>
-                    <button data-js-switch-button><i class="fas fa-question"></i> Возможно</button>
-                    <button data-js-switch-button><i class="fas fa-times"></i> Не иду</button>
-                </div>
-                <div class="waitList">
-                    <span><i class="fas fa-list-ol"></i> Лист ожидания: 2</span>
-                    <button data-js-reserve-button>Записаться в резерв</button>
-                </div>
-            </div>
-
-            <!-- 2. Игра 4×4 -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Утренняя игра 4×4 — Открытый уровень</h3>
-                    <span class="eventStatus confirmed">Подтверждено</span>
-                </div>
-                <div class="eventTopRow">
-                    <div class="eventDate"><i class="far fa-calendar-check"></i> Вс, 29 мая · 10:00</div>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="fas fa-volleyball-ball"></i> Игра</span>
-                    <span class="tag"><i class="fas fa-users"></i> 4×4</span>
-                    <span class="tag"><i class="fas fa-star"></i> Все уровни</span>
-                    <span class="tag"><i class="far fa-clock"></i> 3 часа</span>
-                </div>
-                <div class="eventLocation"><i class="fas fa-map-marker-alt"></i> Пляж «Южный», корт 3</div>
-                <div class="slotsBar">
-                    <span>5/8</span>
-                    <div class="progressBg"><div class="progressFill" style="width:62%;"></div></div>
-                </div>
-                <div class="statusButtons">
-                    <button class="buttonAccent" data-js-switch-button><i class="fas fa-check"></i> Иду</button>
-                    <button data-js-switch-button><i class="fas fa-question"></i> Возможно</button>
-                    <button data-js-switch-button><i class="fas fa-times"></i> Не иду</button>
-                </div>
-                <div class="waitList">
-                    <span><i class="fas fa-list-ol"></i> Лист ожидания: 0</span>
-                    <button data-js-reserve-button>Записаться в резерв</button>
-                </div>
-            </div>
-
-            <!-- 3. Турнир 2×2 (заполнен) -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Турнир 2×2 — Профессиональный уровень</h3>
-                    <span class="eventStatus confirmed">Подтверждено</span>
-                </div>
-                <div class="eventTopRow">
-                    <div class="eventDate"><i class="far fa-calendar-check"></i> Вт, 31 мая · 18:00</div>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="fas fa-trophy"></i> Турнир</span>
-                    <span class="tag"><i class="fas fa-user-friends"></i> 2×2</span>
-                    <span class="tag"><i class="fas fa-crown"></i> Профи</span>
-                    <span class="tag"><i class="far fa-clock"></i> 4 часа</span>
-                </div>
-                <div class="eventLocation"><i class="fas fa-map-marker-alt"></i> Центральный пляж, сетка 2</div>
-                <div class="slotsBar">
-                    <span>12/12</span>
-                    <div class="progressBg"><div class="progressFill" style="width:100%;"></div></div>
-                </div>
-                <div class="statusButtons">
-                    <button disabled><i class="fas fa-check"></i> Иду</button>
-                    <button disabled><i class="fas fa-question"></i> Возможно</button>
-                    <button disabled><i class="fas fa-times"></i> Не иду</button>
-                </div>
-                <div class="waitList">
-                    <span><i class="fas fa-list-ol"></i> Лист ожидания: 5</span>
-                    <button data-js-reserve-button="">Записаться в резерв</button>
-                </div>
-            </div>
-
-            <!-- 4. Игра 2×2 (отменена) -->
-            <div class="card" style="opacity: 0.65;">
-                <div class="cardHeader">
-                    <h3 style="text-decoration: line-through;">Игра 2×2 — Любительский уровень</h3>
-                    <span class="eventStatus cancelled">Отменено</span>
-                </div>
-                <div class="eventTopRow">
-                    <div class="eventDate"><i class="far fa-calendar-check"></i> Пт, 3 июня · 16:00</div>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="fas fa-volleyball-ball"></i> Игра</span>
-                    <span class="tag"><i class="fas fa-user-friends"></i> 2×2</span>
-                    <span class="tag"><i class="fas fa-star"></i> Любитель</span>
-                    <span class="tag"><i class="far fa-clock"></i> 2 часа</span>
-                </div>
-                <div class="eventLocation"><i class="fas fa-map-marker-alt"></i> Пляж «Южный», корт 2</div>
-                <div class="waitList" style="background: #fce8e8; border-color: #f5c6c6;">
-                    <span><i class="fas fa-ban"></i> Игра отменена</span>
-                </div>
+            <div class="card" style="text-align:center;padding:40px;">
+                <div style="font-size:2rem;">⏳</div>
+                <div style="font-weight:600;margin-top:8px;">Загрузка событий...</div>
             </div>
         </div>
     </main>
 
-    <!-- Нижняя навигация (мобильная) -->
+    <!-- ===== МОДАЛЬНОЕ ОКНО: ЗАПИСЬ КОМАНДЫ ===== -->
+    <div id="team-registration-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width: 500px; margin: 50px auto;">
+            <div class="cardHeader">
+                <h3>Запись команды</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="authMessage" style="display:none;"></div>
+            <form id="team-registration-form">
+                <input type="hidden" id="team-event-id" />
+                <div id="team-players-container"></div>
+                <button type="submit" class="buttonAccent authSubmit">Записать команду</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО: РЕДАКТИРОВАНИЕ СОБЫТИЯ ===== -->
+    <div id="edit-event-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width:500px;margin:50px auto;">
+            <div class="cardHeader"><h3>Редактирование события</h3><button class="close-modal">&times;</button></div>
+            <form id="edit-event-form">
+                <input type="hidden" id="edit-event-id"/>
+                <h3 id="edit-title" style="margin-bottom:16px;font-weight:700;"></h3>
+                <div class="authFormGroup"><label>Статус</label><select id="edit-status" name="status"><option value="pending">Набирается</option><option value="confirmed">Подтверждено</option><option value="cancelled">Отменено</option></select></div>
+                <div class="authFormRow"><div class="authFormGroup"><label>Дата</label><input type="date" id="edit-date" name="eventDate" required/></div><div class="authFormGroup"><label>Время</label><input type="time" id="edit-time" name="eventTime" required/></div></div>
+                <div class="authFormRow"><div class="authFormGroup"><label>Формат</label><select id="edit-format" name="format" required><option value="">Выберите</option><option>2×2</option><option>3×3</option><option>4×4</option></select></div><div class="authFormGroup"><label>Уровень</label><select id="edit-level" name="level" required><option value="">Выберите</option><option>Новичок</option><option>Любитель</option><option>Любитель+</option><option>Профи</option></select></div></div>
+                <div class="authFormRow"><div class="authFormGroup"><label>Длительность (ч)</label><input type="number" id="edit-duration" name="duration" min="1" max="8"/></div><div class="authFormGroup"><label>Макс. игроков</label><input type="number" id="edit-maxPlayers" name="maxPlayers" min="2" max="40"/></div></div>
+                <div id="edit-tournament-fields" style="display:none;"><div class="authFormRow"><div class="authFormGroup"><label>Тип турнира</label><select id="edit-tournamentGender" name="tournamentGender"><option value="">Выберите</option><option>Мужской</option><option>Женский</option><option>Миксты</option></select></div><div class="authFormGroup"><label>Формат турнира</label><select id="edit-tournamentFormat" name="tournamentFormat"><option value="">Выберите</option><option>Король корта (каждый с каждым)</option><option>Групповой этап + плей-офф</option><option>Олимпийская система (на вылет)</option></select></div></div></div>
+                <div class="authFormGroup"><label>Место проведения</label><input type="text" id="edit-location" name="location"/></div>
+                <div class="authFormGroup"><label>Описание</label><textarea id="edit-description" name="description" rows="3"></textarea></div>
+                <button type="submit" class="buttonAccent authSubmit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО: УПРАВЛЕНИЕ УЧАСТНИКАМИ ===== -->
+    <div id="manage-participants-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width:500px;margin:50px auto;">
+            <div class="cardHeader"><h3>Управление участниками</h3><button class="close-modal">&times;</button></div>
+            <div id="participants-manage-list" style="max-height:400px;overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
     <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem active"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
@@ -203,6 +131,8 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
-    <script src="eventButtons.js"></script>
+
+    <script type="module" src="events.js"></script>
+    <script type="module" src="eventButtons.js"></script>
 </body>
 </html>

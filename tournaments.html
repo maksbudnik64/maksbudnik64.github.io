@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool · Турниры</title>
 </head>
 <body>
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
@@ -16,10 +17,10 @@
         </div>
         <a href="profile.html">
             <div class="userCard">
-                <div class="userAvatar">ДО</div>
+                <div class="userAvatar">—</div>
                 <div class="userInfo">
-                    <div class="userName">Дэвид Оман</div>
-                    <div class="userRole">Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
                 </div>
             </div>
         </a>
@@ -32,150 +33,83 @@
         </nav>
     </aside>
 
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="mainContent">
         <div class="topBar">
             <div class="topBarText">
                 <h1>Турниры</h1>
-                <p><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Все активные, набирающиеся и завершённые турниры</p>
+                <p><i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Все турниры</p>
             </div>
             <div class="topActions">
-                <button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать турнир</button>
+                <a href="createEvent.html?type=tournament"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать турнир</button></a>
             </div>
         </div>
 
         <!-- Фильтры -->
-        <div class="filterGroup" style="margin-bottom: clamp(16px, 2vw, 24px);">
-            <button class="buttonAccent" data-js-switch-button>Все</button>
-            <button data-js-switch-button>Активные</button>
-            <button data-js-switch-button>Набираются</button>
-            <button data-js-switch-button>Завершённые</button>
-            <button data-js-switch-button>Мои</button>
-        </div>
-
-        <!-- Активные турниры -->
-        <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
-            <h3><i class="fas fa-play-circle" style="color:#10b981;"></i> Активные</h3>
-        </div>
-        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
-            <!-- Кубок Пляжа -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Кубок Пляжа · Май 2026</h3>
-                    <span class="tag" style="background: #e4f1ea; color: #0b4b3b;"><i class="fas fa-play-circle"></i> Активен</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 28 мая, 10:00</span>
-                    <span class="tag"><i class="fas fa-users"></i> 4×4</span>
-                    <span class="tag"><i class="fas fa-star"></i> Любитель+</span>
-                </div>
-                <div class="slotsBar"><span>Групповой этап: 3/3 тура</span><div class="progressBg"><div class="progressFill" style="width:100%; background:#10b981;"></div></div></div>
-                <a href="activeTournament.html"><button class="buttonAccent" style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button></a>
-            </div>
-
-            <!-- Пляжный Челленджер -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Пляжный Челленджер · 2×2</h3>
-                    <span class="tag" style="background: #e4f1ea; color: #0b4b3b;"><i class="fas fa-play-circle"></i> Активен</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 1 июня, 11:00</span>
-                    <span class="tag"><i class="fas fa-users"></i> 2×2</span>
-                    <span class="tag"><i class="fas fa-crown"></i> Профи</span>
-                </div>
-                <div class="slotsBar"><span>1/4 финала</span><div class="progressBg"><div class="progressFill" style="width:50%; background:#e5942c;"></div></div></div>
-                <button class="buttonAccent" style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
+        <div class="filtersSection" style="margin-bottom:20px;">
+            <span class="filterLabel">Статус:</span>
+            <div class="filterGroup" data-filter-group="tournamentStatus">
+                <button class="buttonAccent" data-filter-value="all">Все</button>
+                <button data-filter-value="active">Активные</button>
+                <button data-filter-value="registration">Набираются</button>
+                <button data-filter-value="finished">Завершённые</button>
+                <button data-filter-value="my">Мои</button>
             </div>
         </div>
 
-        <!-- Набирающиеся турниры -->
-        <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
-            <h3><i class="fas fa-user-plus" style="color:#b76e2e;"></i> Набираются</h3>
-        </div>
-        <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
-            <!-- Летний Кубок -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Летний Кубок · 4×4</h3>
-                    <span class="tag" style="background: #fef9f0; color: #b76e2e;"><i class="fas fa-hourglass-half"></i> Набирается</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 10 июня, 9:00</span>
-                    <span class="tag"><i class="fas fa-users"></i> 4×4</span>
-                    <span class="tag"><i class="fas fa-star"></i> Любитель</span>
-                </div>
-                <div class="slotsBar"><span>Команд: 4 / 8</span><div class="progressBg"><div class="progressFill" style="width:50%;"></div></div></div>
-                <div class="statusButtons">
-                    <button class="buttonAccent"><i class="fas fa-user-plus"></i> Записать команду</button>
-                    <button class="buttonAccent"><i class="fas fa-play"></i> Начать турнир</button>
-                </div>
-            </div>
-
-            <!-- Пляжный Бум -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3>Пляжный Бум · 2×2</h3>
-                    <span class="tag" style="background: #fef9f0; color: #b76e2e;"><i class="fas fa-hourglass-half"></i> Набирается</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 15 июня, 10:00</span>
-                    <span class="tag"><i class="fas fa-users"></i> 2×2</span>
-                    <span class="tag"><i class="fas fa-crown"></i> Профи</span>
-                </div>
-                <div class="slotsBar"><span>Команд: 6 / 8</span><div class="progressBg"><div class="progressFill" style="width:75%; background:#10b981;"></div></div></div>
-                <div class="statusButtons">
-                    <button class="buttonAccent"><i class="fas fa-user-plus"></i> Записать команду</button>
-                    <button class="buttonAccent"><i class="fas fa-play"></i> Начать турнир</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Завершённые турниры -->
-        <div class="cardHeader" style="margin-bottom: clamp(12px, 1.5vw, 18px);">
-            <h3><i class="fas fa-check-circle" style="color:#5f6b7a;"></i> Завершённые</h3>
-        </div>
-        <div class="lowerBoard" style="margin-bottom: clamp(16px, 2vw, 24px);">
-            <div class="card" style="opacity: 0.75;">
-                <div class="cardHeader">
-                    <h3>Весенний Кубок</h3>
-                    <span class="tag"><i class="fas fa-check-circle"></i> Завершён</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 10 апреля, 10:00</span>
-                    <span class="tag">3×3</span>
-                </div>
-                <div style="font-size: clamp(0.75rem, 0.9vw, 1rem); margin: 6px 0;">🏆 <strong>Оман · Хеллвиг</strong></div>
-                <button style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
-            </div>
-
-            <div class="card" style="opacity: 0.75;">
-                <div class="cardHeader">
-                    <h3>Новогодний Турнир</h3>
-                    <span class="tag"><i class="fas fa-check-circle"></i> Завершён</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 3 января, 11:00</span>
-                    <span class="tag">2×2</span>
-                </div>
-                <div style="font-size: clamp(0.75rem, 0.9vw, 1rem); margin: 6px 0;">🏆 <strong>Петров · Козлов</strong></div>
-                <button style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
-            </div>
-
-            <div class="card" style="opacity: 0.75;">
-                <div class="cardHeader">
-                    <h3>Осенний Кубок</h3>
-                    <span class="tag"><i class="fas fa-check-circle"></i> Завершён</span>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-calendar"></i> 15 ноября, 9:00</span>
-                    <span class="tag">4×4</span>
-                </div>
-                <div style="font-size: clamp(0.75rem, 0.9vw, 1rem); margin: 6px 0;">🏆 <strong>Морозов · Титов</strong></div>
-                <button style="width:100%; justify-content:center;"><i class="fas fa-arrow-right"></i> Перейти к турниру</button>
+        <!-- Список турниров -->
+        <div class="mainBoard" id="tournaments-container">
+            <div class="card" style="text-align:center;padding:40px;">
+                <div style="font-size:2rem;">⏳</div>
+                <div style="font-weight:600;margin-top:8px;">Загрузка турниров...</div>
             </div>
         </div>
     </main>
 
+    <!-- ===== МОДАЛЬНОЕ ОКНО: ЗАПИСЬ КОМАНДЫ ===== -->
+    <div id="team-registration-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width: 500px; margin: 50px auto;">
+            <div class="cardHeader">
+                <h3>Запись команды</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="authMessage" style="display:none;"></div>
+            <form id="team-registration-form">
+                <input type="hidden" id="team-event-id" />
+                <div id="team-players-container"></div>
+                <button type="submit" class="buttonAccent authSubmit">Записать команду</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО: РЕДАКТИРОВАНИЕ СОБЫТИЯ ===== -->
+    <div id="edit-event-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width:500px;margin:50px auto;">
+            <div class="cardHeader"><h3>Редактирование события</h3><button class="close-modal">&times;</button></div>
+            <form id="edit-event-form">
+                <input type="hidden" id="edit-event-id"/>
+                <h3 id="edit-title" style="margin-bottom:16px;font-weight:700;"></h3>
+                <div class="authFormGroup"><label>Статус</label><select id="edit-status" name="status"><option value="pending">Набирается</option><option value="confirmed">Подтверждено</option><option value="cancelled">Отменено</option></select></div>
+                <div class="authFormRow"><div class="authFormGroup"><label>Дата</label><input type="date" id="edit-date" name="eventDate" required/></div><div class="authFormGroup"><label>Время</label><input type="time" id="edit-time" name="eventTime" required/></div></div>
+                <div class="authFormRow"><div class="authFormGroup"><label>Формат</label><select id="edit-format" name="format" required><option value="">Выберите</option><option>2×2</option><option>3×3</option><option>4×4</option></select></div><div class="authFormGroup"><label>Уровень</label><select id="edit-level" name="level" required><option value="">Выберите</option><option>Новичок</option><option>Любитель</option><option>Любитель+</option><option>Профи</option></select></div></div>
+                <div class="authFormRow"><div class="authFormGroup"><label>Длительность (ч)</label><input type="number" id="edit-duration" name="duration" min="1" max="8"/></div><div class="authFormGroup"><label>Макс. игроков</label><input type="number" id="edit-maxPlayers" name="maxPlayers" min="2" max="40"/></div></div>
+                <div id="edit-tournament-fields" style="display:none;"><div class="authFormRow"><div class="authFormGroup"><label>Тип турнира</label><select id="edit-tournamentGender" name="tournamentGender"><option value="">Выберите</option><option>Мужской</option><option>Женский</option><option>Миксты</option></select></div><div class="authFormGroup"><label>Формат турнира</label><select id="edit-tournamentFormat" name="tournamentFormat"><option value="">Выберите</option><option>Король корта (каждый с каждым)</option><option>Групповой этап + плей-офф</option><option>Олимпийская система (на вылет)</option></select></div></div></div>
+                <div class="authFormGroup"><label>Место проведения</label><input type="text" id="edit-location" name="location"/></div>
+                <div class="authFormGroup"><label>Описание</label><textarea id="edit-description" name="description" rows="3"></textarea></div>
+                <button type="submit" class="buttonAccent authSubmit">Сохранить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== МОДАЛЬНОЕ ОКНО: УПРАВЛЕНИЕ УЧАСТНИКАМИ ===== -->
+    <div id="manage-participants-modal" class="modal" style="display:none;">
+        <div class="modal-content card" style="max-width:500px;margin:50px auto;">
+            <div class="cardHeader"><h3>Управление участниками</h3><button class="close-modal">&times;</button></div>
+            <div id="participants-manage-list" style="max-height:400px;overflow-y:auto;"></div>
+        </div>
+    </div>
+
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
     <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
@@ -184,6 +118,8 @@
         <a href="tournaments.html"><div class="bottomNavItem active"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
-    <script src="eventButtons.js"></script>
+
+    <script type="module" src="tournaments.js"></script>
+    <script type="module" src="eventButtons.js"></script>
 </body>
 </html>

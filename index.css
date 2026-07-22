@@ -13,7 +13,7 @@ body {
     color: #1e2b3c;
     letter-spacing: -0.01em;
     justify-content: center;
-            align-items: center;
+    align-items: center;
 }
 
 a {
@@ -238,7 +238,6 @@ hr {
 
 /* ===== КНОПКИ ===== */
 button {
-    border: none;
     border-radius: clamp(8px, 1vw, 14px);
     padding: clamp(8px, 1vw, 12px) clamp(12px, 1.5vw, 20px);
     font-weight: 600;
@@ -348,7 +347,6 @@ button:disabled {
     grid-template-columns: 1fr 1fr;
     gap: clamp(16px, 2vw, 28px);
     margin-bottom: clamp(16px, 2vw, 28px);
-    align-items: start;
 }
 
 .lowerBoard {
@@ -356,7 +354,7 @@ button:disabled {
     grid-template-columns: 1fr 1fr 1fr;
     gap: clamp(16px, 2vw, 28px);
     margin-top: 4px;
-    align-items: start;
+    align-items: stretch;
 }
 
 /* ===== СТАТУСЫ ===== */
@@ -379,7 +377,6 @@ button:disabled {
     gap: 10px;
 }
 
-/* ===== ТЕКСТОВЫЕ ССЫЛКИ ===== */
 .textLink {
     color: #b76e2e;
     font-weight: 500;
@@ -427,7 +424,7 @@ button:disabled {
     font-size: clamp(0.65rem, 0.85vw, 1rem);
 }
 
-/* ===== СТРАНИЦА СОБЫТИЙ ===== */
+/* ===== СОБЫТИЯ ===== */
 .filtersSection {
     display: flex;
     flex-direction: column;
@@ -508,7 +505,7 @@ button:disabled {
     color: #c0392b;
 }
 
-/* ===== СТРАНИЦА ЖЕРЕБЬЁВКИ ===== */
+/* ===== ЖЕРЕБЬЁВКА ===== */
 .eventSelector {
     display: flex;
     align-items: center;
@@ -563,6 +560,10 @@ button:disabled {
     gap: 8px;
 }
 
+.matchRow-finished {
+    border-left: 3px solid #10b981;
+}
+
 .matchScore {
     font-weight: 700;
     color: #c49a2c;
@@ -575,7 +576,7 @@ button:disabled {
     font-size: clamp(0.6rem, 0.7vw, 0.75rem);
 }
 
-/* ===== СЕТКА ПЛЕЙ-ОФФ ===== */
+/* ===== ЯЧЕЙКА МАТЧА (для плей-офф) ===== */
 .matchCell {
     border: 1px solid #e2d9cc;
     border-radius: clamp(4px, 0.5vw, 8px);
@@ -615,6 +616,633 @@ button:disabled {
     font-size: clamp(0.65rem, 0.8vw, 0.85rem);
     color: #7a8490;
     font-weight: 500;
+}
+
+/* ===== ФОРМЫ АВТОРИЗАЦИИ ===== */
+.authContainer {
+    max-width: 500px;
+    width: 100%;
+    padding: clamp(16px, 3vw, 32px) clamp(12px, 2vw, 24px);
+}
+
+.authHeader {
+    text-align: center;
+    margin-bottom: clamp(20px, 2.5vw, 32px);
+}
+
+.authHeader h1 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.authHeader p {
+    color: #6b7583;
+    font-size: clamp(0.8rem, 1vw, 1rem);
+}
+
+.authFormGroup {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4px, 0.5vw, 6px);
+    margin-bottom: clamp(12px, 1.5vw, 18px);
+}
+
+.authFormGroup label {
+    font-weight: 600;
+    font-size: clamp(0.8rem, 0.95vw, 1rem);
+    color: #5f6b7a;
+}
+
+.authFormGroup input,
+.authFormGroup select,
+.authFormGroup textarea {
+    width: 100%;
+    padding: clamp(10px, 1.2vw, 14px) clamp(12px, 1.5vw, 16px);
+    border-radius: clamp(8px, 1vw, 12px);
+    border: 1px solid #e2d9cc;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.85rem, 1vw, 1.05rem);
+    font-weight: 500;
+    background: white;
+    color: #1e2b3c;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.authFormGroup input:focus,
+.authFormGroup select:focus,
+.authFormGroup textarea:focus {
+    border-color: #f5b042;
+    box-shadow: 0 0 0 3px rgba(245, 176, 66, 0.15);
+}
+
+.authFormGroup input:-webkit-autofill,
+.authFormGroup input:-webkit-autofill:hover,
+.authFormGroup input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    -webkit-text-fill-color: #1e2b3c !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.authFormGroup input::placeholder,
+.authFormGroup textarea::placeholder {
+    color: #b0b8c1;
+    font-weight: 400;
+}
+
+.authFormRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(8px, 1vw, 14px);
+}
+
+.authFormRow3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(8px, 1vw, 14px);
+}
+
+.authRadioGroup {
+    display: flex;
+    gap: clamp(12px, 1.5vw, 20px);
+    flex-wrap: wrap;
+}
+
+.authRadioGroup label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 0.95vw, 1rem);
+    cursor: pointer;
+    color: #1e2b3c;
+}
+
+.authRadioGroup input[type="radio"] {
+    width: auto;
+    accent-color: #f5b042;
+}
+
+.authFormGroup textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.tournamentFields {
+    display: none;
+}
+
+.tournamentFields.visible {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(8px, 1vw, 14px);
+}
+
+.authRequired {
+    color: #c0392b;
+}
+
+.authLink {
+    text-align: center;
+    margin-top: clamp(12px, 1.5vw, 18px);
+    font-size: clamp(0.8rem, 0.95vw, 1rem);
+    color: #6b7583;
+}
+
+.authLink a {
+    color: #b76e2e;
+    font-weight: 600;
+}
+
+.authLink a:hover {
+    text-decoration: underline;
+}
+
+.authSubmit {
+    width: 100%;
+    justify-content: center;
+    margin-top: clamp(12px, 1.5vw, 18px);
+    padding: clamp(12px, 1.4vw, 16px);
+}
+
+.authMessage {
+    padding: clamp(10px, 1.2vw, 14px);
+    border-radius: clamp(8px, 1vw, 12px);
+    margin-bottom: clamp(12px, 1.5vw, 18px);
+    font-weight: 600;
+    font-size: clamp(0.8rem, 0.95vw, 1rem);
+    text-align: center;
+    display: none;
+}
+
+.authMessage.success {
+    display: block;
+    background: #e4f1ea;
+    color: #0b4b3b;
+    border: 1px solid #a3d9b1;
+}
+
+.authMessage.error {
+    display: block;
+    background: #fce8e8;
+    color: #c0392b;
+    border: 1px solid #f5c6c6;
+}
+
+.passwordWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.passwordWrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.togglePassword {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #8e9aab;
+    font-size: 1rem;
+    user-select: none;
+}
+
+.togglePassword:hover {
+    color: #5f6b7a;
+}
+
+/* ===== МОДАЛЬНЫЕ ОКНА ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: clamp(14px,1.8vw,24px);
+    padding: clamp(16px,2vw,26px);
+    margin: 30px auto;
+    position: relative;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #8e9aab;
+}
+
+/* ===== ПОИСК ИГРОКОВ ===== */
+.player-search-wrapper {
+    position: relative;
+}
+
+.player-search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2d9cc;
+    border-radius: 0 0 12px 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 60;
+    display: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.player-search-dropdown.active {
+    display: block;
+}
+
+.player-search-item {
+    padding: 8px 14px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.player-search-item:hover {
+    background: #fbf9f5;
+}
+
+.autocomplete-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #1e2b3c;
+}
+
+.autocomplete-item:hover {
+    background: #f5ede0;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2d9cc;
+    border-radius: 8px;
+    z-index: 60;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+/* ===== СТАРТОВАЯ СТРАНИЦА ТУРНИРА ===== */
+.start-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+/* ===== ГРУППЫ И КОМАНДЫ ===== */
+.team-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.group-container {
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px dashed #e2d9cc;
+    border-radius: 8px;
+    min-height: 60px;
+}
+
+.group-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.team-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #fbf9f5;
+    border: 1px solid #efe4cf;
+    border-radius: 8px;
+    cursor: grab;
+}
+
+.team-item.dragging {
+    opacity: 0.5;
+}
+
+/* ===== СЕТКА ТУРНИРА ===== */
+.bracket-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 8px;
+}
+
+.bracket-grid {
+    display: grid;
+    gap: 0;
+    align-items: stretch;
+    min-width: 460px;
+}
+
+.bracket-round {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+}
+
+.bracket-round:not(:last-child) {
+    border-right: 1px solid #efe8d8;
+}
+
+.bracket-round-label {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #5f6b7a;
+    text-align: center;
+    padding: 6px 0;
+}
+
+.bracket-round-label-final {
+    color: #c49a2c;
+    font-size: 1.2rem;
+}
+
+.bracket-matches {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    justify-content: space-evenly;
+}
+
+.bracket-cell,
+.bracket-cell-final,
+.bracket-cell-third {
+    border: 1px solid #e2d9cc;
+    background: #fbf9f5;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-height: 76px;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.bracket-cell-final {
+    border: 2px solid #f5b042 !important;
+    background: #fef9f0 !important;
+}
+
+.bracket-cell-third {
+    border: 2px solid #bdc3c7 !important;
+    background: #f5f5f5 !important;
+}
+
+.bracket-final-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+}
+
+.bracket-team-bye {
+    background: #fbf9f5;
+    border: 1px solid #e2d9cc;
+    opacity: 1;
+    cursor: default;
+}
+
+.bracket-team {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #fbf9f5;
+    border: 1px solid #e2d9cc;
+    border-radius: 6px;
+    min-height: 38px;
+}
+
+.bracket-team[draggable="true"] {
+    cursor: grab;
+}
+
+.bracket-team[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.bracket-team-winner {
+    background: #fef7e9;
+    border-color: #f5b042;
+}
+
+.bracket-team-placeholder {
+    opacity: 0.5;
+    border-color: #e8e0d0;
+}
+
+.bracket-team.dragging {
+    opacity: 0.5;
+}
+
+.bracket-team.drag-over {
+    border-color: #f5b042 !important;
+    background: #fef7e9 !important;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.bracket-team-bye,
+.bracket-team-placeholder {
+    cursor: default;
+}
+
+.bracket-team > * {
+    pointer-events: none;
+}
+
+.bracket-score {
+    font-weight: 700;
+    min-width: 34px;
+    text-align: right;
+    color: #1e2b3c;
+    font-size: 1.05rem;
+}
+
+.bracket-team-name {
+    flex: 1;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0 6px;
+    font-weight: 500;
+}
+
+.bracket-team-name-placeholder {
+    color: #8e9aab;
+}
+
+.bracket-vs {
+    color: #8e9aab;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+.bracket-cell.drag-over {
+    border-color: #f5b042 !important;
+    background: #fef7e9 !important;
+}
+
+/* ===== СЧЁТЧИК МАТЧА ===== */
+.counter-team-name {
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 10px 14px;
+    background: #fbf9f5;
+    border-radius: 6px;
+    border: 1px solid #efe4cf;
+}
+
+.counter-vs {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #c49a2c;
+}
+
+.counter-score {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 6px 0;
+}
+
+.counter-sets-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.counter-btn-plus {
+    padding: 8px 18px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: white;
+    border: 1px solid #e2d9cc;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.counter-btn-plus:hover {
+    background: #faf7f2;
+}
+
+.counter-btn-minus {
+    padding: 8px 18px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: #fce8e8;
+    border: 1px solid #f5c6c6;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.counter-btn-minus:hover {
+    background: #f5d0d0;
+}
+
+/* ===== ТАБЛИЦА ГРУППЫ ===== */
+.standings-header {
+    display: grid;
+    grid-template-columns: 30px 1fr 40px 40px 40px;
+    gap: 4px;
+    padding: 6px 10px;
+    background: #f5ede0;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: #5f6b7a;
+    margin-bottom: 6px;
+}
+
+.standings-row {
+    display: grid;
+    grid-template-columns: 30px 1fr 40px 40px 40px;
+    gap: 4px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #f3ead9;
+}
+
+.standings-row-1 {
+    background: #ffeba3;
+    border-left: 4px solid #f1c40f;
+    border-radius: 6px;
+}
+
+.standings-row-2 {
+    background: #f5f5f5;
+    border-left: 4px solid #bdc3c7;
+    border-radius: 6px;
+}
+
+.standings-row-3 {
+    background: #fdf2e9;
+    border-left: 4px solid #e67e22;
+    border-radius: 6px;
+}
+
+.standings-points {
+    text-align: center;
+    font-weight: 700;
+    color: #c49a2c;
+}
+
+/* ===== ПЛЕЙ-ОФФ ИНФО ===== */
+.playoff-info {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #fef9f0;
+    border-radius: 8px;
+    border-left: 4px solid #c49a2c;
+}
+
+.playoff-teams-list {
+    margin: 8px 0 16px;
+    padding: 8px 12px;
+    background: #f5f0e8;
+    border-radius: 8px;
+}
+
+.playoff-teams-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
 }
 
 /* ===== АДАПТИВНОСТЬ ===== */
@@ -732,6 +1360,22 @@ button:disabled {
         width: 100%;
         min-width: auto;
     }
+
+    .bracket-round {
+        min-width: 140px;
+    }
+
+    .bracket-team-name {
+        font-size: 0.75rem;
+    }
+
+    .authContainer {
+        padding: 0;
+    }
+
+    .authFormRow3 {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
@@ -743,144 +1387,3 @@ button:disabled {
         grid-template-columns: 1fr 1fr;
     }
 }
-/* ===== ФОРМЫ ===== */
-  /* Контейнер формы */
-        .authContainer {
-            max-width: 480px;
-            width: 100%;
-            padding: clamp(16px, 3vw, 32px) clamp(12px, 2vw, 24px);
-        }
-
-        /* Заголовок */
-        .authHeader {
-            text-align: center;
-            margin-bottom: clamp(20px, 2.5vw, 32px);
-        }
-
-        .authHeader h1 {
-            font-size: clamp(1.4rem, 2.5vw, 2rem);
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .authHeader p {
-            color: #6b7583;
-            font-size: clamp(0.8rem, 1vw, 1rem);
-        }
-
-        /* Группа полей */
-        .authFormGroup {
-            display: flex;
-            flex-direction: column;
-            gap: clamp(4px, 0.5vw, 6px);
-            margin-bottom: clamp(12px, 1.5vw, 18px);
-        }
-
-        .authFormGroup label {
-            font-weight: 600;
-            font-size: clamp(0.8rem, 0.95vw, 1rem);
-            color: #5f6b7a;
-        }
-
-        .authFormGroup input,
-        .authFormGroup select {
-            width: 100%;
-            padding: clamp(10px, 1.2vw, 14px) clamp(12px, 1.5vw, 16px);
-            border-radius: clamp(8px, 1vw, 12px);
-            border: 1px solid #e2d9cc;
-            font-family: 'Inter', sans-serif;
-            font-size: clamp(0.85rem, 1vw, 1.05rem);
-            font-weight: 500;
-            background: white;
-            color: #1e2b3c;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .authFormGroup input:focus,
-        .authFormGroup select:focus {
-            border-color: #f5b042;
-            box-shadow: 0 0 0 3px rgba(245, 176, 66, 0.15);
-        }
-
-        .authFormGroup input:-webkit-autofill,
-.authFormGroup input:-webkit-autofill:hover,
-.authFormGroup input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
-    -webkit-text-fill-color: #1e2b3c !important;
-    transition: background-color 5000s ease-in-out 0s;
-}
-
-        .authFormGroup input::placeholder {
-            color: #b0b8c1;
-            font-weight: 400;
-        }
-
-        /* Строка с двумя полями */
-        .authFormRow {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(8px, 1vw, 14px);
-        }
-
-        /* Радиокнопки */
-        .authRadioGroup {
-            display: flex;
-            gap: clamp(12px, 1.5vw, 20px);
-            flex-wrap: wrap;
-        }
-
-        .authRadioGroup label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            font-size: clamp(0.8rem, 0.95vw, 1rem);
-            cursor: pointer;
-            color: #1e2b3c;
-        }
-
-        .authRadioGroup input[type="radio"] {
-            width: auto;
-            accent-color: #f5b042;
-        }
-
-        /* Звёздочка */
-        .authRequired {
-            color: #c0392b;
-        }
-
-        /* Ссылка внизу */
-        .authLink {
-            text-align: center;
-            margin-top: clamp(12px, 1.5vw, 18px);
-            font-size: clamp(0.8rem, 0.95vw, 1rem);
-            color: #6b7583;
-        }
-
-        .authLink a {
-            color: #b76e2e;
-            font-weight: 600;
-        }
-
-        .authLink a:hover {
-            text-decoration: underline;
-        }
-
-        /* Кнопка отправки */
-        .authSubmit {
-            width: 100%;
-            justify-content: center;
-            margin-top: clamp(12px, 1.5vw, 18px);
-            padding: clamp(12px, 1.4vw, 16px);
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 20px 12px;
-            }
-
-            .authContainer {
-                padding: 0;
-            }
-        }

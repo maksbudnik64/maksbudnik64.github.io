@@ -4,60 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool · Регистрация</title>
 </head>
 <body>
-    <style>
-.authMessage {
-    padding: clamp(10px, 1.2vw, 14px);
-    border-radius: clamp(8px, 1vw, 12px);
-    margin-bottom: clamp(12px, 1.5vw, 18px);
-    font-weight: 600;
-    font-size: clamp(0.8rem, 0.95vw, 1rem);
-    text-align: center;
-    display: none;
-}
-
-.authMessage.success {
-    display: block;
-    background: #e4f1ea;
-    color: #0b4b3b;
-    border: 1px solid #a3d9b1;
-}
-
-.authMessage.error {
-    display: block;
-    background: #fce8e8;
-    color: #c0392b;
-    border: 1px solid #f5c6c6;
-}
-    </style>
     <div class="authContainer">
-        <!-- Заголовок -->
         <div class="authHeader">
             <h1>Регистрация</h1>
             <p><i class="fas fa-volleyball-ball" style="color:#c49a2c;"></i> Присоединяйся к пляжному сообществу</p>
         </div>
 
-        <!-- Форма -->
         <div class="card">
-            <div class="authMessage" data-js-auth-message></div>
             <form data-js-registration-form>
-                <!-- Имя + Фамилия -->
                 <div class="authFormRow">
                     <div class="authFormGroup">
                         <label for="name">Имя <span class="authRequired">*</span></label>
-                        <input type="text" name="name" placeholder="Дэвид" required>
+                        <input type="text" name="name" id="name" placeholder="Дэвид" required minlength="2">
                     </div>
                     <div class="authFormGroup">
                         <label for="surname">Фамилия <span class="authRequired">*</span></label>
-                        <input type="text" name="surname" placeholder="Оман" required>
+                        <input type="text" name="surname" id="surname" placeholder="Оман" required minlength="2">
                     </div>
                 </div>
 
-                <!-- Пол -->
                 <div class="authFormGroup">
                     <label>Пол <span class="authRequired">*</span></label>
                     <div class="authRadioGroup">
@@ -66,71 +36,70 @@
                     </div>
                 </div>
 
-                <!-- Email -->
                 <div class="authFormGroup">
                     <label for="email">Email <span class="authRequired">*</span></label>
-                    <input type="email" name="email" placeholder="david@example.com" required>
+                    <input type="email" name="email" id="email" placeholder="david@example.com" required>
                 </div>
 
-                <!-- Пароль -->
                 <div class="authFormGroup">
                     <label for="password">Пароль <span class="authRequired">*</span></label>
-                    <input type="password" name="password" placeholder="Минимум 6 символов" required minlength="6" maxlength="25">
+                    <div class="passwordWrapper">
+                        <input type="password" name="password" id="password" placeholder="Минимум 6 символов" required minlength="6" maxlength="25">
+                        <i class="togglePassword fas fa-eye" data-js-toggle-password></i>
+                    </div>
                 </div>
 
-                <!-- Город -->
                 <div class="authFormGroup">
                     <label for="city">Город</label>
-                    <input type="text" name="city" placeholder="Например: Борисов">
+                    <input type="text" name="city" id="city" placeholder="Например: Борисов">
                 </div>
 
-                <!-- Возраст + Рост -->
                 <div class="authFormRow">
                     <div class="authFormGroup">
-                        <label for="age">Возраст</label>
-                        <input type="number" name="age" placeholder="24" min="14" max="99">
+                        <label for="dateOfBirth">Дата рождения</label>
+                        <input type="date" name="dateOfBirth" id="dateOfBirth" max="">
                     </div>
                     <div class="authFormGroup">
                         <label for="height">Рост (см)</label>
-                        <input type="number" name="height" placeholder="188" min="140" max="250">
+                        <input type="number" name="height" id="height" placeholder="188" min="140" max="250">
                     </div>
                 </div>
 
-                <!-- Позиция -->
-                <div class="authFormGroup">
-                    <label for="position">Позиция</label>
-                    <select name="position">
-                        <option value="">Выберите позицию</option>
-                        <option>Защитник</option>
-                        <option>Блокирующий</option>
-                        <option>Универсал</option>
-                    </select>
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label for="position">Позиция</label>
+                        <select name="position" id="position">
+                            <option value="">Выберите</option>
+                            <option>Защитник</option>
+                            <option>Блокирующий</option>
+                            <option>Универсал</option>
+                        </select>
+                    </div>
+                    <div class="authFormGroup">
+                        <label for="level">Уровень игры</label>
+                        <select name="level" id="level">
+                            <option value="">Выберите</option>
+                            <option>Новичок</option>
+                            <option>Любитель</option>
+                            <option>Любитель+</option>
+                            <option>Профи</option>
+                        </select>
+                    </div>
                 </div>
 
-                <!-- Уровень игры -->
-                <div class="authFormGroup">
-                    <label for="level">Уровень игры</label>
-                    <select name="level">
-                        <option value="">Выберите уровень</option>
-                        <option>Новичок</option>
-                        <option>Любитель</option>
-                        <option>Любитель+</option>
-                        <option>Профи</option>
-                    </select>
-                </div>
+                <div class="authMessage" data-js-auth-message></div>
 
-                <!-- Кнопка -->
                 <button type="submit" class="buttonAccent authSubmit">
                     <i class="fas fa-user-plus"></i> Зарегистрироваться
                 </button>
             </form>
         </div>
 
-        <!-- Ссылка на вход -->
         <div class="authLink">
             Уже есть аккаунт? <a href="login.html">Войти</a>
         </div>
     </div>
-    <script src="registration.js"></script>
+
+    <script type="module" src="registration.js"></script>
 </body>
 </html>

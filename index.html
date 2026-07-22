@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool</title>
 </head>
 <body>
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
             <div class="logoText">BeachProTool</div>
         </div>
-
         <a href="profile.html">
             <div class="userCard">
-                <div class="userAvatar">ДО</div>
+                <div class="userAvatar">—</div>
                 <div class="userInfo">
-                    <div class="userName" data-js-user-name>Дэвид Оман</div>
-                    <div class="userRole" data-js-user-role>Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
                 </div>
             </div>
         </a>
-
         <nav class="navMenu">
             <a href="index.html"><div class="navItem active"><i class="fas fa-home"></i><span>Главная</span></div></a>
             <a href="events.html"><div class="navItem"><i class="far fa-calendar-alt"></i><span>События</span></div></a>
@@ -34,58 +33,39 @@
         </nav>
     </aside>
 
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="mainContent">
         <div class="topBar">
             <div class="topBarText">
-                <h1 data-js-greeting>Добрый день, Дэвид Оман</h1>
+                <h1 data-js-greeting>Добрый день</h1>
                 <p>
                     <i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i>
                     Городской пляж г. Борисова, сетка 1 · Ближайшая игра сегодня
                 </p>
             </div>
             <div class="topActions">
-                <a href="events.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Добавить игру</button></a>
+                <a href="createEvent.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Добавить игру</button></a>
                 <button data-js-logout-button><i class="fas fa-sign-out-alt"></i> Выйти</button>
             </div>
         </div>
 
-        <!-- Основная панель: игра + рейтинг -->
+        <!-- Информационное сообщение -->
+        <div class="authMessage" style="display:block; background:#fef9f0; color:#b76e2e; border:1px solid #f5d89a; margin-bottom:clamp(16px,2vw,24px);">
+            <i class="fas fa-info-circle"></i>
+            Вся статистика и архивные данные на этой странице являются демонстрационными и отображают будущие возможности сайта
+        </div>
+
+        <!-- Основная панель: ближайшая игра + рейтинг -->
         <div class="mainBoard">
-            <!-- Ближайшая игра -->
-            <div class="card">
-                <div class="cardHeader">
-                    <h3><i class="far fa-calendar-check" style="color:#c49a2c;"></i> Ближайшая игра</h3>
-                    <a href="events.html" class="textLink">Все события →</a>
-                </div>
-                <div class="cardMeta">
-                    <span class="tag"><i class="far fa-clock"></i> Сб, 28 мая · 17:30</span>
-                    <span class="tag"><i class="fas fa-star"></i> Любитель+</span>
-                    <span class="tag"><i class="fas fa-users"></i> 2×2</span>
-                </div>
-                <div style="font-weight:500; margin-bottom:6px;">
-                    <i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i>
-                    Городской пляж г. Борисова, сетка 1
-                </div>
-                <div class="slotsBar">
-                    <span>2/4</span>
-                    <div class="progressBg"><div class="progressFill" style="width:50%;"></div></div>
-                </div>
-                <div class="statusButtons">
-                    <button class="buttonAccent" data-js-switch-button><i class="fas fa-check"></i> Иду</button>
-                    <button data-js-switch-button><i class="fas fa-question" ></i> Возможно</button>
-                    <button data-js-switch-button><i class="fas fa-times" ></i> Не иду</button>
-                </div>
-                <div class="waitList">
-                    <span><i class="fas fa-list-ol"></i> Лист ожидания: 2</span>
-                    <button data-js-reserve-button>Записаться в резерв</button>
-                </div>
+            <div class="card" style="text-align:center;padding:40px;">
+                <div style="font-size:2rem;">⏳</div>
+                <div style="font-weight:600;margin-top:8px;">Загрузка событий...</div>
             </div>
 
-            <!-- Рейтинг и партнёры -->
             <div class="card">
                 <div class="cardHeader">
                     <h3>Твой рейтинг и партнёры</h3>
-                    <a href="stats.html" class="textLink">Статистика →</a>
+                    <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
                 </div>
                 <div class="eloDisplay">
                     <div>
@@ -97,66 +77,52 @@
                 <div style="font-weight:600; margin-bottom:8px;">
                     <i class="fas fa-handshake"></i> Лучшие напарники
                 </div>
-                <div class="partnerItem"><span>Антон · 40 игр</span><span>75%</span></div>
-                <div class="partnerItem"><span>Вася · 45 игр</span><span>70%</span></div>
-                <div class="partnerItem"><span>Женя · 20 игр</span><span>65%</span></div>
+                <div class="partnerItem"><span>Алексей С. · 40 игр</span><span>75%</span></div>
+                <div class="partnerItem"><span>Михаил К. · 45 игр</span><span>70%</span></div>
+                <div class="partnerItem"><span>Дмитрий Р. · 20 игр</span><span>65%</span></div>
             </div>
         </div>
 
         <!-- Нижняя панель: жеребьёвка, профиль, история -->
         <div class="lowerBoard">
-            <!-- Жеребьёвка -->
             <div class="card">
-                <div class="cardHeader"><h3><i class="fas fa-random"></i> Жеребьёвка</h3></div>
+                <div class="cardHeader">
+                    <h3><i class="fas fa-random"></i> Жеребьёвка</h3>
+                    <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
+                </div>
                 <a href="draw.html"><button class="buttonAccent" style="margin-bottom: 8px; width: 100%;"><i class="fas fa-magic"></i> Перемешать команды</button></a>
                 <a href="draw.html#counter"><button class="buttonAccent" style="margin-bottom: 8px; width: 100%;"><i class="fas fa-stopwatch"></i> Открыть счётчик матча</button></a>
-                <button class="buttonAccent" style="width: 100%;"><i class="fas fa-sitemap"></i> Сгенерировать сетку турнира</button>
+                <a href="draw.html"><button class="buttonAccent" style="width: 100%;"><i class="fas fa-sitemap"></i> Сгенерировать сетку турнира</button></a>
             </div>
 
-            <!-- Профиль -->
-            <a href="profile.html" style="display: block;">
-                <div class="card">
-                    <div class="cardHeader"><h3><i class="fas fa-id-card"></i> Профиль</h3></div>
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                        <div class="userAvatar" style="width: 44px; height: 44px;">ДО</div>
-                        <div class="userInfo">
-                            <div class="userName">Дэвид Оман</div>
-                            <div class="userRole">Защитник / 1000 elo</div>
-                        </div>
-                    </div>
-                    <!-- Мини-статистика -->
-                    <div style="display:flex; gap:14px; margin:10px 0;">
-                        <div><span style="font-weight:700;">61%</span><br><small>Побед</small></div>
-                        <div><span style="font-weight:700;">1420</span><br><small>ELO</small></div>
-                        <div><span style="font-weight:700;">110</span><br><small>Игр</small></div>
-                    </div>
-                    <button style="width: 100%;"><i class="fas fa-user-edit"></i> Редактировать профиль</button>
+            <div id="profile-mini-card">
+                <div class="card" style="text-align:center;padding:20px;">
+                    <div style="color:#6b7583;">Загрузка профиля...</div>
                 </div>
-            </a>
+            </div>
 
-            <!-- Последние игры -->
             <div class="card">
                 <div class="cardHeader">
                     <h3><i class="fas fa-history"></i> Последние игры</h3>
-                    <a href="#" class="textLink">Архив →</a>
+                    <span class="tag" style="background:#fef9f0; border:1px solid #f5d89a; font-size:0.8rem; padding:4px 14px;">Демонстрация</span>
                 </div>
                 <div class="matchHistoryItem">
-                    <span>21 мая · 2×2</span><span>21:18</span><span>с Антон</span>
-                </div>
-                <hr>
-                <div class="matchHistoryItem">
-                    <span>20 мая · 2×2</span><span>21:14</span><span>с Вася</span>
+                    <span>21 мая · 2×2</span><span>21:18</span><span>с Антон С.</span>
                 </div>
                 <hr>
                 <div class="matchHistoryItem">
-                    <span>14 апр · 2×2</span><span>21:13</span><span>с Женя</span>
+                    <span>20 мая · 2×2</span><span>21:14</span><span>с Василий К.</span>
+                </div>
+                <hr>
+                <div class="matchHistoryItem">
+                    <span>14 апр · 2×2</span><span>21:13</span><span>с Евгений М.</span>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Нижняя навигация (мобильная) -->
- <div class="bottomNav">
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
+    <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem active"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
         <a href="draw.html"><div class="bottomNavItem"><i class="fas fa-random"></i><span>Жеребьёвка</span></div></a>
@@ -165,7 +131,7 @@
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
 
-    <script src="auth.js"></script>
-    <script src="eventButtons.js"></script>
+    <script type="module" src="index.js"></script>
+    <script type="module" src="eventButtons.js"></script>
 </body>
 </html>

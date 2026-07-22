@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080"/> 
+    <link rel="shortcut icon" href="https://shop.volleyballworld.com/cdn/shop/files/img12_345d9141-a883-46c9-af70-458a7351b10b.jpg?v=1754471467&width=1080">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Beach Pro Tool · Статистика</title>
 </head>
 <body>
+    <!-- ===== БОКОВАЯ ПАНЕЛЬ ===== -->
     <aside class="sideBar">
         <div class="logoArea">
             <div class="logoIcon"><i class="fas fa-volleyball-ball"></i></div>
@@ -16,10 +17,10 @@
         </div>
         <a href="profile.html">
             <div class="userCard">
-                <div class="userAvatar">ДО</div>
+                <div class="userAvatar">—</div>
                 <div class="userInfo">
-                    <div class="userName">Дэвид Оман</div>
-                    <div class="userRole">Защитник / 1000 elo</div>
+                    <div class="userName" data-js-user-name>Загрузка...</div>
+                    <div class="userRole" data-js-user-role>...</div>
                 </div>
             </div>
         </a>
@@ -32,6 +33,7 @@
         </nav>
     </aside>
 
+    <!-- ===== ОСНОВНОЙ КОНТЕНТ ===== -->
     <main class="mainContent">
         <div class="topBar">
             <div class="topBarText">
@@ -40,7 +42,12 @@
             </div>
         </div>
 
-        <!-- Личная статистика + Рейтинг ELO -->
+        <div class="authMessage" style="display:block; background:#fef9f0; color:#b76e2e; border:1px solid #f5b042; margin-bottom:clamp(16px,2vw,24px); text-align:center;">
+            <i class="fas fa-info-circle" style="margin-right:8px;"></i>
+            Страница находится в разработке
+        </div>
+
+        <!-- Личная статистика и рейтинг ELO -->
         <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: stretch;">
             <div class="card" style="display: flex; flex-direction: column;">
                 <div class="cardHeader"><h3><i class="fas fa-chart-bar" style="color:#c49a2c;"></i> Личная статистика</h3></div>
@@ -73,13 +80,13 @@
                     <div class="partnerItem"><span><strong>4</strong> Вася П.</span><span style="color:#10b981;">+18</span><span>1150</span></div>
                     <div class="partnerItem"><span><strong>5</strong> Антон К.</span><span style="color:#10b981;">+22</span><span>1100</span></div>
                     <div class="partnerItem" style="background: #fef9f0; border-radius: clamp(6px, 0.8vw, 10px); padding: clamp(6px, 0.8vw, 10px);">
-                        <span><strong>12</strong> Дэвид Оман</span><span style="color:#10b981;">+15</span><span style="font-weight:700; color:#c49a2c;">1000</span>
+                        <span><strong>12</strong> Вы</span><span style="color:#10b981;">+15</span><span style="font-weight:700; color:#c49a2c;">1000</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Процент побед + Количество игр -->
+        <!-- Процент побед и количество игр -->
         <div class="mainBoard" style="margin-bottom: clamp(16px, 2vw, 24px); align-items: stretch;">
             <div class="card" style="display: flex; flex-direction: column;">
                 <div class="cardHeader"><h3><i class="fas fa-chart-bar" style="color:#c49a2c;"></i> Процент побед</h3></div>
@@ -90,35 +97,36 @@
                     <div class="partnerItem"><span><strong>4</strong> Вася П.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:63%; background:#c49a2c;"></div></div><span>63%</span></div>
                     <div class="partnerItem"><span><strong>5</strong> Антон К.</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:60%; background:#c49a2c;"></div></div><span>60%</span></div>
                     <div class="partnerItem" style="background:#fef9f0; border-radius:clamp(6px,0.8vw,10px); padding:clamp(6px,0.8vw,10px);">
-                        <span><strong>7</strong> Дэвид Оман</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:61%; background:#c49a2c;"></div></div><span style="font-weight:700; color:#c49a2c;">61%</span>
+                        <span><strong>7</strong> Вы</span><div class="progressBg" style="flex:1; margin:0 12px; height:6px;"><div class="progressFill" style="width:61%; background:#c49a2c;"></div></div><span style="font-weight:700; color:#c49a2c;">61%</span>
                     </div>
                 </div>
             </div>
 
-           <!-- Количество игр -->
-<div class="card" style="display: flex; flex-direction: column;">
-    <div class="cardHeader"><h3><i class="fas fa-volleyball-ball" style="color:#c49a2c;"></i> Количество игр</h3></div>
-    <div style="flex: 1;">
-        <div class="partnerItem"><span><strong>1</strong> Женя М.</span><span>58 игр</span></div>
-        <div class="partnerItem"><span><strong>2</strong> Максим С.</span><span>52 игры</span></div>
-        <div class="partnerItem"><span><strong>3</strong> Дэвид Оман</span><span>47 игр</span></div>
-        <div class="partnerItem"><span><strong>4</strong> Антон К.</span><span>40 игр</span></div>
-        <div class="partnerItem"><span><strong>5</strong> Вася П.</span><span>35 игр</span></div>
-        <div class="partnerItem"><span><strong>6</strong> Дима К.</span><span>30 игр</span></div>
-    </div>
-</div>
+            <div class="card" style="display: flex; flex-direction: column;">
+                <div class="cardHeader"><h3><i class="fas fa-volleyball-ball" style="color:#c49a2c;"></i> Количество игр</h3></div>
+                <div style="flex: 1;">
+                    <div class="partnerItem"><span><strong>1</strong> Женя М.</span><span>58 игр</span></div>
+                    <div class="partnerItem"><span><strong>2</strong> Максим С.</span><span>52 игры</span></div>
+                    <div class="partnerItem"><span><strong>3</strong> Вы</span><span>47 игр</span></div>
+                    <div class="partnerItem"><span><strong>4</strong> Антон К.</span><span>40 игр</span></div>
+                    <div class="partnerItem"><span><strong>5</strong> Вася П.</span><span>35 игр</span></div>
+                    <div class="partnerItem"><span><strong>6</strong> Дима К.</span><span>30 игр</span></div>
+                </div>
+            </div>
 
-     <!-- MVP -->
-<div class="card" style="margin-bottom: clamp(16px, 2vw, 24px);">
-    <div class="cardHeader"><h3><i class="fas fa-medal" style="color:#c49a2c;"></i> MVP сезона</h3></div>
-    <div class="partnerItem"><span><strong>1</strong> Максим С.</span><span>15 MVP</span></div>
-    <div class="partnerItem"><span><strong>2</strong> Дэвид Оман</span><span>12 MVP</span></div>
-    <div class="partnerItem"><span><strong>3</strong> Дима К.</span><span>10 MVP</span></div>
-    <div class="partnerItem"><span><strong>4</strong> Женя М.</span><span>8 MVP</span></div>
-    <div class="partnerItem"><span><strong>5</strong> Вася П.</span><span>6 MVP</span></div>
-    <div class="partnerItem"><span><strong>6</strong> Антон К.</span><span>4 MVP</span></div>
-</div>
+            <div class="card" style="margin-bottom: clamp(16px, 2vw, 24px);">
+                <div class="cardHeader"><h3><i class="fas fa-medal" style="color:#c49a2c;"></i> MVP сезона</h3></div>
+                <div class="partnerItem"><span><strong>1</strong> Максим С.</span><span>15 MVP</span></div>
+                <div class="partnerItem"><span><strong>2</strong> Вы</span><span>12 MVP</span></div>
+                <div class="partnerItem"><span><strong>3</strong> Дима К.</span><span>10 MVP</span></div>
+                <div class="partnerItem"><span><strong>4</strong> Женя М.</span><span>8 MVP</span></div>
+                <div class="partnerItem"><span><strong>5</strong> Вася П.</span><span>6 MVP</span></div>
+                <div class="partnerItem"><span><strong>6</strong> Антон К.</span><span>4 MVP</span></div>
+            </div>
+        </div>
+    </main>
 
+    <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
     <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem"><i class="fas fa-home"></i><span>Главная</span></div></a>
         <a href="events.html"><div class="bottomNavItem"><i class="fas fa-calendar-plus"></i><span>События</span></div></a>
@@ -127,5 +135,7 @@
         <a href="tournaments.html"><div class="bottomNavItem"><i class="fas fa-trophy"></i><span>Турниры</span></div></a>
         <a href="profile.html"><div class="bottomNavItem"><i class="fas fa-user"></i><span>Профиль</span></div></a>
     </div>
+
+    <script type="module" src="stats.js"></script>
 </body>
 </html>

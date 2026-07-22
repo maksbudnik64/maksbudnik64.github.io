@@ -1,71 +1,54 @@
-// ===== ПРОВЕРКА АВТОРИЗАЦИИ =====
-async function checkAuth() {
-    try {
-        const response = await fetch('https://petite-wasps-laugh.loca.lt/api/me', {
-            credentials: 'include'
-        })
-        const data = await response.json()
+import { apiGet, apiPost } from './api.js'
 
-        if (data.success) {
-            return data.user
-        } else {
-            return null
-        }
+export async function checkAuth() {
+    try {
+        const data = await apiGet('/me')
+        return data.user || null
     } catch (error) {
-        console.error('Ошибка проверки авторизации:', error)
-        return null
+        if (error.status === 401) return null
+        throw error
     }
 }
 
-// ===== ВЫХОД =====
-async function logout() {
+export async function logout() {
     try {
-        await fetch('https://petite-wasps-laugh.loca.lt/api/logout', {
-            method: 'POST',
-            credentials: 'include'
-        })
+        await apiPost('/logout')
     } catch (error) {
         console.error('Ошибка выхода:', error)
     }
-    
     window.location.href = 'login.html'
 }
 
-// ===== ИНИЦИАЛИЗАЦИЯ ГЛАВНОЙ СТРАНИЦЫ =====
-async function initIndexPage() {
+// Обновляет данные пользователя в интерфейсе: сайдбар, data-js атрибуты, верхнюю панель
+export function updateUserCard(user) {
+    if (!user) return
 
-await new Promise(resolve => setTimeout(resolve, 300))
+    const initials = `${(user.name || '')[0]}${(user.surname || '')[0]}`.toUpperCase()
+    const fullName = `${user.name || ''} ${user.surname || ''}`
+    const role = `${user.position || 'Игрок'} / ${user.elo || 1000} elo`
 
-    const user = await checkAuth()
+    document.querySelectorAll('.sideBar .userAvatar, [data-js-user-avatar]').forEach(el => {
+        el.textContent = initials
+    })
 
-    if (!user) {
-        window.location.href = 'login.html'
-        return
+    document.querySelectorAll('.sideBar .userName, [data-js-user-name]').forEach(el => {
+        el.textContent = fullName
+    })
+
+    document.querySelectorAll('.sideBar .userRole, [data-js-user-role]').forEach(el => {
+        el.textContent = role
+    })
+
+    const topBarP = document.querySelector('.topBarText p')
+    if (topBarP) {
+        const icon = topBarP.querySelector('.fa-user')
+        if (icon) {
+            topBarP.innerHTML = `<i class="fas fa-user" style="color:#c49a2c;"></i> ${fullName} · ${user.position || 'Игрок'}`
+        }
     }
 
-    // Обновляем интерфейс данными пользователя
-    const greetingEl = document.querySelector('[data-js-greeting]')
-    const userNameEl = document.querySelector('[data-js-user-name]')
-    const userRoleEl = document.querySelector('[data-js-user-role]')
-
-    if (greetingEl) {
-        greetingEl.textContent = `Добрый день, ${user.name}`
+    const greeting = document.querySelector('[data-js-greeting]')
+    if (greeting) {
+        greeting.textContent = `Добрый день, ${user.name}`
     }
-    if (userNameEl) {
-        userNameEl.textContent = `${user.name} ${user.surname}`
-    }
-    if (userRoleEl) {
-        userRoleEl.textContent = `${user.position || 'Игрок'} / ${user.elo} elo`
-    }
-
-    // Кнопка выхода
-    const logoutBtn = document.querySelector('[data-js-logout-button]')
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', logout)
-    }
-}
-
-// Запуск при загрузке
-if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-    initIndexPage()
 }
