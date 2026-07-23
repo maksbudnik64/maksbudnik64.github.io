@@ -316,25 +316,19 @@ async function openTeamRegistrationModal(eventId, format) {
                 return
             }
             try {
-                const res = await fetch(`http://localhost:5000/api/users/search?q=${encodeURIComponent(query)}`, { credentials: 'include' })
-                if (!res.ok) {
-                    list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ошибка сервера</div>'
-                    list.style.display = 'block'
-                    return
-                }
-                const data = await res.json()
-                if (data.success && Array.isArray(data.users)) {
-                    if (data.users.length > 0) {
-                        list.innerHTML = data.users.map(u => `<div class="autocomplete-item" data-user-id="${u.userId}">${u.name} ${u.surname}</div>`).join('')
-                    } else {
-                        list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ничего не найдено</div>'
-                    }
-                }
-                list.style.display = 'block'
-            } catch (err) {
-                list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ошибка сети</div>'
-                list.style.display = 'block'
-            }
+    const data = await apiGet(`/users/search?q=${encodeURIComponent(query)}`)
+    if (data.success && Array.isArray(data.users)) {
+        if (data.users.length > 0) {
+            list.innerHTML = data.users.map(u => `<div class="autocomplete-item" data-user-id="${u.userId}">${u.name} ${u.surname}</div>`).join('')
+        } else {
+            list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ничего не найдено</div>'
+        }
+    }
+    list.style.display = 'block'
+} catch (err) {
+    list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ошибка сети</div>'
+    list.style.display = 'block'
+}
         }, 300)
 
         input.addEventListener('input', handler)
@@ -414,13 +408,7 @@ document.getElementById('team-registration-form')?.addEventListener('submit', as
     }
 
     try {
-        const res = await fetch(`http://localhost:5000/api/events/${eventId}/team`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: JSON.stringify({ partners })
-        })
-        const data = await res.json()
+       const data = await apiPost(`/events/${eventId}/team`, { partners })
         if (data.success) {
             document.getElementById('team-registration-modal').style.display = 'none'
             refreshEventCard(eventId)
