@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api'
+const API_BASE = 'https://beachprotool.test.808.by/api'
 
 export async function api(endpoint, method = 'GET', body = null) {
     const url = `${API_BASE}${endpoint}`

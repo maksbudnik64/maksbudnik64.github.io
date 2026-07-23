@@ -159,12 +159,15 @@ async function loadEventParticipants(eventId, container, event) {
 // ============================================================
 
 async function loadParticipantsList(eventId, listElement) {
+    console.log(eventId) 
     const event = window.getEvent ? window.getEvent(eventId) : null
     const isTournament = event && event.eventType === 'tournament'
-
+console.log(isTournament) 
     if (isTournament) {
+                
         await loadTournamentParticipantsList(eventId, listElement)
     } else {
+       
         await loadEventParticipantsList(eventId, listElement)
     }
     listElement.dataset.loaded = 'true'

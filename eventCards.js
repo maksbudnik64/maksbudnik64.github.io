@@ -85,14 +85,14 @@ class EventCard {
     renderParticipants() {
         const max = this.event.maxPlayers || 0;
         if (!max) return '';
+        
         const count = this.event.participantCount || 0;
-
         return `
             <div class="participants-block" style="margin:8px 0 12px 0; position: relative;">
                 <button class="toggle-participants" style="background:none;border:none;color:#5f6b7a;cursor:pointer;font-weight:600;
                         padding:0; margin:0; display:flex; align-items:center;"
                         data-event-id="${this.event.eventId}">
-                    <i class="fas fa-user-friends"></i>&nbsp;${count} / ${max} участников
+                    <i class="fas fa-user-friends"></i>&nbsp;Участники: ${count} / ${max}
                     <i class="fas fa-chevron-down" style="margin-left:4px; font-size:0.7rem;"></i>
                 </button>
                 <div class="participants-modal" style="display:none; position: absolute; top: 100%; left: 0; z-index: 50;
@@ -249,6 +249,26 @@ class TournamentCard extends EventCard {
             </div>`;
     }
 
+    renderParticipants() {
+        const teamsCount = this.event.participantCount || 0;
+        if (!teamsCount) return '';
+        
+        return `
+            <div class="participants-block" style="margin:8px 0 12px 0; position: relative;">
+                <button class="toggle-participants" style="background:none;border:none;color:#5f6b7a;cursor:pointer;font-weight:600;
+                        padding:0; margin:0; display:flex; align-items:center;"
+                        data-event-id="${this.event.eventId}">
+                    <i class="fas fa-users"></i>&nbsp;Команд: ${teamsCount}
+                    <i class="fas fa-chevron-down" style="margin-left:4px; font-size:0.7rem;"></i>
+                </button>
+                <div class="participants-modal" style="display:none; position: absolute; top: 100%; left: 0; z-index: 50;
+                    background: white; border: 1px solid #e2d9cc; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+                    max-height: 200px; overflow-y: auto; width: 220px; padding: 8px 0; margin:0;">
+                    <ul style="list-style: none; margin: 0; padding: 0;" data-event-id="${this.event.eventId}" data-loaded="false"></ul>
+                </div>
+            </div>`;
+    }
+
     renderFooter() {
         if (this.statusClass === 'cancelled') {
             return '<div class="waitList" style="background:#fce8e8"><span><i class="fas fa-ban"></i> Турнир отменён</span></div>';
@@ -260,7 +280,6 @@ class TournamentCard extends EventCard {
             return '<div class="waitList" style="background:#fce8e8"><span><i class="fas fa-ban"></i> Вы заблокированы организатором</span></div>';
         }
 
-        // Турнир уже запущен — кнопка перехода для всех
         const tournamentStatus = this.event.tournamentStatus;
         if (tournamentStatus === 'groupStage' || tournamentStatus === 'playoff') {
             return `
@@ -271,7 +290,6 @@ class TournamentCard extends EventCard {
                 </a>`;
         }
 
-        // Создатель — кнопки управления
         if (this.isCreator) {
             return `
                 <div class="statusButtons">
@@ -285,7 +303,6 @@ class TournamentCard extends EventCard {
                 </div>`;
         }
 
-        // Турнир по заявкам
         const accessType = this.event.accessType || 'open';
         if (accessType === 'application') {
             if (activeStatus === 'application') {
@@ -300,7 +317,6 @@ class TournamentCard extends EventCard {
             return `<div class="statusButtons"><button class="buttonAccent register-team-btn" data-event-id="${this.event.eventId}" data-format="${this.event.format}"><i class="fas fa-user-plus"></i> Подать заявку</button></div>`;
         }
 
-        // Открытый турнир — запись команды
         if (this.event.status === 'pending') {
             if (activeStatus === 'confirmed' || activeStatus === 'application') {
                 return `
