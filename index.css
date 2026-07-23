@@ -13,6 +13,8 @@ body {
     min-height: 100dvh;
     color: #1e2b3c;
     letter-spacing: -0.01em;
+    justify-content: center;
+    align-items: center;
 }
 
 a {
