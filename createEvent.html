@@ -58,24 +58,25 @@
 
                 <!-- Формат и уровень -->
                 <div class="authFormRow">
-                    <div class="authFormGroup">
-                        <label for="format">Формат <span class="authRequired">*</span></label>
-                        <select name="format" id="format" required>
-                            <option>2×2</option>
-                            <option>3×3</option>
-                            <option>4×4</option>
-                        </select>
-                    </div>
-                    <div class="authFormGroup">
-                        <label for="level">Уровень <span class="authRequired">*</span></label>
-                        <select name="level" id="level" required>
-                            <option>Новичок</option>
-                            <option>Любитель</option>
-                            <option selected>Любитель+</option>
-                            <option>Профи</option>
-                        </select>
-                    </div>
-                </div>
+    <div class="authFormGroup">
+        <label for="format">Формат <span class="authRequired">*</span></label>
+        <select name="format" id="format" required>
+            <option>2×2</option>
+            <option>3×3</option>
+            <option>4×4</option>
+        </select>
+    </div>
+    <div class="authFormGroup">
+    <label for="level">Уровень</label>
+    <select name="level" id="level">
+        <option value="">Любой</option>
+        <option value="Новичок">Новичок</option>
+        <option value="Любитель">Любитель</option>
+        <option value="Любитель+">Любитель+</option>
+        <option value="Профи">Профи</option>
+    </select>
+</div>
+</div>
 
                 <!-- Длительность и макс. игроков -->
                 <div class="authFormRow">
@@ -92,13 +93,14 @@
                 <!-- Поля турнира (скрыты по умолчанию) -->
                 <div class="authFormRow tournamentFields" data-js-tournament-fields>
                     <div class="authFormGroup">
-                        <label for="tournamentGender">Тип турнира <span class="authRequired">*</span></label>
-                        <select name="tournamentGender" id="tournamentGender">
-                            <option>Мужской</option>
-                            <option>Женский</option>
-                            <option>Миксты</option>
-                        </select>
-                    </div>
+    <label for="tournamentGender">Тип турнира <span class="authRequired">*</span></label>
+    <select name="tournamentGender" id="tournamentGender">
+        <option value="">Любой</option>
+        <option value="Мужской" selected>Мужской</option>
+        <option value="Женский">Женский</option>
+        <option value="Миксты">Миксты</option>
+    </select>
+</div>
                     <div class="authFormGroup">
                         <label for="tournamentFormat">Формат турнира <span class="authRequired">*</span></label>
                         <select name="tournamentFormat" id="tournamentFormat">

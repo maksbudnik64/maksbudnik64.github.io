@@ -4,7 +4,7 @@ import { apiGet, apiPut, apiPost } from './api.js'
 // ОБНОВЛЕНИЕ КАРТОЧКИ СОБЫТИЯ
 // ============================================================
 
-async function refreshEventCard(eventId, newStatus) {
+async function refreshEventCard(eventId) {
     try {
         const data = await apiGet(`/events/${eventId}`)
         const event = data.event
@@ -20,7 +20,15 @@ async function refreshEventCard(eventId, newStatus) {
 
         const card = window.createEventCard(event, currentUserId, userStatus)
         const oldCard = document.querySelector(`.card[data-event-id="${eventId}"]`)
-        if (oldCard) oldCard.outerHTML = card.render()
+        if (oldCard) {
+            oldCard.outerHTML = card.render()
+            const list = document.querySelector(`.participants-modal ul[data-event-id="${eventId}"]`)
+            if (list) {
+                list.innerHTML = ''
+                list.removeAttribute('data-loaded')
+                list.closest('.participants-modal').style.display = 'none'
+            }
+        }
     } catch (err) {
         console.error('Ошибка обновления карточки:', err)
     }
@@ -111,7 +119,8 @@ async function loadEventParticipants(eventId, container, event) {
                     maybe: ['fa-question-circle', '#f5b042'],
                     declined: ['fa-times-circle', '#c0392b'],
                     waitlist: ['fa-clipboard-list', '#8e9aab'],
-                    blocked: ['fa-ban', '#c0392b']
+                    blocked: ['fa-ban', '#c0392b'],
+                    application: ['fa-clock', '#f5b042']
                 }
                 const [icon, color] = icons[p.status] || ['fa-circle', '#aaa']
                 const isBlocked = p.status === 'blocked'
@@ -130,16 +139,15 @@ async function loadEventParticipants(eventId, container, event) {
         container.innerHTML = '<p>Ошибка сети</p>'
     }
 
-    // Загрузка заявок для событий с доступом по заявкам
     if (event && event.accessType === 'application') {
         try {
             const appData = await apiGet(`/events/${eventId}/applications`)
             if (appData.success && appData.applications.length > 0) {
-                let appHtml = '<h4 style="margin-top:16px;">Заявки</h4>'
+                let appHtml = '<h4 style="margin-top:16px;"><i class="fas fa-clock" style="color:#f5b042;"></i> Заявки</h4>'
                 appData.applications.forEach(app => {
                     appHtml += `
                         <div class="participant-row" style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid #efe8d8;">
-                            <span>${app.name} ${app.surname}</span>
+                            <span><i class="fas fa-clock" style="color:#f5b042; margin-right:8px;"></i>${app.name} ${app.surname}</span>
                             <div class="statusButtons" style="margin:0;">
                                 <button class="accept-application-btn buttonAccent" data-event-id="${eventId}" data-user-id="${app.userId}">Принять</button>
                                 <button class="decline-application-btn" data-event-id="${eventId}" data-user-id="${app.userId}">Отклонить</button>
@@ -159,15 +167,12 @@ async function loadEventParticipants(eventId, container, event) {
 // ============================================================
 
 async function loadParticipantsList(eventId, listElement) {
-    console.log(eventId) 
     const event = window.getEvent ? window.getEvent(eventId) : null
     const isTournament = event && event.eventType === 'tournament'
-console.log(isTournament) 
+
     if (isTournament) {
-                
         await loadTournamentParticipantsList(eventId, listElement)
     } else {
-       
         await loadEventParticipantsList(eventId, listElement)
     }
     listElement.dataset.loaded = 'true'
@@ -229,17 +234,19 @@ async function loadEventParticipantsList(eventId, listElement) {
         const data = await apiGet(`/events/${eventId}/all-participants`)
         if (data.success && data.participants.length > 0) {
             listElement.innerHTML = data.participants.map(p => {
-                let icon = ''
+                let icon = '', iconColor = ''
                 switch (p.status) {
-                    case 'confirmed': icon = '<i class="fas fa-check-circle" style="color:#10b981;"></i>'; break
-                    case 'maybe':    icon = '<i class="fas fa-question-circle" style="color:#f5b042;"></i>'; break
-                    case 'declined': icon = '<i class="fas fa-times-circle" style="color:#c0392b;"></i>'; break
-                    case 'waitlist': icon = '<i class="fas fa-clipboard-list" style="color:#8e9aab;"></i>'; break
-                    case 'blocked':  icon = '<i class="fas fa-ban" style="color:#c0392b;"></i>'; break
+                    case 'confirmed': icon = 'fa-check-circle'; iconColor = '#10b981'; break
+                    case 'maybe':     icon = 'fa-question-circle'; iconColor = '#f5b042'; break
+                    case 'declined':  icon = 'fa-times-circle'; iconColor = '#c0392b'; break
+                    case 'waitlist':  icon = 'fa-clipboard-list'; iconColor = '#8e9aab'; break
+                    case 'blocked':   icon = 'fa-ban'; iconColor = '#c0392b'; break
+                    case 'application': icon = 'fa-clock'; iconColor = '#f5b042'; break
+                    default: icon = 'fa-circle'; iconColor = '#aaa'
                 }
                 return `<li style="padding: 6px 16px; font-size: 0.9rem;">
                             <a href="profile.html?id=${p.userId}" target="_blank" style="color: inherit; text-decoration: none; display: flex; align-items: center; gap: 6px;">
-                                ${icon} ${p.name} ${p.surname}
+                                <i class="fas ${icon}" style="color: ${iconColor};"></i> ${p.name} ${p.surname}
                             </a>
                         </li>`
             }).join('')
@@ -257,7 +264,7 @@ async function loadEventParticipantsList(eventId, listElement) {
 
 async function updateParticipation(eventId, status) {
     try {
-        const data = await apiPost(`/events/${eventId}/participate`, { status })
+        await apiPost(`/events/${eventId}/participate`, { status })
         refreshEventCard(eventId)
         const list = document.querySelector(`.participants-modal ul[data-event-id="${eventId}"]`)
         if (list) {
@@ -316,19 +323,19 @@ async function openTeamRegistrationModal(eventId, format) {
                 return
             }
             try {
-    const data = await apiGet(`/users/search?q=${encodeURIComponent(query)}`)
-    if (data.success && Array.isArray(data.users)) {
-        if (data.users.length > 0) {
-            list.innerHTML = data.users.map(u => `<div class="autocomplete-item" data-user-id="${u.userId}">${u.name} ${u.surname}</div>`).join('')
-        } else {
-            list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ничего не найдено</div>'
-        }
-    }
-    list.style.display = 'block'
-} catch (err) {
-    list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ошибка сети</div>'
-    list.style.display = 'block'
-}
+                const data = await apiGet(`/users/search?q=${encodeURIComponent(query)}`)
+                if (data.success && Array.isArray(data.users)) {
+                    if (data.users.length > 0) {
+                        list.innerHTML = data.users.map(u => `<div class="autocomplete-item" data-user-id="${u.userId}">${u.name} ${u.surname}</div>`).join('')
+                    } else {
+                        list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ничего не найдено</div>'
+                    }
+                }
+                list.style.display = 'block'
+            } catch (err) {
+                list.innerHTML = '<div style="padding:6px 12px; color:#999;">Ошибка сети</div>'
+                list.style.display = 'block'
+            }
         }, 300)
 
         input.addEventListener('input', handler)
@@ -347,7 +354,6 @@ async function openTeamRegistrationModal(eventId, format) {
     document.getElementById('team-registration-modal').style.display = 'block'
 }
 
-// Отправка формы записи команды
 document.getElementById('team-registration-form')?.addEventListener('submit', async (e) => {
     e.preventDefault()
     const eventId = document.getElementById('team-event-id').value
@@ -376,7 +382,8 @@ document.getElementById('team-registration-form')?.addEventListener('submit', as
         const eventData = await apiGet(`/events/${eventId}`)
         const tournamentGender = eventData.event?.tournamentGender
 
-        if (tournamentGender) {
+        // Пропускаем проверку для "Любой"
+        if (tournamentGender && tournamentGender !== 'Любой') {
             const currentUserData = await apiGet('/me')
             const currentUserId = currentUserData.user?.userId
             const allMemberIds = [currentUserId, ...partners]
@@ -408,7 +415,7 @@ document.getElementById('team-registration-form')?.addEventListener('submit', as
     }
 
     try {
-       const data = await apiPost(`/events/${eventId}/team`, { partners })
+        const data = await apiPost(`/events/${eventId}/team`, { partners })
         if (data.success) {
             document.getElementById('team-registration-modal').style.display = 'none'
             refreshEventCard(eventId)
@@ -529,7 +536,12 @@ document.addEventListener('click', async (e) => {
     else if (e.target.closest('.apply-btn')) {
         const btn = e.target.closest('.apply-btn')
         const ok = await updateParticipation(btn.dataset.eventId, 'application')
-        if (ok) { btn.classList.remove('buttonAccent'); btn.innerHTML = '<i class="fas fa-clock"></i> Заявка подана'; btn.disabled = true }
+        if (ok) {
+            btn.classList.remove('buttonAccent')
+            btn.innerHTML = '<i class="fas fa-clock"></i> Заявка подана'
+            btn.disabled = true
+            refreshEventCard(btn.dataset.eventId)
+        }
     }
     // Старт турнира
     else if (e.target.closest('.start-tournament-btn')) {
@@ -539,6 +551,7 @@ document.addEventListener('click', async (e) => {
     else if (e.target.closest('.cancel-registration-btn')) {
         const btn = e.target.closest('.cancel-registration-btn')
         await updateParticipation(btn.dataset.eventId, 'none')
+        refreshEventCard(btn.dataset.eventId)
     }
     // Запись команды
     else if (e.target.closest('.register-team-btn')) {

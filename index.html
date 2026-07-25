@@ -121,6 +121,22 @@
         </div>
     </main>
 
+<!-- ===== МОДАЛЬНОЕ ОКНО: ЗАПИСЬ КОМАНДЫ ===== -->
+<div id="team-registration-modal" class="modal" style="display:none;">
+    <div class="modal-content card" style="max-width: 500px; margin: 50px auto;">
+        <div class="cardHeader">
+            <h3>Запись команды</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="authMessage" style="display:none;"></div>
+        <form id="team-registration-form">
+            <input type="hidden" id="team-event-id" />
+            <div id="team-players-container"></div>
+            <button type="submit" class="buttonAccent authSubmit">Записать команду</button>
+        </form>
+    </div>
+</div>
+
     <!-- ===== НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНАЯ) ===== -->
     <div class="bottomNav">
         <a href="index.html"><div class="bottomNavItem active"><i class="fas fa-home"></i><span>Главная</span></div></a>

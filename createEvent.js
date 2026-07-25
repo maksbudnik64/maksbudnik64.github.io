@@ -36,16 +36,25 @@ form.addEventListener('submit', async (e) => {
     const formData = new FormData(form)
     const data = Object.fromEntries(formData)
 
-    const eventDateTime = new Date(`${data.eventDate}T${data.eventTime}`)
-    if (eventDateTime <= new Date()) {
-        showMessage('Дата и время события не могут быть в прошлом', 'error')
-        document.getElementById('eventDate').focus()
-        return
+    // Преобразование пустых строк в null
+    if (!data.level || data.level === '') {
+        data.level = null
+    }
+    
+    if (!data.tournamentGender || data.tournamentGender === '') {
+        data.tournamentGender = null
     }
 
     if (data.eventType !== 'tournament') {
         delete data.tournamentGender
         delete data.tournamentFormat
+    }
+
+    const eventDateTime = new Date(`${data.eventDate}T${data.eventTime}`)
+    if (eventDateTime <= new Date()) {
+        showMessage('Дата и время события не могут быть в прошлом', 'error')
+        document.getElementById('eventDate').focus()
+        return
     }
 
     try {

@@ -2,11 +2,11 @@ import { checkAuth, logout, updateUserCard } from './auth.js'
 import { apiGet } from './api.js'
 import { createEventCard } from './eventCards.js'
 
-// Глобальное хранилище событий для поиска
-let allEventsGlobal = [];
+// Глобальное хранилище событий
+window.allEventsGlobal = [];
 
 window.getEvent = (eventId) => {
-    return allEventsGlobal.find(e => e.eventId == eventId) || null;
+    return window.allEventsGlobal.find(e => e.eventId == eventId) || null;
 };
 
 async function initIndexPage() {
@@ -35,27 +35,48 @@ async function loadNearestEvent(user) {
 
     try {
         const { events } = await apiGet('/events');
-        
-        // Сохраняем все события в глобальное хранилище
-        allEventsGlobal = events;
+        window.allEventsGlobal = events;
 
         const now = new Date();
 
         const upcoming = events
             .filter(e => {
-                const datePart = e.eventDate.split('T')[0];
-                const eventDate = new Date(`${datePart}T${e.eventTime || '00:00'}`);
+                // Правильно парсим дату из ISO формата с учетом локальной временной зоны
+                const rawDate = e.eventDate;
+                let datePart;
+                
+                if (rawDate.includes('T')) {
+                    // ISO формат: "2026-07-25T21:00:00.000Z"
+                    const d = new Date(rawDate);
+                    // Получаем локальную дату
+                    datePart = d.getFullYear() + '-' + 
+                               String(d.getMonth() + 1).padStart(2, '0') + '-' + 
+                               String(d.getDate()).padStart(2, '0');
+                } else {
+                    datePart = rawDate;
+                }
+                
+                const eventDate = new Date(datePart + 'T' + (e.eventTime || '00:00'));
                 const isUpcoming = eventDate > now;
-                const isActive = e.status === 'confirmed' || e.status === 'pending';
                 const isNotCancelled = e.status !== 'cancelled';
-                return isUpcoming && isActive && isNotCancelled;
+                
+                return isUpcoming && isNotCancelled;
             })
             .sort((a, b) => {
-                if (a.status === 'confirmed' && b.status !== 'confirmed') return -1;
-                if (a.status !== 'confirmed' && b.status === 'confirmed') return 1;
-                const dateA = new Date(`${a.eventDate.split('T')[0]}T${a.eventTime || '00:00'}`);
-                const dateB = new Date(`${b.eventDate.split('T')[0]}T${b.eventTime || '00:00'}`);
-                return dateA - dateB;
+                const parseDate = (e) => {
+                    const raw = e.eventDate;
+                    let dp;
+                    if (raw.includes('T')) {
+                        const d = new Date(raw);
+                        dp = d.getFullYear() + '-' + 
+                             String(d.getMonth() + 1).padStart(2, '0') + '-' + 
+                             String(d.getDate()).padStart(2, '0');
+                    } else {
+                        dp = raw;
+                    }
+                    return new Date(dp + 'T' + (e.eventTime || '00:00'));
+                };
+                return parseDate(a) - parseDate(b);
             });
 
         if (upcoming.length === 0) {
@@ -79,9 +100,7 @@ async function loadNearestEvent(user) {
             if (statusData.success && statusData.statuses.length > 0) {
                 userStatus = { status: statusData.statuses[0].status };
             }
-        } catch (err) {
-            // Игнорируем ошибку получения статуса
-        }
+        } catch (err) {}
 
         const card = createEventCard(nearest, user.userId, userStatus);
         const temp = document.createElement('div');
@@ -90,6 +109,7 @@ async function loadNearestEvent(user) {
         nearestGameCard.replaceWith(newCard);
 
     } catch (error) {
+        console.error('Ошибка:', error);
         nearestGameCard.innerHTML = `
             <div style="text-align:center;padding:40px;">
                 <div style="font-size:3rem;margin-bottom:12px;">📅</div>
@@ -101,24 +121,24 @@ async function loadNearestEvent(user) {
 }
 
 function formatEventDate(dateStr) {
-    const datePart = dateStr.split('T')[0]
-    const eventDate = new Date(`${datePart}T00:00:00`)
-    const today = new Date()
-    const tomorrow = new Date()
-    tomorrow.setDate(today.getDate() + 1)
+    const datePart = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+    const eventDate = new Date(datePart + 'T00:00:00');
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
 
-    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate())
-    const todayDay = new Date(today.getFullYear(), today.getMonth(), today.getDate())
-    const tomorrowDay = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate())
+    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    const todayDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const tomorrowDay = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
 
-    if (eventDay.getTime() === todayDay.getTime()) return 'сегодня'
-    if (eventDay.getTime() === tomorrowDay.getTime()) return 'завтра'
+    if (eventDay.getTime() === todayDay.getTime()) return 'сегодня';
+    if (eventDay.getTime() === tomorrowDay.getTime()) return 'завтра';
 
     return eventDate.toLocaleDateString('ru-RU', {
         weekday: 'short',
         day: 'numeric',
         month: 'long'
-    })
+    });
 }
 
 function updateTopBarSubtitle(event) {
@@ -131,7 +151,7 @@ function updateTopBarSubtitle(event) {
     }
 
     const location = event.location || 'Пляж'
-    const dateLabel = formatEventDate(event.date || event.eventDate)
+    const dateLabel = formatEventDate(event.eventDate)
     subtitleEl.innerHTML = `<i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Ближайшая игра ${dateLabel} · ${location}`
 }
 

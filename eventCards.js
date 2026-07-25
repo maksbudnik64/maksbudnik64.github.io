@@ -58,7 +58,7 @@ class EventCard {
             <div class="cardMeta">
                 ${this.renderTypeTag()}
                 <span class="tag"><i class="fas fa-users"></i> ${this.event.format}</span>
-                <span class="tag"><i class="fas fa-star"></i> ${this.event.level}</span>
+                ${this.event.level && this.event.level !== 'Любой' ? `<span class="tag"><i class="fas fa-star"></i> ${this.event.level}</span>` : ''}
                 ${this.event.duration ? `<span class="tag"><i class="far fa-clock"></i> ${this.event.duration}ч</span>` : ''}
             </div>`;
     }
@@ -84,15 +84,14 @@ class EventCard {
 
     renderParticipants() {
         const max = this.event.maxPlayers || 0;
-        if (!max) return '';
-        
         const count = this.event.participantCount || 0;
+        
         return `
             <div class="participants-block" style="margin:8px 0 12px 0; position: relative;">
                 <button class="toggle-participants" style="background:none;border:none;color:#5f6b7a;cursor:pointer;font-weight:600;
                         padding:0; margin:0; display:flex; align-items:center;"
                         data-event-id="${this.event.eventId}">
-                    <i class="fas fa-user-friends"></i>&nbsp;Участники: ${count} / ${max}
+                    <i class="fas fa-user-friends"></i>&nbsp;Участники: ${count} / ${max || '∞'}
                     <i class="fas fa-chevron-down" style="margin-left:4px; font-size:0.7rem;"></i>
                 </button>
                 <div class="participants-modal" style="display:none; position: absolute; top: 100%; left: 0; z-index: 50;
@@ -146,8 +145,8 @@ class EventCard {
 
         const isApplicationEvent = this.event.accessType === 'application';
         if (isApplicationEvent) {
-            if (activeStatus === 'application') {
-                return `<div class="waitList" style="background:#fef9f0"><span><i class="fas fa-clock"></i> Заявка подана</span></div>`;
+           if (activeStatus === 'application') {
+                return `<div class="statusButtons"><button class="buttonAccent" disabled><i class="fas fa-clock"></i> Заявка подана</button></div>`;
             }
             if (activeStatus === 'confirmed') {
                 return `<div class="waitList" style="background:#e4f1ea"><span><i class="fas fa-check-circle"></i> Заявка принята</span></div>`;
@@ -242,16 +241,15 @@ class TournamentCard extends EventCard {
             <div class="cardMeta">
                 <span class="tag" style="background:#fef3e4;color:#b76e2e;"><i class="fas fa-trophy"></i> Турнир</span>
                 <span class="tag"><i class="fas fa-sitemap"></i> ${this.event.tournamentFormat || ''}</span>
-                <span class="tag"><i class="fas fa-venus-mars"></i> ${this.event.tournamentGender || 'Мужской'}</span>
+                ${this.event.tournamentGender && this.event.tournamentGender !== 'Любой' ? `<span class="tag"><i class="fas fa-venus-mars"></i> ${this.event.tournamentGender}</span>` : ''}
                 <span class="tag"><i class="fas fa-users"></i> ${this.event.format}</span>
-                <span class="tag"><i class="fas fa-star"></i> ${this.event.level}</span>
+                ${this.event.level && this.event.level !== 'Любой' ? `<span class="tag"><i class="fas fa-star"></i> ${this.event.level}</span>` : ''}
                 ${this.event.duration ? `<span class="tag"><i class="far fa-clock"></i> ${this.event.duration}ч</span>` : ''}
             </div>`;
     }
 
     renderParticipants() {
         const teamsCount = this.event.participantCount || 0;
-        if (!teamsCount) return '';
         
         return `
             <div class="participants-block" style="margin:8px 0 12px 0; position: relative;">
