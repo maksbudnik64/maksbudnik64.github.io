@@ -74,13 +74,17 @@ class EventCard {
             </div>`;
     }
 
-    renderCreator() {
-        if (!this.event.creatorName) return '';
-        return `
-            <div style="font-size:0.8rem; color:#7a8490; margin-top:4px;">
-                Организатор: ${this.event.creatorName} ${this.event.creatorSurname || ''}
-            </div>`;
-    }
+   renderCreator() {
+    if (!this.event.creatorName) return '';
+    const creatorId = this.event.creatorId;
+    return `
+        <div style="font-size:0.8rem; color:#7a8490; margin-top:4px;">
+            Организатор: 
+            <a href="profile.html?id=${creatorId}" style="color: inherit; text-decoration: none; font-weight: 500;">
+                ${this.event.creatorName} ${this.event.creatorSurname || ''}
+            </a>
+        </div>`;
+}
 
     renderParticipants() {
         const max = this.event.maxPlayers || 0;
