@@ -1249,6 +1249,24 @@ button:disabled {
     margin-top: 6px;
 }
 
+/* Подсветка карточки при переходе по уведомлению */
+.card.highlighted {
+    animation: highlightPulse 0.8s ease-in-out 6 alternate;
+    border: 2px solid #f5b042 !important;
+    box-shadow: 0 0 25px rgba(245, 176, 66, 0.6) !important;
+}
+
+@keyframes highlightPulse {
+    0% {
+        box-shadow: 0 0 15px rgba(245, 176, 66, 0.3);
+        border-color: #fef7e9;
+    }
+    100% {
+        box-shadow: 0 0 35px rgba(245, 176, 66, 0.8);
+        border-color: #f5b042;
+    }
+}
+
 /* ===== АДАПТИВНОСТЬ ===== */
 @media screen and (max-width: 768px) {
     body {

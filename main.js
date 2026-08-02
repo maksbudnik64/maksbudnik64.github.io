@@ -19,6 +19,9 @@ async function initIndexPage() {
     await loadProfileMiniCard(user)
     const logoutBtn = document.querySelector('[data-js-logout-button]')
     if (logoutBtn) logoutBtn.addEventListener('click', logout)
+    
+    // Проверяем якорь после загрузки
+    checkEventAnchor()
 }
 
 async function loadNearestEvent(user) {
@@ -144,6 +147,20 @@ async function loadProfileMiniCard(user) {
             <div class="card" style="text-align:center;padding:20px;">
                 <div style="color:#6b7583;">Не удалось загрузить профиль</div>
             </div>`
+    }
+}
+
+// ============================================================
+// ОБРАБОТКА ЯКОРЯ ПРИ ЗАГРУЗКЕ
+// ============================================================
+
+function checkEventAnchor() {
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get('eventId');
+    if (eventId && window.highlightEventCard) {
+        setTimeout(() => {
+            window.highlightEventCard(parseInt(eventId));
+        }, 500);
     }
 }
 

@@ -42,14 +42,14 @@ self.addEventListener('push', (event) => {
             { action: 'open', title: '📖 Открыть' },
             { action: 'close', title: '❌ Закрыть' }
         ],
-        tag: data.eventId || 'notification',
+        tag: data.eventId ? `event-${data.eventId}` : 'notification',
         renotify: true,
         requireInteraction: true
     }
 
     event.waitUntil(
         self.registration.showNotification(
-            data.title || '🏐 Volleyball App',
+            data.title || '🏐 Beach Pro Tool',
             options
         )
     )
@@ -67,23 +67,27 @@ self.addEventListener('notificationclick', (event) => {
     const url = event.notification.data?.url || '/events.html'
     const eventId = event.notification.data?.eventId
 
-    let fullUrl = url
-    if (eventId && !url.includes('id=')) {
-        const separator = url.includes('?') ? '&' : '?'
-        fullUrl = `${url}${separator}id=${eventId}`
+    // Формируем URL с параметром eventId для якоря
+    let fullUrl = url;
+    if (eventId) {
+        // Убираем старые параметры и добавляем eventId
+        const baseUrl = url.split('?')[0];
+        fullUrl = `${baseUrl}?eventId=${eventId}`;
     }
 
     event.waitUntil(
         clients.matchAll({ type: 'window', includeUncontrolled: true })
             .then((clientList) => {
+                // Ищем уже открытую вкладку с нашим origin
                 for (const client of clientList) {
                     if (client.url.includes(self.location.origin) && 'focus' in client) {
-                        client.focus()
-                        client.navigate(fullUrl)
-                        return
+                        client.focus();
+                        client.navigate(fullUrl);
+                        return;
                     }
                 }
-                return clients.openWindow(fullUrl)
+                // Открываем новую вкладку
+                return clients.openWindow(fullUrl);
             })
     )
 })

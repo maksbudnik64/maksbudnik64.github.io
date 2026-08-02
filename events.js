@@ -38,6 +38,9 @@ async function loadEvents() {
     }
 
     applyFiltersAndRender()
+    
+    // Проверяем якорь после загрузки
+    checkEventAnchor()
 }
 
 function applyFiltersAndRender() {
@@ -78,6 +81,7 @@ function applyFiltersAndRender() {
     }
 }
 
+// Обработчик фильтров
 document.querySelector('.filtersSection')?.addEventListener('click', (e) => {
     const btn = e.target.closest('button')
     if (!btn || !btn.dataset.filterValue) return
@@ -93,5 +97,20 @@ document.querySelector('.filtersSection')?.addEventListener('click', (e) => {
 
     applyFiltersAndRender()
 })
+
+// ============================================================
+// ОБРАБОТКА ЯКОРЯ ПРИ ЗАГРУЗКЕ
+// ============================================================
+
+function checkEventAnchor() {
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get('eventId');
+    if (eventId && window.highlightEventCard) {
+        // Небольшая задержка для рендера карточек
+        setTimeout(() => {
+            window.highlightEventCard(parseInt(eventId));
+        }, 300);
+    }
+}
 
 loadEvents()

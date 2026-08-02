@@ -35,6 +35,7 @@ async function loadTournaments() {
         }
 
         applyFiltersAndRender()
+        checkEventAnchor()
     } catch (error) {
         console.error('Ошибка загрузки турниров:', error)
         container.innerHTML = `
@@ -54,25 +55,21 @@ function applyFiltersAndRender() {
 
     switch (activeFilter) {
         case 'active':
-            // Активные: groupStage или playoff
             filtered = filtered.filter(t => 
                 t.tournamentStatus === 'groupStage' || t.tournamentStatus === 'playoff'
             )
             break
         case 'registration':
-            // Набираются: статус pending и турнир в стадии registration
             filtered = filtered.filter(t => 
                 t.status === 'pending' && t.tournamentStatus === 'registration'
             )
             break
         case 'finished':
-            // Завершённые: отменённые или tournamentStatus = 'finished'
             filtered = filtered.filter(t => 
                 t.status === 'cancelled' || t.tournamentStatus === 'finished'
             )
             break
         case 'my':
-            // Мои: созданные пользователем или где он участник
             filtered = filtered.filter(t => {
                 const userStatus = statusMap[t.eventId]
                 return t.creatorId === currentUser?.userId || 
@@ -81,7 +78,6 @@ function applyFiltersAndRender() {
             break
     }
 
-    // Сортировка
     filtered.sort((a, b) => {
         if (a.status === 'cancelled' && b.status !== 'cancelled') return 1
         if (a.status !== 'cancelled' && b.status === 'cancelled') return -1
@@ -133,5 +129,19 @@ document.querySelector('.filtersSection')?.addEventListener('click', (e) => {
     activeFilter = btn.dataset.filterValue
     applyFiltersAndRender()
 })
+
+// ============================================================
+// ОБРАБОТКА ЯКОРЯ ПРИ ЗАГРУЗКЕ
+// ============================================================
+
+function checkEventAnchor() {
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get('eventId');
+    if (eventId && window.highlightEventCard) {
+        setTimeout(() => {
+            window.highlightEventCard(parseInt(eventId));
+        }, 300);
+    }
+}
 
 loadTournaments()

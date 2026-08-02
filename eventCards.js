@@ -427,6 +427,37 @@ function createEventCard(event, currentUserId, userStatus = null) {
     }
 }
 
+// ============================================================
+// ПОДСВЕТКА КАРТОЧКИ ПО ЯКОРЮ
+// ============================================================
+
+/**
+ * Подсветка карточки события и скролл к ней
+ * @param {number} eventId - ID события
+ */
+function highlightEventCard(eventId) {
+    // Убираем подсветку со всех карточек
+    document.querySelectorAll('.card.highlighted').forEach(card => {
+        card.classList.remove('highlighted');
+    });
+
+    // Находим карточку события
+    const card = document.querySelector(`.card[data-event-id="${eventId}"]`);
+    if (!card) return;
+
+    // Скроллим к карточке
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Добавляем подсветку
+    card.classList.add('highlighted');
+
+    // Убираем через 5 секунд
+    setTimeout(() => {
+        card.classList.remove('highlighted');
+    }, 5000);
+}
+
+window.highlightEventCard = highlightEventCard;
 window.createEventCard = createEventCard;
 window.formatEventDate = formatEventDate;
 window.renderEmptyEventsCard = renderEmptyEventsCard;
