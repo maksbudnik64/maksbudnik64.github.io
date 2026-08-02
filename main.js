@@ -1,8 +1,7 @@
 import { checkAuth, logout, updateUserCard } from './auth.js'
 import { apiGet } from './api.js'
-import { createEventCard } from './eventCards.js'
+import { createEventCard, formatEventDate } from './eventCards.js'
 
-// Глобальное хранилище событий
 window.allEventsGlobal = [];
 
 window.getEvent = (eventId) => {
@@ -22,10 +21,6 @@ async function initIndexPage() {
     if (logoutBtn) logoutBtn.addEventListener('click', logout)
 }
 
-// ============================================================
-// БЛИЖАЙШЕЕ СОБЫТИЕ
-// ============================================================
-
 async function loadNearestEvent(user) {
     const mainBoard = document.querySelector('.mainBoard');
     if (!mainBoard) return;
@@ -41,38 +36,29 @@ async function loadNearestEvent(user) {
 
         const upcoming = events
             .filter(e => {
-                // Правильно парсим дату из ISO формата с учетом локальной временной зоны
-                const rawDate = e.eventDate;
                 let datePart;
-                
-                if (rawDate.includes('T')) {
-                    // ISO формат: "2026-07-25T21:00:00.000Z"
-                    const d = new Date(rawDate);
-                    // Получаем локальную дату
+                if (e.eventDate && e.eventDate.includes('T')) {
+                    const d = new Date(e.eventDate);
                     datePart = d.getFullYear() + '-' + 
                                String(d.getMonth() + 1).padStart(2, '0') + '-' + 
                                String(d.getDate()).padStart(2, '0');
                 } else {
-                    datePart = rawDate;
+                    datePart = e.eventDate;
                 }
                 
                 const eventDate = new Date(datePart + 'T' + (e.eventTime || '00:00'));
-                const isUpcoming = eventDate > now;
-                const isNotCancelled = e.status !== 'cancelled';
-                
-                return isUpcoming && isNotCancelled;
+                return eventDate > now && e.status !== 'cancelled';
             })
             .sort((a, b) => {
                 const parseDate = (e) => {
-                    const raw = e.eventDate;
                     let dp;
-                    if (raw.includes('T')) {
-                        const d = new Date(raw);
+                    if (e.eventDate && e.eventDate.includes('T')) {
+                        const d = new Date(e.eventDate);
                         dp = d.getFullYear() + '-' + 
                              String(d.getMonth() + 1).padStart(2, '0') + '-' + 
                              String(d.getDate()).padStart(2, '0');
                     } else {
-                        dp = raw;
+                        dp = e.eventDate;
                     }
                     return new Date(dp + 'T' + (e.eventTime || '00:00'));
                 };
@@ -80,20 +66,10 @@ async function loadNearestEvent(user) {
             });
 
         if (upcoming.length === 0) {
-    nearestGameCard.innerHTML = `
-        <div style="text-align:center;padding:40px;">
-            <div style="font-size:3rem;margin-bottom:12px;">📅</div>
-            <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет ближайших событий</div>
-            <div style="color:#6b7583;margin-bottom:16px;">Создайте событие или запишитесь в существующее</div>
-            <a href="createEvent.html" style="display:inline-block;">
-                <button class="buttonAccent">
-                    <i class="fas fa-plus-circle"></i> Создать событие
-                </button>
-            </a>
-        </div>`
-    updateTopBarSubtitle(null)
-    return
-}
+            nearestGameCard.innerHTML = window.renderEmptyEventsCard();
+            updateTopBarSubtitle(null);
+            return;
+        }
 
         const nearest = upcoming[0];
         updateTopBarSubtitle(nearest);
@@ -114,40 +90,9 @@ async function loadNearestEvent(user) {
 
     } catch (error) {
         console.error('Ошибка:', error);
-        nearestGameCard.innerHTML = `
-        <div style="text-align:center;padding:40px;">
-            <div style="font-size:3rem;margin-bottom:12px;">📅</div>
-            <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет ближайших событий</div>
-            <div style="color:#6b7583;margin-bottom:16px;">Создайте событие или запишитесь в существующее</div>
-            <a href="createEvent.html" style="display:inline-block;">
-                <button class="buttonAccent">
-                    <i class="fas fa-plus-circle"></i> Создать событие
-                </button>
-            </a>
-        </div>`
-    updateTopBarSubtitle(null)
+        nearestGameCard.innerHTML = window.renderEmptyEventsCard();
+        updateTopBarSubtitle(null);
     }
-}
-
-function formatEventDate(dateStr) {
-    const datePart = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
-    const eventDate = new Date(datePart + 'T00:00:00');
-    const today = new Date();
-    const tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-
-    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
-    const todayDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const tomorrowDay = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
-
-    if (eventDay.getTime() === todayDay.getTime()) return 'сегодня';
-    if (eventDay.getTime() === tomorrowDay.getTime()) return 'завтра';
-
-    return eventDate.toLocaleDateString('ru-RU', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'long'
-    });
 }
 
 function updateTopBarSubtitle(event) {
@@ -163,10 +108,6 @@ function updateTopBarSubtitle(event) {
     const dateLabel = formatEventDate(event.eventDate)
     subtitleEl.innerHTML = `<i class="fas fa-map-marker-alt" style="color:#c49a2c;"></i> Ближайшая игра ${dateLabel} · ${location}`
 }
-
-// ============================================================
-// МИНИ-КАРТОЧКА ПРОФИЛЯ
-// ============================================================
 
 async function loadProfileMiniCard(user) {
     const container = document.getElementById('profile-mini-card')

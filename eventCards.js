@@ -1,4 +1,59 @@
 // ============================================================
+// УТИЛИТЫ
+// ============================================================
+
+/**
+ * Форматирование даты с учетом временной зоны
+ * @param {string} dateStr - дата в формате ISO или YYYY-MM-DD
+ * @returns {string} - "сегодня", "завтра" или "вс, 2 августа"
+ */
+function formatEventDate(dateStr) {
+    let eventDate;
+    
+    if (dateStr && dateStr.includes('T')) {
+        eventDate = new Date(dateStr);
+    } else if (dateStr) {
+        eventDate = new Date(dateStr + 'T00:00:00');
+    } else {
+        return '';
+    }
+    
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    const eventDay = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    const todayDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const tomorrowDay = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
+
+    if (eventDay.getTime() === todayDay.getTime()) return 'сегодня';
+    if (eventDay.getTime() === tomorrowDay.getTime()) return 'завтра';
+
+    return eventDate.toLocaleDateString('ru-RU', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'long'
+    });
+}
+
+/**
+ * Создание HTML пустой карточки "Нет событий"
+ */
+function renderEmptyEventsCard() {
+    return `
+        <div style="text-align:center;padding:40px;">
+            <div style="font-size:3rem;margin-bottom:12px;">📅</div>
+            <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет событий</div>
+            <div style="color:#6b7583;margin-bottom:16px;">Создайте событие или запишитесь в существующее</div>
+            <a href="createEvent.html" style="display:inline-block;">
+                <button class="buttonAccent">
+                    <i class="fas fa-plus-circle"></i> Создать событие
+                </button>
+            </a>
+        </div>`;
+}
+
+// ============================================================
 // БАЗОВЫЙ КЛАСС КАРТОЧКИ СОБЫТИЯ
 // ============================================================
 
@@ -52,7 +107,7 @@ class EventCard {
             <div class="eventTopRow">
                 <div class="eventDate">
                     <i class="far fa-calendar-check"></i>
-                    ${new Date(this.event.eventDate).toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'long' })} · ${this.event.eventTime.slice(0,5)}
+                    ${formatEventDate(this.event.eventDate)} · ${this.event.eventTime.slice(0,5)}
                 </div>
             </div>
             <div class="cardMeta">
@@ -74,17 +129,17 @@ class EventCard {
             </div>`;
     }
 
-   renderCreator() {
-    if (!this.event.creatorName) return '';
-    const creatorId = this.event.creatorId;
-    return `
-        <div style="font-size:0.8rem; color:#7a8490; margin-top:4px;">
-            Организатор: 
-            <a href="profile.html?id=${creatorId}" style="color: inherit; text-decoration: none; font-weight: 500;">
-                ${this.event.creatorName} ${this.event.creatorSurname || ''}
-            </a>
-        </div>`;
-}
+    renderCreator() {
+        if (!this.event.creatorName) return '';
+        const creatorId = this.event.creatorId;
+        return `
+            <div style="font-size:0.8rem; color:#7a8490; margin-top:4px;">
+                Организатор: 
+                <a href="profile.html?id=${creatorId}" style="color: inherit; text-decoration: none; font-weight: 500;">
+                    ${this.event.creatorName} ${this.event.creatorSurname || ''}
+                </a>
+            </div>`;
+    }
 
     renderParticipants() {
         const max = this.event.maxPlayers || 0;
@@ -154,6 +209,9 @@ class EventCard {
             }
             if (activeStatus === 'confirmed') {
                 return `<div class="waitList" style="background:#e4f1ea"><span><i class="fas fa-check-circle"></i> Заявка принята</span></div>`;
+            }
+            if (activeStatus === 'declined') {
+                return `<div class="statusButtons"><button disabled><i class="fas fa-times-circle"></i> Заявка отклонена</button></div>`;
             }
             return `
                 <div class="statusButtons">
@@ -239,7 +297,7 @@ class TournamentCard extends EventCard {
             <div class="eventTopRow">
                 <div class="eventDate">
                     <i class="far fa-calendar-check"></i>
-                    ${new Date(this.event.eventDate).toLocaleDateString('ru-RU', { weekday: 'short', day: 'numeric', month: 'long' })} · ${this.event.eventTime.slice(0,5)}
+                    ${formatEventDate(this.event.eventDate)} · ${this.event.eventTime.slice(0,5)}
                 </div>
             </div>
             <div class="cardMeta">
@@ -370,4 +428,7 @@ function createEventCard(event, currentUserId, userStatus = null) {
 }
 
 window.createEventCard = createEventCard;
-export { EventCard, TournamentCard, TrainingCard, GameCard, createEventCard };
+window.formatEventDate = formatEventDate;
+window.renderEmptyEventsCard = renderEmptyEventsCard;
+
+export { EventCard, TournamentCard, TrainingCard, GameCard, createEventCard, formatEventDate, renderEmptyEventsCard };
