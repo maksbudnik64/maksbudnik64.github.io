@@ -80,16 +80,20 @@ async function loadNearestEvent(user) {
             });
 
         if (upcoming.length === 0) {
-            nearestGameCard.innerHTML = `
-                <div style="text-align:center;padding:40px;">
-                    <div style="font-size:3rem;margin-bottom:12px;">📅</div>
-                    <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет ближайших событий</div>
-                    <div style="color:#6b7583;margin-bottom:16px;">Создайте событие или запишитесь в существующее</div>
-                    <a href="createEvent.html"><button class="buttonAccent"><i class="fas fa-plus-circle"></i> Создать событие</button></a>
-                </div>`;
-            updateTopBarSubtitle(null);
-            return;
-        }
+    nearestGameCard.innerHTML = `
+        <div style="text-align:center;padding:40px;">
+            <div style="font-size:3rem;margin-bottom:12px;">📅</div>
+            <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет ближайших событий</div>
+            <div style="color:#6b7583;margin-bottom:16px;">Создайте событие или запишитесь в существующее</div>
+            <a href="createEvent.html" style="display:inline-block;">
+                <button class="buttonAccent">
+                    <i class="fas fa-plus-circle"></i> Создать событие
+                </button>
+            </a>
+        </div>`
+    updateTopBarSubtitle(null)
+    return
+}
 
         const nearest = upcoming[0];
         updateTopBarSubtitle(nearest);
@@ -111,12 +115,17 @@ async function loadNearestEvent(user) {
     } catch (error) {
         console.error('Ошибка:', error);
         nearestGameCard.innerHTML = `
-            <div style="text-align:center;padding:40px;">
-                <div style="font-size:3rem;margin-bottom:12px;">📅</div>
-                <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет ближайших событий</div>
-                <div style="color:#6b7583;">Создайте первое событие</div>
-            </div>`;
-        updateTopBarSubtitle(null);
+        <div style="text-align:center;padding:40px;">
+            <div style="font-size:3rem;margin-bottom:12px;">📅</div>
+            <div style="font-weight:700;font-size:1.2rem;margin-bottom:8px;">Нет ближайших событий</div>
+            <div style="color:#6b7583;margin-bottom:16px;">Создайте событие или запишитесь в существующее</div>
+            <a href="createEvent.html" style="display:inline-block;">
+                <button class="buttonAccent">
+                    <i class="fas fa-plus-circle"></i> Создать событие
+                </button>
+            </a>
+        </div>`
+    updateTopBarSubtitle(null)
     }
 }
 

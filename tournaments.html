@@ -84,22 +84,97 @@
 
     <!-- ===== МОДАЛЬНОЕ ОКНО: РЕДАКТИРОВАНИЕ СОБЫТИЯ ===== -->
     <div id="edit-event-modal" class="modal" style="display:none;">
-        <div class="modal-content card" style="max-width:500px;margin:50px auto;">
-            <div class="cardHeader"><h3>Редактирование события</h3><button class="close-modal">&times;</button></div>
-            <form id="edit-event-form">
-                <input type="hidden" id="edit-event-id"/>
-                <h3 id="edit-title" style="margin-bottom:16px;font-weight:700;"></h3>
-                <div class="authFormGroup"><label>Статус</label><select id="edit-status" name="status"><option value="pending">Набирается</option><option value="confirmed">Подтверждено</option><option value="cancelled">Отменено</option></select></div>
-                <div class="authFormRow"><div class="authFormGroup"><label>Дата</label><input type="date" id="edit-date" name="eventDate" required/></div><div class="authFormGroup"><label>Время</label><input type="time" id="edit-time" name="eventTime" required/></div></div>
-                <div class="authFormRow"><div class="authFormGroup"><label>Формат</label><select id="edit-format" name="format" required><option value="">Выберите</option><option>2×2</option><option>3×3</option><option>4×4</option></select></div><div class="authFormGroup"><label>Уровень</label><select id="edit-level" name="level" required><option value="">Выберите</option><option>Новичок</option><option>Любитель</option><option>Любитель+</option><option>Профи</option></select></div></div>
-                <div class="authFormRow"><div class="authFormGroup"><label>Длительность (ч)</label><input type="number" id="edit-duration" name="duration" min="1" max="8"/></div><div class="authFormGroup"><label>Макс. игроков</label><input type="number" id="edit-maxPlayers" name="maxPlayers" min="2" max="40"/></div></div>
-                <div id="edit-tournament-fields" style="display:none;"><div class="authFormRow"><div class="authFormGroup"><label>Тип турнира</label><select id="edit-tournamentGender" name="tournamentGender"><option value="">Выберите</option><option>Мужской</option><option>Женский</option><option>Миксты</option></select></div><div class="authFormGroup"><label>Формат турнира</label><select id="edit-tournamentFormat" name="tournamentFormat"><option value="">Выберите</option><option>Король корта (каждый с каждым)</option><option>Групповой этап + плей-офф</option><option>Олимпийская система (на вылет)</option></select></div></div></div>
-                <div class="authFormGroup"><label>Место проведения</label><input type="text" id="edit-location" name="location"/></div>
-                <div class="authFormGroup"><label>Описание</label><textarea id="edit-description" name="description" rows="3"></textarea></div>
-                <button type="submit" class="buttonAccent authSubmit">Сохранить</button>
-            </form>
+    <div class="modal-content card" style="max-width:500px;max-height:90vh;overflow-y:auto;margin:20px auto;">
+        <div class="cardHeader" style="position:sticky;top:0;background:white;z-index:1;">
+            <h3>Редактирование события</h3>
+            <button class="close-modal">&times;</button>
         </div>
+        <form id="edit-event-form">
+            <input type="hidden" id="edit-event-id"/>
+            <h3 id="edit-title" style="margin-bottom:16px;font-weight:700;"></h3>
+            <div class="authFormGroup">
+                <label>Статус</label>
+                <select id="edit-status" name="status">
+                    <option value="pending">Набирается</option>
+                    <option value="confirmed">Подтверждено</option>
+                    <option value="cancelled">Отменено</option>
+                </select>
+            </div>
+            <div class="authFormRow">
+                <div class="authFormGroup">
+                    <label>Дата</label>
+                    <input type="date" id="edit-date" name="eventDate" required/>
+                </div>
+                <div class="authFormGroup">
+                    <label>Время</label>
+                    <input type="time" id="edit-time" name="eventTime" required/>
+                </div>
+            </div>
+            <div class="authFormRow">
+                <div class="authFormGroup">
+                    <label>Формат</label>
+                    <select id="edit-format" name="format" required>
+                        <option value="">Выберите</option>
+                        <option>2×2</option>
+                        <option>3×3</option>
+                        <option>4×4</option>
+                    </select>
+                </div>
+                <div class="authFormGroup">
+                    <label>Уровень</label>
+                    <select id="edit-level" name="level">
+                        <option value="">Любой</option>
+                        <option value="Новичок">Новичок</option>
+                        <option value="Любитель">Любитель</option>
+                        <option value="Любитель+">Любитель+</option>
+                        <option value="Профи">Профи</option>
+                    </select>
+                </div>
+            </div>
+            <div class="authFormRow">
+                <div class="authFormGroup">
+                    <label>Длительность (ч)</label>
+                    <input type="number" id="edit-duration" name="duration" min="1" max="8"/>
+                </div>
+                <div class="authFormGroup">
+                    <label>Макс. игроков</label>
+                    <input type="number" id="edit-maxPlayers" name="maxPlayers" min="2" max="40"/>
+                </div>
+            </div>
+            <div id="edit-tournament-fields" style="display:none;">
+                <div class="authFormRow">
+                    <div class="authFormGroup">
+                        <label>Тип турнира</label>
+                        <select id="edit-tournamentGender" name="tournamentGender">
+                            <option value="">Любой</option>
+                            <option value="Мужской">Мужской</option>
+                            <option value="Женский">Женский</option>
+                            <option value="Миксты">Миксты</option>
+                        </select>
+                    </div>
+                    <div class="authFormGroup">
+                        <label>Формат турнира</label>
+                        <select id="edit-tournamentFormat" name="tournamentFormat">
+                            <option value="">Выберите</option>
+                            <option>Король корта (каждый с каждым)</option>
+                            <option>Групповой этап + плей-офф</option>
+                            <option>Олимпийская система (на вылет)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="authFormGroup">
+                <label>Место проведения</label>
+                <input type="text" id="edit-location" name="location"/>
+            </div>
+            <div class="authFormGroup">
+                <label>Описание</label>
+                <textarea id="edit-description" name="description" rows="3"></textarea>
+            </div>
+            <button type="submit" class="buttonAccent authSubmit">Сохранить</button>
+        </form>
     </div>
+</div>
 
     <!-- ===== МОДАЛЬНОЕ ОКНО: УПРАВЛЕНИЕ УЧАСТНИКАМИ ===== -->
     <div id="manage-participants-modal" class="modal" style="display:none;">

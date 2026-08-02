@@ -471,29 +471,51 @@ document.addEventListener('click', async (e) => {
     }
     // Редактирование события
     else if (e.target.closest('.edit-event-btn')) {
-        const btn = e.target.closest('.edit-event-btn')
-        const data = await apiGet(`/events/${btn.dataset.eventId}`)
-        const ev = data.event
-        document.getElementById('edit-event-id').value = ev.eventId
-        document.getElementById('edit-title').textContent = ev.title
-        document.getElementById('edit-status').value = ev.status
-        document.getElementById('edit-date').value = ev.eventDate.slice(0, 10)
-        document.getElementById('edit-time').value = ev.eventTime.slice(0, 5)
-        document.getElementById('edit-duration').value = ev.duration
-        document.getElementById('edit-format').value = ev.format
-        document.getElementById('edit-level').value = ev.level
-        document.getElementById('edit-maxPlayers').value = ev.maxPlayers
-        document.getElementById('edit-location').value = ev.location
-        document.getElementById('edit-description').value = ev.description || ''
-        if (ev.eventType === 'tournament') {
-            document.getElementById('edit-tournament-fields').style.display = 'block'
-            document.getElementById('edit-tournamentGender').value = ev.tournamentGender || 'Мужской'
-            document.getElementById('edit-tournamentFormat').value = ev.tournamentFormat || ''
+    const btn = e.target.closest('.edit-event-btn')
+    const data = await apiGet(`/events/${btn.dataset.eventId}`)
+    const ev = data.event
+    
+    document.getElementById('edit-event-id').value = ev.eventId
+    document.getElementById('edit-title').textContent = ev.title
+    document.getElementById('edit-status').value = ev.status
+    
+    // Правильно парсим дату с учетом временной зоны
+    let dateValue = ''
+    if (ev.eventDate) {
+        if (ev.eventDate.includes('T')) {
+            // ISO формат: "2026-08-02T14:00:00.000Z"
+            const d = new Date(ev.eventDate)
+            // Получаем локальную дату
+            dateValue = d.getFullYear() + '-' + 
+                        String(d.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(d.getDate()).padStart(2, '0')
         } else {
-            document.getElementById('edit-tournament-fields').style.display = 'none'
+            // Просто дата: "2026-08-02"
+            dateValue = ev.eventDate
         }
-        document.getElementById('edit-event-modal').style.display = 'block'
     }
+    document.getElementById('edit-date').value = dateValue
+    
+    document.getElementById('edit-time').value = ev.eventTime.slice(0, 5)
+    document.getElementById('edit-duration').value = ev.duration
+    document.getElementById('edit-format').value = ev.format
+    
+    // Уровень: "Любой" → пустая строка
+    document.getElementById('edit-level').value = (ev.level && ev.level !== 'Любой') ? ev.level : ''
+    
+    document.getElementById('edit-maxPlayers').value = ev.maxPlayers
+    document.getElementById('edit-location').value = ev.location
+    document.getElementById('edit-description').value = ev.description || ''
+    
+    if (ev.eventType === 'tournament') {
+        document.getElementById('edit-tournament-fields').style.display = 'block'
+        document.getElementById('edit-tournamentGender').value = (ev.tournamentGender && ev.tournamentGender !== 'Любой') ? ev.tournamentGender : ''
+        document.getElementById('edit-tournamentFormat').value = ev.tournamentFormat || ''
+    } else {
+        document.getElementById('edit-tournament-fields').style.display = 'none'
+    }
+    document.getElementById('edit-event-modal').style.display = 'block'
+}
     // Управление участниками
     else if (e.target.closest('.manage-participants-btn')) {
         const btn = e.target.closest('.manage-participants-btn')
