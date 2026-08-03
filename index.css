@@ -549,6 +549,13 @@ button:disabled {
 }
 
 /* ===== ТАБЛИЦА МАТЧЕЙ ===== */
+/* ===== ТАБЛИЦА МАТЧЕЙ ===== */
+.matches-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .matchRow {
     display: flex;
     align-items: center;
@@ -560,22 +567,57 @@ button:disabled {
     font-size: clamp(0.7rem, 0.85vw, 0.9rem);
     font-weight: 500;
     gap: 8px;
+    cursor: default;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.matchRow:not(.matchRow-finished) {
+    cursor: pointer;
+}
+
+.matchRow:not(.matchRow-finished):hover {
+    background: #fef9f0;
+    border-color: #f5d89a;
 }
 
 .matchRow-finished {
     border-left: 3px solid #10b981;
+    opacity: 0.8;
 }
 
-.matchScore {
-    font-weight: 700;
-    color: #c49a2c;
+.matchRow .matchTeam {
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
+}
+
+.matchRow .matchTeam:first-of-type {
+    text-align: right;
+}
+
+.matchRow .matchTeam:last-of-type {
+    text-align: left;
 }
 
 .matchVs {
     color: #8e9aab;
     font-weight: 600;
     font-size: clamp(0.6rem, 0.7vw, 0.75rem);
+    flex-shrink: 0;
+}
+
+.matchScore {
+    font-weight: 700;
+    color: #c49a2c;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 50px;
+    text-align: center;
+}
+
+.matchRow-finished .matchScore {
+    color: #0b4b3b;
 }
 
 /* ===== ЯЧЕЙКА МАТЧА (для плей-офф) ===== */

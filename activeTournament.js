@@ -226,16 +226,80 @@ function renderStandings(teams, matches) {
 
 function renderMatches(matches) {
     if (!matches || matches.length === 0) return '<div style="padding:12px;color:#6b7583;">Нет матчей</div>'
-    return matches.map(match => {
+    return `<div class="matches-grid">${matches.map(match => {
         const isFinished = match.winnerId !== null
         return `
-            <div class="matchRow ${isFinished ? 'matchRow-finished' : ''}">
-                <span>${getTeamNameFromMatch(match, 'team1')}</span>
+            <div class="matchRow ${isFinished ? 'matchRow-finished' : ''}"
+                 ${!isFinished ? `data-match-id="${match.matchId}" onclick="selectMatch(${match.matchId})"` : ''}>
+                <span class="matchTeam">${getTeamNameFromMatch(match, 'team1')}</span>
                 <span class="matchVs">VS</span>
-                <span>${getTeamNameFromMatch(match, 'team2')}</span>
-                <span class="tag">${isFinished ? `${match.setsTeam1 || 0} : ${match.setsTeam2 || 0}` : '— : —'}</span>
+                <span class="matchTeam">${getTeamNameFromMatch(match, 'team2')}</span>
+                <span class="matchScore">${isFinished ? `${match.setsTeam1 || 0}:${match.setsTeam2 || 0}` : '—:—'}</span>
             </div>`
-    }).join('')
+    }).join('')}</div>`
+}
+
+// ============================================================
+// ВЫБОР МАТЧА ИЗ ТАБЛИЦЫ
+// ============================================================
+
+window.selectMatch = function(matchId) {
+    const matchSelect = document.getElementById('counter-match-select')
+    if (!matchSelect) return
+
+    // Проверяем, есть ли уже выбранный матч и не тот же самый
+    const currentMatchId = matchSelect.value
+    if (currentMatchId && currentMatchId != matchId) {
+        // Проверяем, есть ли незавершённый счёт
+        const hasScore = checkHasUnsavedScore()
+        if (hasScore) {
+            const confirmed = confirm(
+                '⚠️ У вас есть незавершённый счёт в текущем матче.\n\n' +
+                'При переходе к другому матчу счёт будет сброшен.\n\n' +
+                'Вы уверены, что хотите перейти?'
+            )
+            if (!confirmed) return
+        }
+    }
+
+    // Находим нужную опцию
+    for (let i = 0; i < matchSelect.options.length; i++) {
+        if (matchSelect.options[i].value == matchId) {
+            matchSelect.selectedIndex = i
+            // Вызываем событие change для обновления счётчика
+            matchSelect.dispatchEvent(new Event('change'))
+            
+            // Переключаем на вкладку счётчика
+            switchTab('counter')
+            
+            // Скроллим к счётчику
+            const counterSection = document.getElementById('section-counter')
+            if (counterSection) {
+                counterSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+            break
+        }
+    }
+}
+
+/**
+ * Проверяет, есть ли незавершённый счёт в текущем матче
+ * Возвращает true, если есть что сбрасывать
+ */
+function checkHasUnsavedScore() {
+    // Проверяем текущий сет
+    const set = currentSets[currentSetIndex]
+    if (set && !set.finished && (set.team1 > 0 || set.team2 > 0)) {
+        return true
+    }
+    
+    // Проверяем, есть ли завершённые сеты
+    const hasFinishedSets = currentSets.some(s => s.finished)
+    if (hasFinishedSets) {
+        return true
+    }
+    
+    return false
 }
 
 function renderGroups(groups, allMatches) {
@@ -896,6 +960,7 @@ function updateButtonsState() {
         finishMatchBtn.disabled = !matchSelected || !hasFinishedSets
     }
 }
+
 
 // ============================================================
 // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
