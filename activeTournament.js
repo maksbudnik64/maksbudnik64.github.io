@@ -11,7 +11,6 @@ import {
     compareTeamRating
 } from './utils.js'
 
-// Состояние
 let currentUser = null
 let tournament = null
 let tournamentData = null
@@ -74,7 +73,6 @@ async function loadTournament() {
         const bracketTab = document.getElementById('tab-bracket')
         const counterTab = document.getElementById('tab-counter')
 
-        // Настройка интерфейса в зависимости от формата турнира
         if (format === 'Олимпийская система (на вылет)') {
             setTabs({ standings: false, matches: false, bracket: true, counter: true }, bracketTab)
             if (sectionGroups) sectionGroups.style.display = 'none'
@@ -87,6 +85,12 @@ async function loadTournament() {
             if (sectionBracket) sectionBracket.style.display = 'block'
             if (counterSectionEl) counterSectionEl.style.display = 'block'
             await loadGroupStage(eventId)
+        } else if (format === 'Двойное выбывание (Double Elimination)') {
+            setTabs({ standings: false, matches: false, bracket: true, counter: true }, bracketTab)
+            if (sectionGroups) sectionGroups.style.display = 'none'
+            if (sectionBracket) sectionBracket.style.display = 'block'
+            if (counterSectionEl) counterSectionEl.style.display = 'block'
+            await loadPlayoffBracket(eventId)
         } else {
             setTabs({ standings: true, matches: true, bracket: false, counter: true }, standingsTab)
             if (sectionGroups) sectionGroups.style.display = 'block'
@@ -97,7 +101,6 @@ async function loadTournament() {
 
         await loadMatchesForCounter(eventId)
 
-        // Обработчики вкладок и кнопок
         if (standingsTab) standingsTab.addEventListener('click', () => switchTab('standings'))
         if (matchesTab) matchesTab.addEventListener('click', () => switchTab('matches'))
         if (bracketTab) bracketTab.addEventListener('click', () => switchTab('bracket'))
@@ -129,7 +132,6 @@ async function loadTournament() {
     }
 }
 
-// Настройка видимости вкладок
 function setTabs(config, activeTab) {
     const tabs = {
         standings: document.getElementById('tab-standings'),
@@ -142,6 +144,116 @@ function setTabs(config, activeTab) {
     }
     document.querySelectorAll('.filterGroup button').forEach(b => b.classList.remove('buttonAccent'))
     if (activeTab) activeTab.classList.add('buttonAccent')
+}
+
+// ============================================================
+// ПЛЕЙ-ОФФ И DE
+// ============================================================
+
+function renderTournamentBracket(matches, matchSetsMap = {}) {
+    const format = tournament?.tournamentFormat
+    const isDE = format === 'Двойное выбывание (Double Elimination)' || 
+                 matches.some(m => m.bracket === 'losers' || m.bracket === 'winners')
+    
+    if (isDE) {
+        if (matches.length === 0) {
+            const emptyDiv = document.createElement('div')
+            emptyDiv.className = 'card'
+            emptyDiv.style.cssText = 'text-align:center;padding:40px;'
+            emptyDiv.textContent = 'Нет матчей'
+            return emptyDiv
+        }
+        
+        const teamNames = {}
+        matches.forEach(m => {
+            if (m.team1Id) teamNames[m.team1Id] = getTeamNameFromMatch(m, 'team1')
+            if (m.team2Id) teamNames[m.team2Id] = getTeamNameFromMatch(m, 'team2')
+        })
+        
+        const tempContainer = document.createElement('div')
+        const renderer = new BracketRenderer({
+            container: tempContainer,
+            matches: matches,
+            parseTeamPlayers,
+            teamNames,
+            interactive: false,
+            isDoubleElimination: true,
+            matchSetsMap: matchSetsMap
+        })
+        renderer.renderFromMatches(matches)
+        return tempContainer  // ← возвращаем DOM-элемент
+    }
+    
+    // Для обычного плей-офф
+    const playoffMatches = matches.filter(m => m.stageLevel > 0)
+    if (playoffMatches.length === 0) {
+        const emptyDiv = document.createElement('div')
+        emptyDiv.className = 'card'
+        emptyDiv.style.cssText = 'text-align:center;padding:40px;'
+        emptyDiv.textContent = 'Нет матчей плей-офф'
+        return emptyDiv
+    }
+
+    const teamNames = {}
+    playoffMatches.forEach(m => {
+        if (m.team1Id) teamNames[m.team1Id] = getTeamNameFromMatch(m, 'team1')
+        if (m.team2Id) teamNames[m.team2Id] = getTeamNameFromMatch(m, 'team2')
+    })
+
+    const tempContainer = document.createElement('div')
+    const renderer = new BracketRenderer({
+        container: tempContainer,
+        parseTeamPlayers,
+        teamNames,
+        interactive: false
+    })
+    renderer.renderFromMatches(playoffMatches)
+    console.log('renderTournamentBracket returns:', typeof tempContainer, tempContainer instanceof HTMLElement);
+    return tempContainer  // ← возвращаем DOM-элемент
+}
+
+async function loadPlayoffBracket(eventId) {
+    try {
+        const data = await apiGet(`/events/${eventId}/matches/bracket`)
+        if (!sectionBracket) return
+
+        if (!data.success || !data.matches?.length) {
+            sectionBracket.innerHTML = '<div class="card" style="text-align:center;padding:40px;">Сетка ещё не создана</div>'
+            return
+        }
+
+        const matches = data.matches.map(m => ({
+            ...m,
+            team1Players: parseTeamPlayers(m.team1Players),
+            team2Players: parseTeamPlayers(m.team2Players)
+        }))
+
+        // Загружаем сеты
+        const matchIds = matches.map(m => m.matchId)
+        let matchSetsMap = {}
+        if (matchIds.length > 0) {
+            try {
+                const setsData = await apiGet(`/events/${eventId}/matches/sets?matchIds=${matchIds.join(',')}`)
+                if (setsData.success) {
+                    matchSetsMap = setsData.setsMap || {}
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки сетов:', err)
+            }
+        }
+
+        const result = renderTournamentBracket(matches, matchSetsMap)
+        console.log('Result type:', typeof result, 'is Element:', result instanceof Element);
+        console.log('Result innerHTML length:', result.innerHTML?.length);
+        console.log('Has click handlers:', result.querySelector('.bracket-cell')?.onclick);
+        sectionBracket.innerHTML = ''  // ← очищаем
+        sectionBracket.appendChild(result)  // ← добавляем DOM-элемент
+        console.log('sectionBracket children:', sectionBracket.children.length);
+        console.log('First child:', sectionBracket.children[0]?.className);
+    } catch (error) {
+        console.error('Ошибка загрузки сетки:', error)
+        if (sectionBracket) sectionBracket.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:red;">Ошибка: ${error.message}</div>`
+    }
 }
 
 // ============================================================
@@ -171,11 +283,25 @@ async function loadGroupStage(eventId) {
             return match
         })
 
+        // Загружаем сеты для всех матчей
+        const matchIds = allMatches.map(m => m.matchId)
+        let matchSetsMap = {}
+        if (matchIds.length > 0) {
+            try {
+                const setsData = await apiGet(`/events/${eventId}/matches/sets?matchIds=${matchIds.join(',')}`)
+                if (setsData.success) {
+                    matchSetsMap = setsData.setsMap || {}
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки сетов:', err)
+            }
+        }
+
         const groupNames = Object.keys(groups).filter(name => name !== 'all')
         const advanceCount = tournament?.advanceCount || 1
-        tournamentData = { groups, matches: allMatches, eventId, advanceCount, groupCount: groupNames.length }
+        tournamentData = { groups, matches: allMatches, eventId, advanceCount, groupCount: groupNames.length, matchSetsMap }
 
-        renderGroups(groups, allMatches)
+        renderGroups(groups, allMatches, matchSetsMap)
         groupStageCompleted = allMatches.filter(m => m.stageLevel === 0).every(m => m.winnerId !== null)
 
         if (tournament.tournamentStatus === 'playoff') {
@@ -214,9 +340,15 @@ function renderStandings(teams, matches) {
     standings.forEach((team, index) => {
         const position = index + 1
         const rowClass = position <= 3 ? `standings-row standings-row-${position}` : 'standings-row'
+        
+        // Формируем ссылки на профили игроков
+        const playersLinks = team.players && team.players.length > 0
+            ? team.players.map(p => `<a href="profile.html?id=${p.userId}" target="_blank" style="color: inherit; text-decoration: none;">${p.surname || p.name}</a>`).join(' · ')
+            : getTeamNameFromTeam(team)
+
         html += `
             <div class="${rowClass}">
-                <span>${position}</span><span>${getTeamNameFromTeam(team)}</span>
+                <span>${position}</span><span>${playersLinks}</span>
                 <span>${team.played}</span><span>${team.wins}</span>
                 <span class="standings-points">${team.points}</span>
             </div>`
@@ -224,20 +356,87 @@ function renderStandings(teams, matches) {
     return html
 }
 
-function renderMatches(matches) {
+function renderMatches(matches, matchSetsMap = {}) {
     if (!matches || matches.length === 0) return '<div style="padding:12px;color:#6b7583;">Нет матчей</div>'
     return `<div class="matches-grid">${matches.map(match => {
         const isFinished = match.winnerId !== null
+        const team1Name = getTeamNameFromMatch(match, 'team1')
+        const team2Name = getTeamNameFromMatch(match, 'team2')
+        
+        const team1Links = match.team1Players && match.team1Players.length > 0
+            ? match.team1Players.map(p => `<a href="profile.html?id=${p.userId}" target="_blank" style="color: inherit; text-decoration: none;">${p.surname}</a>`).join(' · ')
+            : team1Name
+        
+        const team2Links = match.team2Players && match.team2Players.length > 0
+            ? match.team2Players.map(p => `<a href="profile.html?id=${p.userId}" target="_blank" style="color: inherit; text-decoration: none;">${p.surname}</a>`).join(' · ')
+            : team2Name
+
+        const matchSets = matchSetsMap[match.matchId] || []
+        const hasSets = isFinished && matchSets.length > 0
+        
+        let setScoresHtml = ''
+        if (hasSets) {
+            setScoresHtml = `
+    <div class="match-set-scores" style="display: none;">
+        ${matchSets.map((s, i) => `
+            <span>${i + 1}. <b style="color: ${s.winner === 1 ? '#c49a2c' : '#5f6b7a'}; font-weight: 700;">${s.team1Score}</b>:<b style="color: ${s.winner === 2 ? '#c49a2c' : '#5f6b7a'}; font-weight: 700;">${s.team2Score}</b></span>
+        `).join('')}
+    </div>`
+        }
+
+        const team1Won = match.winnerId === match.team1Id
+        const team2Won = match.winnerId === match.team2Id
+        const mainScoreHtml = isFinished 
+            ? `<b style="color: ${team1Won ? '#c49a2c' : '#5f6b7a'};">${match.setsTeam1 || 0}</b><span style="color: #8e9aab;">:</span><b style="color: ${team2Won ? '#c49a2c' : '#5f6b7a'};">${match.setsTeam2 || 0}</b>`
+            : '<span style="color: #8e9aab;">—:—</span>'
+
+        const arrowHtml = hasSets 
+            ? `<i class="fas fa-chevron-down match-score-arrow" style="font-size: 0.6rem; color: #8e9aab; margin-left: 3px; transition: transform 0.2s;"></i>` 
+            : ''
+
         return `
-            <div class="matchRow ${isFinished ? 'matchRow-finished' : ''}"
-                 ${!isFinished ? `data-match-id="${match.matchId}" onclick="selectMatch(${match.matchId})"` : ''}>
-                <span class="matchTeam">${getTeamNameFromMatch(match, 'team1')}</span>
+            <div class="matchRow ${isFinished ? 'matchRow-finished' : ''}">
+                <span class="matchScore" onclick="event.stopPropagation(); toggleMatchSets(this)" 
+                      style="cursor: ${hasSets ? 'pointer' : 'default'}; display: flex; align-items: center; gap: 2px;" 
+                      title="${hasSets ? 'Нажмите для просмотра по сетам' : ''}">
+                    <span>${mainScoreHtml}</span>${arrowHtml}
+                </span>
+                <span class="matchTeam" style="text-align: center;">${team1Links}</span>
                 <span class="matchVs">VS</span>
-                <span class="matchTeam">${getTeamNameFromMatch(match, 'team2')}</span>
-                <span class="matchScore">${isFinished ? `${match.setsTeam1 || 0}:${match.setsTeam2 || 0}` : '—:—'}</span>
-            </div>`
+                <span class="matchTeam" style="text-align: center;">${team2Links}</span>
+                ${!isFinished ? `<button class="matchGoBtn" onclick="event.stopPropagation(); selectMatch(${match.matchId})" title="Открыть в счётчике">▶</button>` : ''}
+            </div>
+            ${setScoresHtml}`
     }).join('')}</div>`
 }
+
+// Функция переключения отображения счёта по сетам
+window.toggleMatchSets = function(element) {
+    const scoreSpan = element.closest('.matchScore')
+    const row = scoreSpan.closest('.matchRow')
+    const setsDiv = row.nextElementSibling
+    const arrow = scoreSpan.querySelector('.match-score-arrow')
+    
+    if (!setsDiv || !setsDiv.classList.contains('match-set-scores')) return
+    
+    const isVisible = setsDiv.style.display === 'block'
+    
+    // Закрываем все открытые сеты
+    document.querySelectorAll('.match-set-scores').forEach(el => el.style.display = 'none')
+    document.querySelectorAll('.match-score-arrow').forEach(el => el.style.transform = 'rotate(0deg)')
+    
+    if (!isVisible) {
+        setsDiv.style.display = 'block'
+        if (arrow) arrow.style.transform = 'rotate(180deg)'
+    }
+}
+
+// Закрытие по клику вне
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.matchScore') && !e.target.closest('.match-set-scores')) {
+        document.querySelectorAll('.match-set-scores').forEach(el => el.style.display = 'none')
+    }
+})
 
 // ============================================================
 // ВЫБОР МАТЧА ИЗ ТАБЛИЦЫ
@@ -302,13 +501,13 @@ function checkHasUnsavedScore() {
     return false
 }
 
-function renderGroups(groups, allMatches) {
+function renderGroups(groups, allMatches, matchSetsMap = {}) {
     if (!sectionGroups) return
     sectionGroups.innerHTML = ''
     const groupNames = Object.keys(groups).filter(name => name !== 'all' && name !== '')
 
     if (groupNames.length === 0) {
-        sectionGroups.appendChild(createGroupBlock('all', groups['all'] || [], allMatches))
+        sectionGroups.appendChild(createGroupBlock('all', groups['all'] || [], allMatches, matchSetsMap))
     } else {
         groupNames.sort().forEach(groupName => {
             const groupTeams = groups[groupName] || []
@@ -316,12 +515,12 @@ function renderGroups(groups, allMatches) {
                 groupTeams.some(t => t.teamId === m.team1Id) &&
                 groupTeams.some(t => t.teamId === m.team2Id)
             )
-            sectionGroups.appendChild(createGroupBlock(groupName, groupTeams, groupMatches))
+            sectionGroups.appendChild(createGroupBlock(groupName, groupTeams, groupMatches, matchSetsMap))
         })
     }
 }
 
-function createGroupBlock(groupName, groupTeams, groupMatches) {
+function createGroupBlock(groupName, groupTeams, groupMatches, matchSetsMap = {}) {
     const block = document.createElement('div')
     block.className = 'group-section'
     block.dataset.group = groupName
@@ -332,11 +531,10 @@ function createGroupBlock(groupName, groupTeams, groupMatches) {
         </div>
         <div class="mainBoard">
             <div class="card"><div class="cardHeader"><h3>Таблица</h3></div>${renderStandings(groupTeams, groupMatches)}</div>
-            <div class="card"><div class="cardHeader"><h3>Матчи</h3></div>${renderMatches(groupMatches)}</div>
+            <div class="card"><div class="cardHeader"><h3>Матчи</h3></div>${renderMatches(groupMatches, matchSetsMap)}</div>
         </div>`
     return block
 }
-
 // ============================================================
 // ПЛЕЙ-ОФФ
 // ============================================================
@@ -362,105 +560,153 @@ function generatePlayoffFromGroupStage(groups, advanceCount) {
 }
 
 function buildPlayoffBracket(qualifiedTeams, totalSlots) {
-    const validTeams = qualifiedTeams.filter(t => t.teamId)
-    if (validTeams.length === 0) return []
+    const validTeams = qualifiedTeams.filter(t => t.teamId);
+    if (validTeams.length === 0) return [];
 
-    const groupsMap = {}
+    // 1. Группируем по группам и сортируем внутри
+    const groupsMap = {};
     validTeams.forEach(t => {
-        if (!groupsMap[t.groupName]) groupsMap[t.groupName] = []
-        groupsMap[t.groupName].push(t)
-    })
-    Object.values(groupsMap).forEach(g => g.sort(compareTeamRating))
+        if (!groupsMap[t.groupName]) groupsMap[t.groupName] = [];
+        groupsMap[t.groupName].push(t);
+    });
+    Object.values(groupsMap).forEach(g => g.sort(compareTeamRating));
 
-    const groupNames = Object.keys(groupsMap).sort()
-    const maxPosition = Math.max(...Object.values(groupsMap).map(g => g.length))
+    const groupNames = Object.keys(groupsMap).sort();
+    const maxPosition = Math.max(...Object.values(groupsMap).map(g => g.length));
 
-    // Сбор команд по позициям из разных групп
-    const ordered = []
+    // 2. Собираем команды: 1-е места всех групп, потом 2-е и т.д.
+    const ordered = [];
     for (let pos = 1; pos <= maxPosition; pos++) {
-        const positionTeams = []
+        const positionTeams = [];
         groupNames.forEach(g => {
             if (groupsMap[g].length >= pos) {
-                positionTeams.push({ ...groupsMap[g][pos - 1], position: pos, groupName: g })
+                positionTeams.push({ ...groupsMap[g][pos - 1], position: pos, groupName: g });
             }
-        })
-        positionTeams.sort(compareTeamRating)
-        ordered.push(...positionTeams)
+        });
+        positionTeams.sort(compareTeamRating);
+        ordered.push(...positionTeams);
     }
 
-    const totalTeams = ordered.length
-    const byeCount = totalSlots - totalTeams
-    const slots = Array.from({ length: totalSlots }, (_, i) => ({ id: i, teamId: null, isBye: false, teamData: null }))
-    const byeTeams = ordered.slice(0, byeCount)
-    const playingTeams = ordered.slice(byeCount)
+    const totalTeams = ordered.length;
+    const byeCount = totalSlots - totalTeams;
+    const totalMatches = totalSlots / 2;
 
-    // Распределение BYE
-    if (byeCount > 0) {
-        const step = totalSlots / (byeCount + 1)
-        for (let i = 0; i < byeCount; i++) {
-            const pos = Math.min(Math.round((i + 1) * step) - 1, totalSlots - 1)
-            slots[pos].teamId = byeTeams[i].teamId
-            slots[pos].isBye = true
-            slots[pos].teamData = byeTeams[i]
-        }
-    }
+    // 3. Создаём слоты
+    const slots = Array.from({ length: totalSlots }, (_, i) => ({
+        id: i, teamId: null, isBye: false, teamData: null
+    }));
 
-    // Формирование пар из разных групп
-    const pairs = []
-    const used = new Set()
+    const byeTeams = ordered.slice(0, byeCount);
+    const playingTeams = ordered.slice(byeCount);
+
+    // 4. Формируем пары для играющих команд
+    const pairs = [];
+    const used = new Set();
 
     for (let i = 0; i < playingTeams.length; i++) {
-        if (used.has(i)) continue
-        const team1 = playingTeams[i]
-        let pairFound = false
+        if (used.has(i)) continue;
+        const team1 = playingTeams[i];
+        let pairFound = false;
 
         for (let j = playingTeams.length - 1; j > i; j--) {
-            if (used.has(j)) continue
+            if (used.has(j)) continue;
             if (team1.groupName !== playingTeams[j].groupName) {
-                pairs.push({ team1, team2: playingTeams[j] })
-                used.add(i); used.add(j)
-                pairFound = true
-                break
+                pairs.push({ team1, team2: playingTeams[j] });
+                used.add(i);
+                used.add(j);
+                pairFound = true;
+                break;
             }
         }
 
         if (!pairFound) {
             for (let j = playingTeams.length - 1; j > i; j--) {
-                if (used.has(j)) continue
-                pairs.push({ team1, team2: playingTeams[j] })
-                used.add(i); used.add(j)
-                pairFound = true
-                break
+                if (used.has(j)) continue;
+                pairs.push({ team1, team2: playingTeams[j] });
+                used.add(i);
+                used.add(j);
+                pairFound = true;
+                break;
             }
         }
 
         if (!pairFound) {
-            pairs.push({ team1, team2: null })
-            used.add(i)
+            pairs.push({ team1, team2: null });
+            used.add(i);
         }
     }
 
-    const freeSlots = slots.map((s, i) => i).filter(i => !slots[i].teamId)
-    let pairIndex = 0
-
-    for (let i = 0; i < freeSlots.length && pairIndex < pairs.length; i += 2) {
-        const slotA = freeSlots[i], slotB = freeSlots[i + 1], pair = pairs[pairIndex]
-        if (slotA !== undefined) {
-            slots[slotA].teamId = pair.team1.teamId
-            slots[slotA].teamData = pair.team1
-            if (!pair.team2) slots[slotA].isBye = true
-        }
-        if (slotB !== undefined && pair.team2) {
-            slots[slotB].teamId = pair.team2.teamId
-            slots[slotB].teamData = pair.team2
-        }
-        pairIndex++
+    // 5. Распределяем BYE и пары по сетке так, чтобы BYE были в разных половинах
+    //    Матчи нумеруются: 0, 1, 2, 3 (для 8 слотов)
+    //    Верхняя половина: матчи 0, 1 (победители встречаются в полуфинале)
+    //    Нижняя половина: матчи 2, 3 (победители встречаются в полуфинале)
+    //    BYE должны быть в разных половинах!
+    
+    // План размещения для 8 слотов (4 матча):
+    // Матч 0 (слоты 0-1): BYE 1 (верхняя половина)
+    // Матч 1 (слоты 2-3): пара 1
+    // Матч 2 (слоты 4-5): BYE 2 (нижняя половина)
+    // Матч 3 (слоты 6-7): пара 2
+    
+    const halfMatches = totalMatches / 2; // 2 матча в половине
+    
+    // Сначала размещаем BYE: по одному в каждой половине
+    const byePositions = [];
+    for (let i = 0; i < byeCount; i++) {
+        // Чередуем половины: 0 → верх, 1 → низ, 2 → верх, 3 → низ...
+        const halfIndex = i % 2; // 0 или 1
+        const matchInHalf = Math.floor(i / 2); // 0, 0, 1, 1...
+        const matchNum = halfIndex * halfMatches + matchInHalf;
+        byePositions.push(matchNum);
     }
+    
+    // Размещаем BYE
+    byeTeams.forEach((team, i) => {
+        const matchNum = byePositions[i] !== undefined ? byePositions[i] : i;
+        if (matchNum < totalMatches) {
+            const slotA = matchNum * 2;
+            const slotB = matchNum * 2 + 1;
+            slots[slotA].teamId = team.teamId;
+            slots[slotA].isBye = true;
+            slots[slotA].teamData = team;
+            slots[slotB].isBye = true;
+        }
+    });
+    
+    // Находим свободные матчи (где нет BYE)
+    const freeMatches = [];
+    for (let i = 0; i < totalMatches; i++) {
+        if (!slots[i * 2].teamId && !slots[i * 2 + 1].teamId) {
+            freeMatches.push(i);
+        }
+    }
+    
+    // Размещаем пары в свободные матчи
+    pairs.forEach((pair, idx) => {
+        if (idx < freeMatches.length) {
+            const matchNum = freeMatches[idx];
+            const slotA = matchNum * 2;
+            const slotB = matchNum * 2 + 1;
+            
+            slots[slotA].teamId = pair.team1.teamId;
+            slots[slotA].teamData = pair.team1;
+            
+            if (pair.team2) {
+                slots[slotB].teamId = pair.team2.teamId;
+                slots[slotB].teamData = pair.team2;
+            } else {
+                slots[slotB].isBye = true;
+            }
+        }
+    });
+    
+    // Оставшиеся свободные слоты — BYE
+    slots.forEach(s => {
+        if (!s.teamId) s.isBye = true;
+    });
 
-    slots.forEach(s => { if (!s.teamId) s.isBye = true })
-    return slots
+    return slots;
 }
-
 function renderPlayoffGenerationButton(groups, eventId) {
     if (!sectionBracket) return
 
@@ -522,7 +768,19 @@ function renderPlayoffGenerationButton(groups, eventId) {
         interactive: true,
         onChange: (data) => { window.playoffBracketData = data }
     })
+    console.log('📋 Слоты перед рендером:', slots.map(s => ({
+    id: s.id,
+    teamId: s.teamId,
+    teamName: s.teamData?.displayName || '—',
+    isBye: s.isBye
+})))
+
+console.log('📋 Команды для BracketRenderer:', qualifiedTeams.filter(t => t.teamId).map(t => ({
+    teamId: t.teamId,
+    name: t.displayName
+})))
     interactivePlayoffBracket.renderStaticWithSlots(slots)
+    
 
     document.getElementById('confirm-playoff-btn')?.addEventListener('click', () => confirmPlayoffBracket(eventId))
 }
@@ -535,50 +793,6 @@ function renderPlayoffWaitingMessage() {
             <div class="font-bold" style="font-size: 1.2rem; margin-bottom: 8px;">Сетка плей-офф</div>
             <div class="text-muted">Доступна после завершения всех матчей группового этапа</div>
         </div>`
-}
-
-function renderTournamentBracket(matches) {
-    const playoffMatches = matches.filter(m => m.stageLevel > 0)
-    if (playoffMatches.length === 0) return '<div class="card" style="text-align:center;padding:40px;">Нет матчей плей-офф</div>'
-
-    const teamNames = {}
-    playoffMatches.forEach(m => {
-        if (m.team1Id) teamNames[m.team1Id] = getTeamNameFromMatch(m, 'team1')
-        if (m.team2Id) teamNames[m.team2Id] = getTeamNameFromMatch(m, 'team2')
-    })
-
-    const tempContainer = document.createElement('div')
-    const renderer = new BracketRenderer({
-        container: tempContainer,
-        parseTeamPlayers,
-        teamNames,
-        interactive: false
-    })
-    renderer.renderFromMatches(playoffMatches)
-    return tempContainer.innerHTML
-}
-
-async function loadPlayoffBracket(eventId) {
-    try {
-        const data = await apiGet(`/events/${eventId}/matches/bracket`)
-        if (!sectionBracket) return
-
-        if (!data.success || !data.matches?.length) {
-            sectionBracket.innerHTML = '<div class="card" style="text-align:center;padding:40px;">Сетка ещё не создана</div>'
-            return
-        }
-
-        const matches = data.matches.map(m => ({
-            ...m,
-            team1Players: parseTeamPlayers(m.team1Players),
-            team2Players: parseTeamPlayers(m.team2Players)
-        }))
-
-        sectionBracket.innerHTML = renderTournamentBracket(matches)
-    } catch (error) {
-        console.error('Ошибка загрузки сетки:', error)
-        if (sectionBracket) sectionBracket.innerHTML = `<div class="card" style="text-align:center;padding:40px;color:red;">Ошибка: ${error.message}</div>`
-    }
 }
 
 async function confirmPlayoffBracket(eventId) {
@@ -627,6 +841,7 @@ function addNewSet() {
     currentSetIndex = currentSets.length - 1
     updateMainScore()
     updateSetsSummary()
+    updateSetScoresDisplay()  // ← ДОБАВИТЬ
     updateButtonsState()
 }
 
@@ -681,34 +896,85 @@ async function loadMatchesForCounter(eventId) {
             })
         }
 
-        const maxStageLevel = Math.max(...data.matches.map(m => m.stageLevel || 0))
-
+        const isDE = data.matches.some(m => m.bracket === 'winners' || m.bracket === 'losers')
+        const matchNumMap = getMatchNumberingMap(data.matches, isDE)
+        
+        // Сортируем доступные матчи по порядковым номерам
         availableMatches.sort((a, b) => {
-            if (a.stageLevel === 0 && b.stageLevel > 0) return -1
-            if (a.stageLevel > 0 && b.stageLevel === 0) return 1
-            return (a.matchIndex || 0) - (b.matchIndex || 0)
+            return (matchNumMap[a.matchId] || 9999) - (matchNumMap[b.matchId] || 9999)
         })
+
+        // Вычисляем раунды для DE (точно как в BracketRenderer)
+        const roundMap = {}
+        if (isDE) {
+            const winnersMatches = data.matches.filter(m => m.bracket === 'winners')
+            const losersMatches = data.matches.filter(m => m.bracket === 'losers')
+            
+            const wStages = [...new Set(winnersMatches.map(m => m.stageLevel || 0))].sort((a, b) => a - b)
+            const lStages = [...new Set(losersMatches.map(m => m.stageLevel || 0))].sort((a, b) => a - b)
+            const isStrategyB = wStages.includes(2) && lStages.length >= 2
+            
+            const getRoundNumber = (bracket, stageLevel) => {
+                if (isStrategyB) {
+                    if (bracket === 'winners' && stageLevel === 1) return 1
+                    if (bracket === 'winners' && stageLevel === 2) return 2
+                    if (bracket === 'losers' && stageLevel === 1) return 3
+                    if (bracket === 'losers' && stageLevel === 2) return 4
+                    let roundNum = 5
+                    for (let s = 3; s < stageLevel; s++) {
+                        if (wStages.includes(s)) roundNum++
+                        if (lStages.includes(s)) roundNum++
+                    }
+                    if (bracket === 'winners') return roundNum
+                    if (bracket === 'losers') return roundNum + 1
+                } else {
+                    if (bracket === 'winners') return stageLevel * 2 - 1
+                    if (bracket === 'losers') return stageLevel * 2
+                }
+                return stageLevel
+            }
+            
+            // Вычисляем раунд для каждого матча
+            data.matches.forEach(m => {
+                if (m.bracket === 'winners' || m.bracket === 'losers') {
+                    roundMap[m.matchId] = getRoundNumber(m.bracket, m.stageLevel || 0)
+                }
+            })
+        }
 
         availableMatches.forEach(match => {
             const name1 = getTeamNameFromMatch(match, 'team1')
             const name2 = getTeamNameFromMatch(match, 'team2')
+            const displayNum = matchNumMap[match.matchId] || match.matchId
 
             let prefix
-            if (match.stageLevel === 0) {
+            
+            if (match.stageLevel === 0 && !match.bracket) {
                 const g1 = teamGroupMap[match.team1Id], g2 = teamGroupMap[match.team2Id]
                 prefix = (g1 && g2 && g1 === g2) ? `Группа ${g1}` : `Группа ${g1 || g2 || ''}`
+            } else if (match.bracket === 'semifinal') {
+                prefix = 'Полуфинал'
+            } else if (match.bracket === 'third_place') {
+                prefix = 'За 3-4 место'
+            } else if (match.bracket === 'final') {
+                prefix = '🏆 Финал'
+            } else if (isDE && (match.bracket === 'winners' || match.bracket === 'losers')) {
+                const roundNum = roundMap[match.matchId] || match.stageLevel
+                prefix = `Раунд ${roundNum}`
             } else {
+                const maxStageLevel = Math.max(...data.matches.map(m => m.stageLevel || 0))
                 prefix = getRoundName(match.stageLevel, maxStageLevel)
             }
 
             const option = document.createElement('option')
             option.value = match.matchId
-            option.textContent = `${prefix}: ${name1} vs ${name2}`
+            option.textContent = `M${displayNum} · ${prefix}: ${name1} vs ${name2}`
             option.dataset.team1Id = match.team1Id
             option.dataset.team2Id = match.team2Id
             option.dataset.team1Name = name1
             option.dataset.team2Name = name2
             option.dataset.roundName = prefix
+            option.dataset.displayNum = displayNum
             matchSelect.appendChild(option)
         })
 
@@ -718,7 +984,95 @@ async function loadMatchesForCounter(eventId) {
     }
 }
 
-function onMatchSelect(event) {
+function getMatchNumberingMap(matches, isDE) {
+    const numMap = {}
+    let displayNum = 1
+    
+    if (!matches || !Array.isArray(matches) || matches.length === 0) {
+        console.warn('getMatchNumberingMap: no matches')
+        return numMap
+    }
+    
+    if (!isDE) {
+        const sorted = [...matches]
+            .filter(m => m && (m.stageLevel > 0 || m.bracket))
+            .sort((a, b) => {
+                if ((a.stageLevel || 0) !== (b.stageLevel || 0)) return (a.stageLevel || 0) - (b.stageLevel || 0)
+                return (a.matchIndex || 0) - (b.matchIndex || 0)
+            })
+        sorted.forEach(m => { if (m && m.matchId) numMap[m.matchId] = displayNum++ })
+        return numMap
+    }
+    
+    // DE турнир
+    const winnersMatches = (matches || []).filter(m => m && m.bracket === 'winners')
+    const losersMatches = (matches || []).filter(m => m && m.bracket === 'losers')
+    const semifinals = (matches || []).filter(m => m && m.bracket === 'semifinal')
+    const thirdPlace = (matches || []).filter(m => m && m.bracket === 'third_place')
+    const final = (matches || []).filter(m => m && m.bracket === 'final')
+    
+    // Собираем уникальные stageLevel
+    const wStages = [...new Set(winnersMatches.map(m => m.stageLevel || 0))].sort((a, b) => a - b)
+    const lStages = [...new Set(losersMatches.map(m => m.stageLevel || 0))].sort((a, b) => a - b)
+    
+    const maxStage = Math.max(
+        wStages.length > 0 ? Math.max(...wStages) : 0,
+        lStages.length > 0 ? Math.max(...lStages) : 0
+    )
+    
+    // Определяем стратегию
+    const hasW2 = wStages.includes(2)
+    const isStrategyB = hasW2 && lStages.length >= 2
+    
+    if (isStrategyB) {
+        // WB1
+        winnersMatches.filter(m => (m.stageLevel||0) === 1)
+            .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+            .forEach(m => { numMap[m.matchId] = displayNum++ })
+        // WB2
+        winnersMatches.filter(m => (m.stageLevel||0) === 2)
+            .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+            .forEach(m => { numMap[m.matchId] = displayNum++ })
+        // LB1
+        losersMatches.filter(m => (m.stageLevel||0) === 1)
+            .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+            .forEach(m => { numMap[m.matchId] = displayNum++ })
+        // LB2
+        losersMatches.filter(m => (m.stageLevel||0) === 2)
+            .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+            .forEach(m => { numMap[m.matchId] = displayNum++ })
+        // Остальные раунды
+        for (let s = 3; s <= maxStage; s++) {
+            winnersMatches.filter(m => (m.stageLevel||0) === s)
+                .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+                .forEach(m => { numMap[m.matchId] = displayNum++ })
+            losersMatches.filter(m => (m.stageLevel||0) === s)
+                .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+                .forEach(m => { numMap[m.matchId] = displayNum++ })
+        }
+    } else {
+        for (let s = 1; s <= maxStage; s++) {
+            winnersMatches.filter(m => (m.stageLevel||0) === s)
+                .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+                .forEach(m => { numMap[m.matchId] = displayNum++ })
+            losersMatches.filter(m => (m.stageLevel||0) === s)
+                .sort((a,b) => (a.matchIndex||0)-(b.matchIndex||0))
+                .forEach(m => { numMap[m.matchId] = displayNum++ })
+        }
+    }
+    
+    // Финал четырёх
+    semifinals.sort((a, b) => (a.matchIndex||0) - (b.matchIndex||0))
+        .forEach(m => { numMap[m.matchId] = displayNum++ })
+    thirdPlace.sort((a, b) => (a.matchIndex||0) - (b.matchIndex||0))
+        .forEach(m => { numMap[m.matchId] = displayNum++ })
+    final.sort((a, b) => (a.matchIndex||0) - (b.matchIndex||0))
+        .forEach(m => { numMap[m.matchId] = displayNum++ })
+    
+    return numMap
+}
+
+async function onMatchSelect(event) {
     const option = event.target.options[event.target.selectedIndex]
     const resetBtn = document.getElementById('btn-reset-score')
     const nextSetBtn = document.getElementById('btn-next-set')
@@ -728,6 +1082,7 @@ function onMatchSelect(event) {
         document.getElementById('counter-team1-display').textContent = 'Команда 1'
         document.getElementById('counter-team2-display').textContent = 'Команда 2'
         document.getElementById('match-status-tag').textContent = 'Выберите матч'
+        document.getElementById('set-scores-display').innerHTML = ''
         resetBtn.disabled = nextSetBtn.disabled = finishMatchBtn.disabled = true
         return
     }
@@ -737,7 +1092,30 @@ function onMatchSelect(event) {
     document.getElementById('match-status-tag').textContent = option.dataset.roundName || 'Матч'
     document.getElementById('counter').dataset.currentMatchId = option.value
 
-    initializeSets()
+    // Загружаем существующие сеты
+    const matchId = option.value
+    try {
+        const setsData = await apiGet(`/events/${document.getElementById('counter').dataset.eventId || new URLSearchParams(window.location.search).get('id')}/matches/${matchId}/sets`)
+        if (setsData.success && setsData.sets && setsData.sets.length > 0) {
+            // Восстанавливаем сеты из БД
+            currentSets = setsData.sets.map(s => ({
+                team1: s.team1Score,
+                team2: s.team2Score,
+                finished: true,
+                winner: s.winner
+            }))
+            currentSetIndex = currentSets.length - 1
+            updateMainScore()
+            updateSetsSummary()
+            updateSetScoresDisplay()
+        } else {
+            initializeSets()
+        }
+    } catch (err) {
+        initializeSets()
+    }
+    
+    enableKeyboardEdit()
     resetBtn.disabled = nextSetBtn.disabled = finishMatchBtn.disabled = false
 }
 
@@ -751,11 +1129,38 @@ function showMessage(text, type) {
     }
 }
 
+function updateSetScoresDisplay() {
+    const container = document.getElementById('set-scores-display')
+    if (!container) return
+    
+    const finishedSets = currentSets.filter(s => s.finished)
+    
+    if (finishedSets.length === 0) {
+        container.innerHTML = ''
+        return
+    }
+    
+    container.innerHTML = finishedSets.map((set, index) => {
+        const winnerClass = set.winner === 1 ? 'winner-left' : set.winner === 2 ? 'winner-right' : ''
+        return `
+            <div class="counter-set-badge ${winnerClass}">
+                <span class="set-number">${index + 1}.</span>
+                <span class="set-score-left">${set.team1}</span>
+                <span class="set-score-colon">:</span>
+                <span class="set-score-right">${set.team2}</span>
+            </div>`
+    }).join('')
+}
+
+// Вызывайте в updateMainScore и updateSetsSummary
 function updateMainScore() {
     const set = currentSets[currentSetIndex]
     if (!set) return
-    document.querySelector('[data-js-count-left]').textContent = set.team1
-    document.querySelector('[data-js-count-right]').textContent = set.team2
+    const leftEl = document.querySelector('.counter-score-left span')
+    const rightEl = document.querySelector('.counter-score-right span')
+    if (leftEl) leftEl.textContent = set.team1
+    if (rightEl) rightEl.textContent = set.team2
+    updateSetScoresDisplay()
 }
 
 function updateSetsSummary() {
@@ -791,6 +1196,123 @@ function rightMinusClick() {
     if (!set || set.finished || set.team2 <= 0) return
     set.team2--
     updateMainScore()
+}
+
+// ============================================================
+// ВВОД СЧЁТА С КЛАВИАТУРЫ
+// ============================================================
+
+function enableKeyboardEdit() {
+    const leftScore = document.querySelector('[data-js-count-left]')
+    const rightScore = document.querySelector('[data-js-count-right]')
+    const setsLeft = document.getElementById('sets-team1-count')
+    const setsRight = document.getElementById('sets-team2-count')
+
+    if (leftScore) {
+        leftScore.style.cursor = 'pointer'
+        leftScore.title = 'Нажмите для ввода с клавиатуры'
+        leftScore.addEventListener('click', () => startEditScore('left'))
+    }
+
+    if (rightScore) {
+        rightScore.style.cursor = 'pointer'
+        rightScore.title = 'Нажмите для ввода с клавиатуры'
+        rightScore.addEventListener('click', () => startEditScore('right'))
+    }
+
+    if (setsLeft) {
+        setsLeft.style.cursor = 'pointer'
+        setsLeft.title = 'Нажмите для ввода'
+        setsLeft.addEventListener('click', () => startEditSets('left'))
+    }
+
+    if (setsRight) {
+        setsRight.style.cursor = 'pointer'
+        setsRight.title = 'Нажмите для ввода'
+        setsRight.addEventListener('click', () => startEditSets('right'))
+    }
+}
+
+function startEditScore(side) {
+    const set = currentSets[currentSetIndex]
+    if (!set || set.finished) return
+
+    const parentClass = side === 'left' ? 'counter-score-left' : 'counter-score-right'
+    const parent = document.querySelector(`.${parentClass}`)
+    if (!parent) return
+
+    const currentValue = side === 'left' ? set.team1 : set.team2
+    const span = parent.querySelector('span')
+    if (!span) return
+
+    const input = document.createElement('input')
+    input.type = 'number'
+    input.min = '0'
+    input.max = '99'
+    input.maxLength = 2
+    input.value = currentValue
+    input.inputMode = 'numeric'
+    
+    // Дополнительные ограничения
+    input.addEventListener('input', () => {
+        // Убираем нецифровые символы
+        input.value = input.value.replace(/[^0-9]/g, '')
+        // Ограничиваем двумя символами
+        if (input.value.length > 2) {
+            input.value = input.value.slice(0, 2)
+        }
+        // Ограничение по значению
+        if (parseInt(input.value) > 99) {
+            input.value = '99'
+        }
+    })
+
+    span.replaceWith(input)
+    input.focus()
+    input.select()
+
+    const saveScore = () => {
+        let value = parseInt(input.value)
+        if (isNaN(value)) value = currentValue
+        if (value < 0) value = 0
+        if (value > 99) value = 99
+
+        if (side === 'left') {
+            set.team1 = value
+        } else {
+            set.team2 = value
+        }
+
+        updateMainScore()
+
+        const newSpan = document.createElement('span')
+        newSpan.textContent = value
+        newSpan.style.cursor = 'pointer'
+        newSpan.title = 'Нажмите для ввода с клавиатуры'
+        newSpan.addEventListener('click', () => startEditScore(side))
+        input.replaceWith(newSpan)
+    }
+
+    const cancelEdit = () => {
+        const newSpan = document.createElement('span')
+        newSpan.textContent = currentValue
+        newSpan.style.cursor = 'pointer'
+        newSpan.title = 'Нажмите для ввода с клавиатуры'
+        newSpan.addEventListener('click', () => startEditScore(side))
+        input.replaceWith(newSpan)
+    }
+
+    input.addEventListener('blur', saveScore)
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault()
+            input.blur()
+        }
+        if (e.key === 'Escape') {
+            e.preventDefault()
+            cancelEdit()
+        }
+    })
 }
 
 function finishMatch() {
@@ -850,6 +1372,7 @@ function finishCurrentSet() {
     set.winner = set.team1 > set.team2 ? 1 : 2
     set.finished = true
     updateSetsSummary()
+    updateSetScoresDisplay()  // ← ДОБАВИТЬ
     updateButtonsState()
 
     const winnerName = set.winner === 1
@@ -869,6 +1392,7 @@ function resetCurrentSet() {
     }
     set.team1 = set.team2 = 0
     updateMainScore()
+    updateSetScoresDisplay()  // ← ДОБАВИТЬ
     showMessage('Счёт сброшен', 'success')
 }
 
@@ -908,6 +1432,7 @@ async function saveMatchResult() {
     try {
         showMessage('⏳ Сохранение...', 'success')
 
+        // Сохраняем результат матча
         await apiPut(`/events/${eventId}/matches/${matchId}`, {
             setsTeam1: team1Sets,
             setsTeam2: team2Sets,

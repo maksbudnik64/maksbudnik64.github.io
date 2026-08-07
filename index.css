@@ -549,7 +549,6 @@ button:disabled {
 }
 
 /* ===== ТАБЛИЦА МАТЧЕЙ ===== */
-/* ===== ТАБЛИЦА МАТЧЕЙ ===== */
 .matches-grid {
     display: flex;
     flex-direction: column;
@@ -571,15 +570,6 @@ button:disabled {
     transition: background 0.2s, border-color 0.2s;
 }
 
-.matchRow:not(.matchRow-finished) {
-    cursor: pointer;
-}
-
-.matchRow:not(.matchRow-finished):hover {
-    background: #fef9f0;
-    border-color: #f5d89a;
-}
-
 .matchRow-finished {
     border-left: 3px solid #10b981;
     opacity: 0.8;
@@ -593,7 +583,7 @@ button:disabled {
 }
 
 .matchRow .matchTeam:first-of-type {
-    text-align: right;
+    text-align: center;
 }
 
 .matchRow .matchTeam:last-of-type {
@@ -609,17 +599,69 @@ button:disabled {
 
 .matchScore {
     font-weight: 700;
-    color: #c49a2c;
+    color: #5f6b7a;
     white-space: nowrap;
     flex-shrink: 0;
-    min-width: 50px;
+    min-width: 45px;
     text-align: center;
 }
 
 .matchRow-finished .matchScore {
-    color: #0b4b3b;
+    color: #c49a2c;
 }
 
+.matchGoBtn {
+    flex-shrink: 0;
+    background: #fef9f0;
+    border: 1px solid #f5d89a;
+    color: #c49a2c;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.matchGoBtn:hover {
+    background: #f5d89a;
+    color: #fff;
+}
+
+.matchRow-finished .matchGoBtn {
+    display: none;
+}
+
+.match-set-scores {
+    background: #f5f3ef;
+    border: 1px solid #e8e2d5;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 6px 10px;
+    margin-top: -6px;
+    margin-bottom: 2px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.match-set-scores span {
+    background: #fbf9f5;
+    border: 1px solid #e2d9cc;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #5f6b7a;
+    white-space: nowrap;
+}
+/* Ссылки в таблицах */
+.standings-row a:hover,
+.matchTeam a:hover {
+    color: #c49a2c !important;
+    text-decoration: underline !important;
+}
 /* ===== ЯЧЕЙКА МАТЧА (для плей-офф) ===== */
 .matchCell {
     border: 1px solid #e2d9cc;
@@ -1121,10 +1163,6 @@ button:disabled {
     cursor: default;
 }
 
-.bracket-team > * {
-    pointer-events: none;
-}
-
 .bracket-score {
     font-weight: 700;
     min-width: 34px;
@@ -1143,6 +1181,15 @@ button:disabled {
 
 .bracket-team-name-placeholder {
     color: #8e9aab;
+}
+
+.bracket-team-name a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+.bracket-team-name a:hover {
+    text-decoration: underline !important;
+    color: #c49a2c !important;
 }
 
 .bracket-vs {
@@ -1178,11 +1225,61 @@ button:disabled {
 .counter-score {
     display: flex;
     align-items: center;
-    gap: 30px;
     justify-content: center;
     font-size: 3rem;
     font-weight: 800;
     margin: 6px 0;
+    gap: 0;
+}
+
+.counter-score-left,
+.counter-score-right {
+    flex: 1;
+    text-align: center;
+    min-width: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter-score-left {
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+
+.counter-score-right {
+    justify-content: flex-start;
+    padding-left: 15px;
+}
+
+.counter-score-left span,
+.counter-score-right span,
+.counter-score-left input,
+.counter-score-right input {
+    min-width: 50px;
+    text-align: center;
+}
+
+.counter-score-left input,
+.counter-score-right input {
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    background: transparent;
+    border: none;
+    padding: 2px 4px;
+    width: 100px;
+    outline: none;
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.counter-score-colon {
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    color: inherit;
 }
 
 .counter-sets-summary {
@@ -1191,9 +1288,80 @@ button:disabled {
     justify-content: center;
     gap: 12px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
 }
 
+/* История сетов */
+.counter-set-history {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.counter-set-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #f5f3ef;
+    border: 1px solid #e8e2d5;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5f6b7a;
+}
+
+.counter-set-badge .set-number {
+    font-size: 0.9rem;
+    color: #8e9aab;
+    font-weight: 600;
+}
+
+.counter-set-badge .set-score-left,
+.counter-set-badge .set-score-right {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5f6b7a;
+}
+
+.counter-set-badge .set-score-colon {
+    font-size: 0.9rem;
+    color: #8e9aab;
+    font-weight: 600;
+}
+
+.counter-set-badge.winner-left .set-score-left,
+.counter-set-badge.winner-right .set-score-right {
+    color: #c49a2c;
+    font-weight: 700;
+}
+/* Таблица матчей */
+.match-set-scores {
+    background: #f5f3ef;
+    border: 1px solid #e8e2d5;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 6px 10px;
+    margin-top: -6px;
+    margin-bottom: 2px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.match-set-scores span {
+    background: #fbf9f5;
+    border: 1px solid #e2d9cc;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #5f6b7a;
+    white-space: nowrap;
+}
+/* Кнопки счётчика */
 .counter-btn-plus {
     padding: 8px 18px;
     font-size: 1.2rem;
@@ -1202,6 +1370,7 @@ button:disabled {
     border: 1px solid #e2d9cc;
     border-radius: 10px;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .counter-btn-plus:hover {
@@ -1216,6 +1385,7 @@ button:disabled {
     border: 1px solid #f5c6c6;
     border-radius: 10px;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 .counter-btn-minus:hover {
@@ -1265,6 +1435,13 @@ button:disabled {
 .standings-points {
     font-weight: 700;
     color: #c49a2c;
+}
+
+/* Ссылки в таблицах */
+.standings-row a:hover,
+.matchTeam a:hover {
+    color: #c49a2c !important;
+    text-decoration: underline !important;
 }
 
 /* ===== ПЛЕЙ-ОФФ ИНФО ===== */

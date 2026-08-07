@@ -61,7 +61,27 @@ export function nextPowerOfTwo(n) {
     return p;
 }
 
-export function getRoundName(stageLevel, totalRounds) {
+export function getRoundName(stageLevel, totalRounds, bracket = null) {
+    // Если передан bracket, значит это DE турнир
+    if (bracket === 'winners') {
+        // Для DE: используем stageLevel как есть, но с префиксом
+        if (stageLevel === 1) return 'Раунд 1 (WB)';
+        if (stageLevel === 2) return 'Раунд 2 (WB)';
+        // Для stageLevel >= 3 считаем раунд
+        const roundNum = 5 + (stageLevel - 3) * 2;
+        return `Раунд ${roundNum} (WB)`;
+    }
+    if (bracket === 'losers') {
+        if (stageLevel === 1) return 'Раунд 3 (LB)';
+        if (stageLevel === 2) return 'Раунд 4 (LB)';
+        const roundNum = 6 + (stageLevel - 3) * 2;
+        return `Раунд ${roundNum} (LB)`;
+    }
+    if (bracket === 'semifinal') return 'Полуфинал';
+    if (bracket === 'final') return '🏆 Финал';
+    if (bracket === 'third_place') return 'За 3-4 место';
+    
+    // Обычная олимпийская система
     if (totalRounds === 0) return 'Финал';
     const diff = totalRounds - stageLevel;
     if (diff === 0) return 'Финал';
